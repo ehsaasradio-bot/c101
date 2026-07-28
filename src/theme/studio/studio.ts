@@ -11,6 +11,71 @@ import { decoratedTicks, softRange } from './range'
  * themes takes the visuals along with it.
  */
 
+const prefersReducedMotion = () =>
+  typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches
+
+/**
+ * Types the hero headline out once, leaving a blinking caret behind.
+ *
+ * The markup already contains the finished sentence; this only replays it. Two
+ * things follow from that, and both matter more than the effect itself:
+ *
+ *  - The text is not cleared until the first animation frame actually runs. If
+ *    frames never come — a hidden tab, a throttled renderer — the headline is
+ *    simply left complete rather than blanked forever. An animation may never
+ *    be the only path to the page's own content.
+ *  - A watchdog completes the line if frames stop midway, so a stalled tween
+ *    cannot strand a half-written headline.
+ */
+function typeHeadline() {
+  const line = document.querySelector<HTMLElement>('[data-typewriter-line]')
+  const target = line?.querySelector<HTMLElement>('[data-typewriter]')
+  const caret = line?.querySelector<HTMLElement>('[data-caret]')
+  if (!line || !target || !caret) return
+
+  const full = target.textContent ?? ''
+  if (!full) return
+
+  // Assistive tech reads the whole sentence, never a half-typed one.
+  line.setAttribute('aria-label', full)
+
+  if (prefersReducedMotion()) return
+
+  const CHAR_MS = 34
+  let typed = 0
+  let started = false
+  let last = 0
+
+  const finish = () => {
+    target.textContent = full
+    typed = full.length
+  }
+
+  const step = (now: number) => {
+    if (!started) {
+      // Reserve the finished height before emptying, so filling the lines
+      // back in cannot shift everything below the hero.
+      line.style.minHeight = `${line.offsetHeight}px`
+      target.textContent = ''
+      caret.hidden = false
+      started = true
+      last = now
+    }
+    if (now - last >= CHAR_MS) {
+      last = now
+      typed += 1
+      target.textContent = full.slice(0, typed)
+    }
+    if (typed < full.length) requestAnimationFrame(step)
+  }
+
+  requestAnimationFrame(step)
+  // Belt and braces: if frames stall after starting, complete the sentence.
+  setTimeout(() => started && typed < full.length && finish(), full.length * CHAR_MS + 2000)
+}
+
+typeHeadline()
+
 const form = document.querySelector('calc-form')
 if (form) {
   // ── Sliders mirror their number input, in both directions ────────────────

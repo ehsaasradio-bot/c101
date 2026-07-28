@@ -434,6 +434,48 @@ test.describe('home hero', () => {
     await expect(page.locator('#most-used')).toHaveCount(1)
   })
 
+  test('the headline is complete in the HTML, before any script runs', async ({ request }) => {
+    // The typewriter replays the sentence; it must never be the thing that
+    // supplies it. Fetched raw, so no JavaScript has executed.
+    const html = await (await request.get('/')).text()
+    expect(html).toContain('Calculators that show their working.')
+    // The caret ships hidden, so a no-JS visitor sees no stray blinking bar.
+    expect(html).toMatch(/data-caret[^>]*hidden/)
+  })
+
+  test('the headline types once and ends complete, with a caret left blinking', async ({ page }) => {
+    await page.goto('/')
+
+    const line = page.locator('[data-typewriter-line]')
+    const span = page.locator('[data-typewriter]')
+    const caret = page.locator('[data-caret]')
+
+    await expect(span).toHaveText('Calculators that show their working.')
+    await expect(caret).toBeVisible()
+    // Assistive tech gets the whole sentence rather than a half-typed one.
+    await expect(line).toHaveAttribute('aria-label', 'Calculators that show their working.')
+    // Blinks forever, but only types the once.
+    expect(await caret.evaluate((el) => getComputedStyle(el).animationIterationCount)).toBe(
+      'infinite',
+    )
+  })
+
+  test('reduced motion leaves the headline alone entirely', async ({ browser }) => {
+    const context = await browser.newContext({ reducedMotion: 'reduce' })
+    const page = await context.newPage()
+    await page.goto('/')
+
+    await expect(page.locator('[data-typewriter]')).toHaveText(
+      'Calculators that show their working.',
+    )
+    // No typing, so no caret is revealed and no height is reserved.
+    await expect(page.locator('[data-caret]')).toBeHidden()
+    expect(await page.locator('[data-typewriter-line]').evaluate((el) => el.style.minHeight)).toBe(
+      '',
+    )
+    await context.close()
+  })
+
   test('every hero figure is a live link to the calculator that produced it', async ({ page }) => {
     await page.goto('/')
     const links = page.locator('section a[href^="/calculators/"]')

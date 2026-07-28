@@ -32,8 +32,17 @@ const { eyebrow, title, subtitle, actions = [], samples = [] } = Astro.props
         )
       }
 
-      <h1 class="mt-5 text-4xl font-semibold leading-[1.08] tracking-tight text-ink sm:text-5xl">
-        {title}
+      {/*
+        The full headline is rendered here, statically. The typewriter replays
+        it on load; it never supplies it. Crawlers, no-JS visitors and anyone
+        with reduced motion get the complete sentence, and the caret stays
+        hidden unless the script actually reveals it.
+      */}
+      <h1
+        data-typewriter-line
+        class="mt-5 text-4xl font-semibold leading-[1.08] tracking-tight text-ink sm:text-5xl"
+      >
+        <span data-typewriter>{title}</span><span data-caret hidden aria-hidden="true"></span>
       </h1>
       <p class="mt-5 max-w-xl text-base leading-relaxed text-ink-muted">{subtitle}</p>
 

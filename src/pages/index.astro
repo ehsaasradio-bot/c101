@@ -89,3 +89,9 @@ const samples = ['mortgage-calculator', 'compound-interest-calculator', 'bmi-cal
     }
   </div>
 </BaseLayout>
+
+{/* The theme's own behaviour, via the seam — never a concrete theme path.
+    Everything calculator-specific inside it no-ops when there is no form. */}
+<script>
+  import '../theme/client.ts'
+</script>

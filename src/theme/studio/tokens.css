@@ -177,6 +177,29 @@
   cursor: pointer;
 }
 
+/* Typewriter caret. Sits at the end of the headline and keeps blinking once
+   the line has finished typing. `step-end` gives a hard on/off blink rather
+   than a fade, which is what a terminal caret actually does. */
+[data-caret] {
+  display: inline-block;
+  width: 0.06em;
+  height: 0.85em;
+  margin-left: 0.06em;
+  vertical-align: -0.06em;
+  background: var(--c-accent);
+  animation: caret-blink 1.06s step-end infinite;
+}
+
+@keyframes caret-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
 /* Chart lines draw in on first paint. */
 @keyframes studio-draw {
   from {
