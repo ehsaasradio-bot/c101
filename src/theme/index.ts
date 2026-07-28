@@ -17,6 +17,7 @@
 
 export { default as Shell } from './studio/Shell.astro'
 export { default as Hero } from './studio/Hero.astro'
+export { default as Quicky } from './studio/Quicky.astro'
 export { default as CalculatorPage } from './studio/CalculatorPage.astro'
 export { default as Breadcrumbs } from './studio/Breadcrumbs.astro'
 export { default as CalculatorGrid } from './studio/CalculatorGrid.astro'

@@ -491,6 +491,68 @@ test.describe('home hero', () => {
   })
 })
 
+test.describe('quicky', () => {
+  test('answers are in the HTML before any script runs', async ({ request }) => {
+    const html = await (await request.get('/')).text()
+    expect(html).toContain('id="quicky"')
+    // Every row is server-rendered with a real answer, so the section is useful
+    // even if the island never loads.
+    expect(html).toContain('$2,022.62')
+  })
+
+  test('each row is a live island that computes independently', async ({ page }) => {
+    await page.goto('/')
+
+    const forms = page.locator('#quicky calc-form')
+    const count = await forms.count()
+    expect(count).toBeGreaterThan(1)
+
+    // Every row must attach; the homepage needs the island imported, which is
+    // easy to forget since the rest of the page is static.
+    for (let i = 0; i < count; i++) {
+      await expect(forms.nth(i)).toHaveAttribute('data-ready', 'true')
+    }
+
+    const mortgage = forms.filter({ has: page.locator('[data-calc-field="homePrice"]') })
+    const others = forms.filter({ hasNot: page.locator('[data-calc-field="homePrice"]') })
+    const otherAnswersBefore = await others.locator('[data-calc-out="primary"]').allTextContents()
+
+    await mortgage.locator('[data-calc-field="homePrice"]').fill('600000')
+    // 520,000 borrowed at 6.5% over 30 years.
+    await expect(mortgage.locator('[data-calc-out="primary"]')).toHaveText('$3,286.75')
+
+    // Rows share a page but not state.
+    expect(await others.locator('[data-calc-out="primary"]').allTextContents()).toEqual(
+      otherAnswersBefore,
+    )
+  })
+
+  test('a toggle cell works, and an error stays inside its own row', async ({ page }) => {
+    await page.goto('/')
+    const forms = page.locator('#quicky calc-form')
+    const tip = forms.filter({ has: page.locator('[data-calc-field="roundUp"]') })
+    const mortgage = forms.filter({ has: page.locator('[data-calc-field="homePrice"]') })
+
+    await expect(tip.locator('[data-calc-out="primary"]')).toHaveText('$50.15')
+    await tip.locator('[data-calc-field="roundUp"]').check()
+    await expect(tip.locator('[data-calc-out="primary"]')).toHaveText('$51.00')
+
+    // Break one row; the other keeps answering.
+    await mortgage.locator('[data-calc-field="homePrice"]').fill('0')
+    await expect(mortgage.locator('[data-calc-error]')).toBeVisible()
+    await expect(tip.locator('[data-calc-error]')).toBeHidden()
+    await expect(tip.locator('[data-calc-out="primary"]')).toHaveText('$51.00')
+  })
+
+  test('the hero offers a Quicky call to action that lands on the section', async ({ page }) => {
+    await page.goto('/')
+    const cta = page.locator('a[href="#quicky"]')
+    await expect(cta).toBeVisible()
+    await expect(cta).toHaveText('Quicky')
+    await expect(page.locator('#quicky')).toHaveCount(1)
+  })
+})
+
 test.describe('indexing', () => {
   /**
    * One flag governs whether the site is open to search engines. These assert

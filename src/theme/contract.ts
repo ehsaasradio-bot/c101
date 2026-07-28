@@ -94,6 +94,24 @@ export interface HeroProps {
   samples?: ReadonlyArray<{ title: string; label: string; value: string; href: string }>
 }
 
+/**
+ * A single spreadsheet-style row: the calculator's inputs as cells, its result
+ * in the last one. Carries a full `CalculatorView` and a build-time `ResultView`
+ * because each row is a real `<calc-form>` — the same island the full pages use,
+ * so there is no second implementation of "compute in the browser" to keep in
+ * step.
+ */
+export interface QuickyRow {
+  title: string
+  href: string
+  calc: CalculatorView
+  initial: ResultView
+}
+
+export interface QuickyProps {
+  rows: ReadonlyArray<QuickyRow>
+}
+
 export interface CalculatorGridProps {
   items: ReadonlyArray<{ slug: string; title: string; href: string; description: string }>
 }

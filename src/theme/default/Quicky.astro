@@ -1,0 +1,90 @@
+---
+import type { QuickyProps } from '../contract'
+import { defaultValues } from '../../lib/view'
+
+type Props = QuickyProps
+const { rows } = Astro.props
+---
+
+{/* Plain, like the rest of this theme. It exists so `default` satisfies every
+    slot in the contract — a theme missing one cannot be swapped back to. */}
+{
+  rows.length > 0 && (
+    <section id="quicky" class="mt-12 scroll-mt-24">
+      <h2 class="text-lg font-semibold text-ink">Quicky</h2>
+      <p class="mt-1 text-sm text-ink-muted">Enter values and read the answer on the right.</p>
+
+      <div class="mt-4 space-y-3">
+        {rows.map((row) => {
+          const values = defaultValues(row.calc)
+          const cells = row.calc.fields.filter((f) => f.kind === 'number' || f.kind === 'select')
+          return (
+            <calc-form data-slug={row.calc.slug} class="block">
+              <script
+                is:inline
+                type="application/json"
+                data-calc-config
+                set:html={JSON.stringify(row.calc)}
+              />
+              <div class="rounded-card border border-border-subtle bg-surface p-4">
+                <div class="flex items-baseline justify-between gap-3">
+                  <span class="text-sm font-medium text-ink">{row.title}</span>
+                  <a href={row.href} class="text-xs text-ink-muted hover:text-accent">
+                    Open
+                  </a>
+                </div>
+
+                <div class="mt-3 flex flex-wrap items-end gap-3">
+                  {cells.map((field) => (
+                    <label class="text-xs text-ink-muted">
+                      <span class="block">{field.label}</span>
+                      {field.kind === 'select' ? (
+                        <select
+                          data-calc-field={field.id}
+                          class="mt-1 rounded-control border border-border-subtle bg-surface px-2 py-1 text-sm text-ink"
+                        >
+                          {field.options.map((option) => (
+                            <option
+                              value={option.value}
+                              selected={option.value === String(values[field.id])}
+                            >
+                              {option.label}
+                            </option>
+                          ))}
+                        </select>
+                      ) : (
+                        <input
+                          data-calc-field={field.id}
+                          type="number"
+                          value={String(values[field.id] ?? '')}
+                          min={field.min}
+                          max={field.max}
+                          step={field.step}
+                          inputmode="decimal"
+                          aria-label={field.label}
+                          class="mt-1 w-28 rounded-control border border-border-subtle bg-surface px-2 py-1 text-sm tabular-nums text-ink"
+                        />
+                      )}
+                    </label>
+                  ))}
+
+                  <span data-calc-result class="ml-auto">
+                    <span class="block text-xs text-ink-muted">{row.calc.resultLabel}</span>
+                    <span
+                      data-calc-out="primary"
+                      class="block text-lg font-semibold tabular-nums text-ink"
+                    >
+                      {row.initial.primary.text}
+                    </span>
+                  </span>
+                </div>
+
+                <p data-calc-error hidden role="alert" class="mt-2 text-xs text-ink-muted" />
+              </div>
+            </calc-form>
+          )
+        })}
+      </div>
+    </section>
+  )
+}

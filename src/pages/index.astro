@@ -1,10 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Seo from '../seo/Seo.astro'
-import { Hero, CategoryGrid, CalculatorGrid } from '../theme'
+import { Hero, Quicky, CategoryGrid, CalculatorGrid } from '../theme'
 import { byCategory, bySlug, calculators } from '../calculators'
 import { categories } from '../lib/categories'
-import { calculatorHref, defaultValues, toResultView } from '../lib/view'
+import { calculatorHref, defaultValues, toCalculatorView, toResultView } from '../lib/view'
 import { SITE_DESCRIPTION, SITE_NAME } from '../lib/site'
 import { itemList } from '../seo/jsonld'
 
@@ -46,6 +46,36 @@ const samples = ['mortgage-calculator', 'compound-interest-calculator', 'bmi-cal
       return []
     }
   })
+
+/*
+ * Quicky rows. Each is a real `<calc-form>` — the same island the full pages
+ * use — so typing in a cell runs the actual compute function rather than a
+ * second, homepage-only implementation that could drift from it.
+ *
+ * Only calculators whose inputs fit a single row: the layout reads as a
+ * spreadsheet, and a calculator with a free-text field would break it.
+ */
+const quickyRows = ['mortgage-calculator', 'tip-calculator', 'percentage-calculator']
+  .flatMap((slug) => {
+    const calc = bySlug.get(slug)
+    if (!calc) return []
+    const inline = calc.fields.every(
+      (f) => f.kind === 'number' || f.kind === 'select' || f.kind === 'toggle',
+    )
+    if (!inline) return []
+    try {
+      return [
+        {
+          title: calc.title,
+          href: calculatorHref(slug),
+          calc: toCalculatorView(calc, bySlug),
+          initial: toResultView(calc.compute(defaultValues(calc) as never), calc.scale),
+        },
+      ]
+    } catch {
+      return []
+    }
+  })
 ---
 
 <BaseLayout title={SITE_NAME} description={SITE_DESCRIPTION}>
@@ -62,6 +92,7 @@ const samples = ['mortgage-calculator', 'compound-interest-calculator', 'bmi-cal
     subtitle={SITE_DESCRIPTION}
     actions={[
       { label: 'Browse all calculators', href: '/calculators/', primary: true },
+      { label: 'Quicky', href: '#quicky' },
       { label: 'Most used', href: '#most-used' },
     ]}
     samples={samples}
@@ -87,11 +118,18 @@ const samples = ['mortgage-calculator', 'compound-interest-calculator', 'bmi-cal
         </section>
       )
     }
+
+    <Quicky rows={quickyRows} />
   </div>
 </BaseLayout>
 
-{/* The theme's own behaviour, via the seam — never a concrete theme path.
-    Everything calculator-specific inside it no-ops when there is no form. */}
+{/*
+  Quicky rows are real `<calc-form>` elements, so the homepage needs the island
+  that defines them — without it the rows render their build-time answers and
+  then sit inert. The theme's own behaviour comes through the seam, never a
+  concrete theme path.
+*/}
 <script>
+  import '../islands/calc-form.ts'
   import '../theme/client.ts'
 </script>
