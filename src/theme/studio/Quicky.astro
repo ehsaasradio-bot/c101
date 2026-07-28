@@ -17,8 +17,10 @@ const total = groups.reduce((n, g) => n + g.rows.length, 0)
     <section id="quicky" class="mt-14 scroll-mt-24">
       <div class="flex flex-wrap items-baseline justify-between gap-2">
         <h2 class="text-xl font-semibold tracking-tight text-ink">Quicky</h2>
+        {/* Not "all" — calculators needing a date or a list of numbers are left
+            to their full pages, so the count here is below the site total. */}
         <p class="text-sm text-ink-muted">
-          All {total} calculators as one-line rows — type across, the green cell answers
+          {total} calculators as one-line rows — type across, the green cell answers
         </p>
       </div>
 

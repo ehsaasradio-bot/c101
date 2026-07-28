@@ -58,12 +58,20 @@ const samples = ['mortgage-calculator', 'compound-interest-calculator', 'bmi-cal
  *
  * A calculator that throws on its own defaults is dropped rather than rendered
  * as a broken row, and the count in the heading follows what actually rendered.
+ *
+ * Free-text and date inputs are excluded. They work, but a comma-separated list
+ * or a date picker sits badly in a spreadsheet cell — Quicky is for the ones you
+ * can genuinely fill in by tabbing across a row. Those calculators keep their
+ * full pages; they just do not get a one-line form.
  */
+const fitsARow = (calc: (typeof calculators)[number]) =>
+  calc.fields.every((f) => f.kind === 'number' || f.kind === 'select' || f.kind === 'toggle')
+
 const quickyGroups = categories
   .map((category) => ({
     name: category.name,
     href: `${category.href}/`,
-    rows: (byCategory.get(category.id) ?? []).flatMap((calc) => {
+    rows: (byCategory.get(category.id) ?? []).filter(fitsARow).flatMap((calc) => {
       try {
         return [
           {

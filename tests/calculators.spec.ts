@@ -548,6 +548,32 @@ test.describe('quicky', () => {
     await expect(tip.locator('[data-calc-out="primary"]')).toHaveText('$51.00')
   })
 
+  test('calculators that need a date or a list of numbers are left out', async ({ page }) => {
+    await page.goto('/')
+
+    // A comma-separated list or a date picker does not belong in a spreadsheet
+    // cell, so these keep their full pages and skip the one-line form.
+    const excluded = calculators.filter((c) =>
+      c.fields.some((f) => f.kind === 'text' || f.kind === 'date'),
+    )
+    expect(excluded.length).toBeGreaterThan(0)
+
+    for (const calc of excluded) {
+      await expect(page.locator(`#quicky calc-form[data-slug="${calc.slug}"]`)).toHaveCount(0)
+    }
+
+    // Every remaining row is fillable by tabbing across it.
+    const inputs = page.locator('#quicky [data-calc-field]')
+    const types = await inputs.evaluateAll((els) =>
+      els.map((el) => (el as HTMLInputElement).type ?? el.tagName.toLowerCase()),
+    )
+    expect(types).not.toContain('date')
+    expect(types).not.toContain('text')
+
+    const rows = await page.locator('#quicky calc-form').count()
+    expect(rows).toBe(calculators.length - excluded.length)
+  })
+
   test('the hero offers a Quicky call to action that lands on the section', async ({ page }) => {
     await page.goto('/')
     const cta = page.locator('a[href="#quicky"]')
