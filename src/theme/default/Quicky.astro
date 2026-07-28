@@ -3,7 +3,8 @@ import type { QuickyProps } from '../contract'
 import { defaultValues } from '../../lib/view'
 
 type Props = QuickyProps
-const { rows } = Astro.props
+const { groups } = Astro.props
+const rows = groups.flatMap((g) => g.rows)
 ---
 
 {/* Plain, like the rest of this theme. It exists so `default` satisfies every
@@ -17,14 +18,14 @@ const { rows } = Astro.props
       <div class="mt-4 space-y-3">
         {rows.map((row) => {
           const values = defaultValues(row.calc)
-          const cells = row.calc.fields.filter((f) => f.kind === 'number' || f.kind === 'select')
+          const cells = row.calc.fields
           return (
             <calc-form data-slug={row.calc.slug} class="block">
               <script
                 is:inline
                 type="application/json"
                 data-calc-config
-                set:html={JSON.stringify(row.calc)}
+                set:html={JSON.stringify({ fields: row.calc.fields, scale: row.calc.scale })}
               />
               <div class="rounded-card border border-border-subtle bg-surface p-4">
                 <div class="flex items-baseline justify-between gap-3">
@@ -52,15 +53,29 @@ const { rows } = Astro.props
                             </option>
                           ))}
                         </select>
+                      ) : field.kind === 'toggle' ? (
+                        <input
+                          data-calc-field={field.id}
+                          type="checkbox"
+                          checked={Boolean(values[field.id])}
+                          aria-label={field.label}
+                          class="mt-1 block size-4 accent-[var(--c-accent)]"
+                        />
                       ) : (
                         <input
                           data-calc-field={field.id}
-                          type="number"
+                          type={
+                            field.kind === 'number'
+                              ? 'number'
+                              : field.kind === 'date'
+                                ? 'date'
+                                : 'text'
+                          }
                           value={String(values[field.id] ?? '')}
-                          min={field.min}
-                          max={field.max}
-                          step={field.step}
-                          inputmode="decimal"
+                          min={field.kind === 'number' ? field.min : undefined}
+                          max={field.kind === 'number' ? field.max : undefined}
+                          step={field.kind === 'number' ? field.step : undefined}
+                          inputmode={field.kind === 'number' ? 'decimal' : undefined}
                           aria-label={field.label}
                           class="mt-1 w-28 rounded-control border border-border-subtle bg-surface px-2 py-1 text-sm tabular-nums text-ink"
                         />

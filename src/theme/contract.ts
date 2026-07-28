@@ -108,8 +108,14 @@ export interface QuickyRow {
   initial: ResultView
 }
 
-export interface QuickyProps {
+export interface QuickyGroup {
+  name: string
+  href: string
   rows: ReadonlyArray<QuickyRow>
+}
+
+export interface QuickyProps {
+  groups: ReadonlyArray<QuickyGroup>
 }
 
 export interface CalculatorGridProps {

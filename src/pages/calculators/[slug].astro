@@ -112,7 +112,14 @@ const scenarios = [
     its formulas as eval'd strings.
   */}
   <calc-form data-slug={calc.slug}>
-    <script is:inline type="application/json" data-calc-config set:html={JSON.stringify(view)} />
+    {/* Only what the island reads. Serialising the whole view would ship the
+        intro, FAQs and related links to the browser a second time. */}
+    <script
+      is:inline
+      type="application/json"
+      data-calc-config
+      set:html={JSON.stringify({ fields: view.fields, scale: view.scale })}
+    />
     <CalculatorPage
       calc={view}
       initial={initial}

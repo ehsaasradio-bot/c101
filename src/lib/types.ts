@@ -267,6 +267,19 @@ export interface FormattedQuantity {
   format: FormatSpec
 }
 
+/**
+ * The only part of a calculator the island needs at runtime.
+ *
+ * A full `CalculatorView` satisfies this structurally, but serialising one into
+ * every page ships the intro, description, FAQs and related links to the
+ * browser for no reason — about 3.4 KB per form, which a page carrying dozens
+ * of them cannot afford.
+ */
+export interface IslandConfig {
+  fields: ReadonlyArray<Field>
+  scale?: Scale
+}
+
 export interface FormattedPart extends Part {
   text: string
   /** Share of the parts total, 0–100. Precomputed so themes need no arithmetic. */

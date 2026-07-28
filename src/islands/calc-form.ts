@@ -1,8 +1,8 @@
 import type {
-  CalculatorView,
   Compute,
   FormatSpec,
   FormattedQuantity,
+  IslandConfig,
   ResultView,
   StepRule,
 } from '../lib/types'
@@ -34,42 +34,93 @@ const isRule = (step: FormattedQuantity | StepRule): step is StepRule => 'rule' 
 const COUNT_MS = 480
 
 class CalcForm extends HTMLElement {
-  #config?: CalculatorView
+  #config?: IslandConfig
   #compute?: Compute
+  #loading?: Promise<void>
   #lastPrimary = Number.NaN
   #tween = 0
   #fields: HTMLInputElement[] = []
 
-  async connectedCallback() {
+  connectedCallback() {
     const configEl = this.querySelector('[data-calc-config]')
     const slug = this.dataset.slug
     if (!configEl?.textContent || !slug) return
 
-    this.#config = JSON.parse(configEl.textContent) as CalculatorView
-
-    const load = computeBySlug.get(slug)
-    if (!load) {
-      console.error(`[calc-form] no compute module for "${slug}"`)
-      return
-    }
-    this.#compute = (await load()).default
+    this.#config = JSON.parse(configEl.textContent) as IslandConfig
 
     this.#fields = Array.from(this.querySelectorAll<HTMLInputElement>('[data-calc-field]'))
-    this.addEventListener('input', () => this.run())
-    this.addEventListener('change', () => this.run())
 
-    // One silent pass to reconcile with whatever is actually in the fields.
+    // Interaction always wins the race: whatever the observer is doing, a
+    // keystroke loads the compute it needs and then runs it.
     //
-    // Usually that matches the server render exactly and nothing visibly
-    // changes. It matters on reload and back/forward, where the browser
-    // restores previously typed values into the inputs: without this the page
-    // would show restored inputs beside the server's result for the defaults.
-    // It also seeds the count-up, so the first real edit counts from the right
-    // number instead of jumping. `#lastPrimary` is NaN here, which is precisely
-    // what makes this first paint instant rather than animated.
-    this.run()
+    // Once compute is in hand this runs SYNCHRONOUSLY. Routing every keystroke
+    // through a promise would push the answer a microtask past the event that
+    // caused it, so the DOM would briefly disagree with the input that is
+    // already on screen — the same "animation is the only path to the value"
+    // mistake, one tick smaller.
+    const onEdit = () => {
+      if (this.#compute) {
+        this.run()
+        return
+      }
+      void this.#ensureCompute().then(() => this.run())
+    }
+    this.addEventListener('input', onEdit)
+    this.addEventListener('change', onEdit)
 
+    /*
+     * Compute is fetched when the form comes near the viewport, not on connect.
+     *
+     * A calculator page has one form at the top, so this is immediate and
+     * nothing changes. A page carrying every calculator as a row would
+     * otherwise fetch dozens of chunks at once for rows nobody has scrolled to.
+     */
+    if (typeof IntersectionObserver === 'function') {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (!entries.some((entry) => entry.isIntersecting)) return
+          observer.disconnect()
+          void this.#ensureCompute()
+        },
+        { rootMargin: '400px' },
+      )
+      observer.observe(this)
+    } else {
+      void this.#ensureCompute()
+    }
+
+    // Ready means wired and listening. The reconciliation pass runs as soon as
+    // compute arrives — see #ensureCompute.
     this.dataset.ready = 'true'
+  }
+
+  /**
+   * Fetches this calculator's compute chunk once, then reconciles.
+   *
+   * That reconciliation is why it runs immediately on arrival rather than
+   * waiting for input: on reload and back/forward the browser restores
+   * previously typed values into the fields, and without a pass the page would
+   * show restored inputs beside the server's result for the defaults. It also
+   * seeds the count-up, so the first real edit counts from the right number.
+   * `#lastPrimary` is NaN at that point, which is what makes this first paint
+   * instant rather than animated.
+   */
+  #ensureCompute(): Promise<void> {
+    if (this.#compute) return Promise.resolve()
+    if (this.#loading) return this.#loading
+
+    const slug = this.dataset.slug
+    const load = slug ? computeBySlug.get(slug) : undefined
+    if (!load) {
+      console.error(`[calc-form] no compute module for "${slug}"`)
+      return Promise.resolve()
+    }
+
+    this.#loading = load().then((module) => {
+      this.#compute = module.default
+      this.run()
+    })
+    return this.#loading
   }
 
   #readValues(): Record<string, string | boolean> {

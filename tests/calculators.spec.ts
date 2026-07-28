@@ -427,7 +427,11 @@ test.describe('home hero', () => {
 
     await expect(page.locator('h1')).toHaveCount(1)
     // The count is derived, so adding calculator #42 must not leave it stale.
-    await expect(page.getByText(`${calculators.length} calculators`, { exact: false })).toBeVisible()
+    // Matched on the full eyebrow: the Quicky heading also states the count, and
+    // a looser locator would match both.
+    await expect(
+      page.getByText(`${calculators.length} calculators · free · no sign-up`),
+    ).toBeVisible()
 
     await expect(page.locator('a[href="/calculators/"]').first()).toBeVisible()
     // The secondary action is an in-page anchor; its target must exist.

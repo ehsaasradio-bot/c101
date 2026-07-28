@@ -48,34 +48,37 @@ const samples = ['mortgage-calculator', 'compound-interest-calculator', 'bmi-cal
   })
 
 /*
- * Quicky rows. Each is a real `<calc-form>` — the same island the full pages
- * use — so typing in a cell runs the actual compute function rather than a
- * second, homepage-only implementation that could drift from it.
+ * Every calculator as a Quicky row, grouped by category.
  *
- * Only calculators whose inputs fit a single row: the layout reads as a
- * spreadsheet, and a calculator with a free-text field would break it.
+ * Each row is a real `<calc-form>` — the same island the full pages use — so
+ * typing in a cell runs the actual compute function rather than a second,
+ * homepage-only implementation that could drift from it. The config each row
+ * ships is trimmed to `IslandConfig`; serialising 41 full views would add well
+ * over 100 KB to this page.
+ *
+ * A calculator that throws on its own defaults is dropped rather than rendered
+ * as a broken row, and the count in the heading follows what actually rendered.
  */
-const quickyRows = ['mortgage-calculator', 'tip-calculator', 'percentage-calculator']
-  .flatMap((slug) => {
-    const calc = bySlug.get(slug)
-    if (!calc) return []
-    const inline = calc.fields.every(
-      (f) => f.kind === 'number' || f.kind === 'select' || f.kind === 'toggle',
-    )
-    if (!inline) return []
-    try {
-      return [
-        {
-          title: calc.title,
-          href: calculatorHref(slug),
-          calc: toCalculatorView(calc, bySlug),
-          initial: toResultView(calc.compute(defaultValues(calc) as never), calc.scale),
-        },
-      ]
-    } catch {
-      return []
-    }
-  })
+const quickyGroups = categories
+  .map((category) => ({
+    name: category.name,
+    href: `${category.href}/`,
+    rows: (byCategory.get(category.id) ?? []).flatMap((calc) => {
+      try {
+        return [
+          {
+            title: calc.title,
+            href: calculatorHref(calc.slug),
+            calc: toCalculatorView(calc, bySlug),
+            initial: toResultView(calc.compute(defaultValues(calc) as never), calc.scale),
+          },
+        ]
+      } catch {
+        return []
+      }
+    }),
+  }))
+  .filter((group) => group.rows.length > 0)
 ---
 
 <BaseLayout title={SITE_NAME} description={SITE_DESCRIPTION}>
@@ -119,7 +122,7 @@ const quickyRows = ['mortgage-calculator', 'tip-calculator', 'percentage-calcula
       )
     }
 
-    <Quicky rows={quickyRows} />
+    <Quicky groups={quickyGroups} />
   </div>
 </BaseLayout>
 
