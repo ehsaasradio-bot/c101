@@ -39,39 +39,44 @@ function typeHeadline() {
   // Assistive tech reads the whole sentence, never a half-typed one.
   line.setAttribute('aria-label', full)
 
-  if (prefersReducedMotion()) return
+  // A hidden page cannot show an animation, and browsers stop serving frames to
+  // one. Typing into it would strand a half-written headline that only finishes
+  // if the visitor happens to look. Same guard the count-up uses.
+  if (prefersReducedMotion() || document.visibilityState !== 'visible') return
 
   const CHAR_MS = 34
   let typed = 0
-  let started = false
-  let last = 0
 
   const finish = () => {
     target.textContent = full
     typed = full.length
   }
 
-  const step = (now: number) => {
-    if (!started) {
-      // Reserve the finished height before emptying, so filling the lines
-      // back in cannot shift everything below the hero.
-      line.style.minHeight = `${line.offsetHeight}px`
-      target.textContent = ''
-      caret.hidden = false
-      started = true
-      last = now
-    }
-    if (now - last >= CHAR_MS) {
-      last = now
-      typed += 1
-      target.textContent = full.slice(0, typed)
-    }
-    if (typed < full.length) requestAnimationFrame(step)
+  /*
+   * Driven by a timer, not requestAnimationFrame.
+   *
+   * Typing is a discrete ~30-per-second change, so frame timing buys nothing,
+   * and rAF stops entirely when a page is not being painted — which strands the
+   * sentence. A throttled timer merely runs slower, and still finishes.
+   */
+  const step = () => {
+    typed += 1
+    target.textContent = full.slice(0, typed)
+    if (typed < full.length) setTimeout(step, CHAR_MS)
   }
 
-  requestAnimationFrame(step)
-  // Belt and braces: if frames stall after starting, complete the sentence.
-  setTimeout(() => started && typed < full.length && finish(), full.length * CHAR_MS + 2000)
+  // Reserve the finished height before emptying, so filling the lines back in
+  // cannot shift everything below the hero.
+  line.style.minHeight = `${line.offsetHeight}px`
+  target.textContent = ''
+  caret.hidden = false
+  setTimeout(step, CHAR_MS)
+
+  // Belt and braces: if the page is backgrounded mid-sentence and the timer is
+  // throttled to a crawl, complete it rather than leave it hanging.
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState !== 'visible' && typed < full.length) finish()
+  })
 }
 
 typeHeadline()
