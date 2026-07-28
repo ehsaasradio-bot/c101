@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test'
 import { calculators } from '../src/calculators'
 import { categories } from '../src/lib/categories'
+import { ALLOW_INDEXING, SITE_URL } from '../src/lib/site'
 
 /**
  * Derived from the registry, never a hardcoded slug list. Adding calculator
@@ -401,6 +402,50 @@ test.describe('scenarios', () => {
     await card.locator('[data-scenario]').click()
     await expect(page.locator('[data-calc-out="primary"]')).toHaveText(promised)
     await expect(page.locator('[data-calc-error]')).toBeHidden()
+  })
+})
+
+test.describe('indexing', () => {
+  /**
+   * One flag governs whether the site is open to search engines. These assert
+   * the whole site agrees with it — the failure to catch is a launch where
+   * robots.txt opens up but the pages still carry noindex, or the reverse.
+   */
+  test('robots.txt and every page agree with the indexing flag', async ({ page, request }) => {
+    const robots = await (await request.get('/robots.txt')).text()
+
+    await page.goto('/calculators/mortgage-calculator/')
+    const meta = await page.locator('meta[name="robots"]').getAttribute('content')
+
+    if (ALLOW_INDEXING) {
+      expect(robots).toContain('Allow: /')
+      expect(robots).toContain('Sitemap:')
+      expect(meta).toBe('index, follow')
+    } else {
+      expect(robots).toContain('Disallow: /')
+      // Advertising a sitemap while disallowing everything invites crawlers to
+      // exactly the URLs the line above tells them to skip.
+      expect(robots).not.toContain('Sitemap:')
+      expect(meta).toBe('noindex, nofollow')
+    }
+  })
+
+  test('canonical and og:url agree, and point at the real domain', async ({ page }) => {
+    await page.goto('/calculators/bmi-calculator/')
+    const canonical = await page.locator('link[rel=canonical]').getAttribute('href')
+    const ogUrl = await page.locator('meta[property="og:url"]').getAttribute('content')
+
+    expect(canonical).toBe(ogUrl)
+    expect(canonical).toBe(`${SITE_URL}/calculators/bmi-calculator/`)
+    expect(canonical).not.toContain('example.com')
+    expect(canonical).not.toContain('localhost')
+  })
+
+  test('the sitemap uses the real domain throughout', async ({ request }) => {
+    const body = await (await request.get('/sitemap-0.xml')).text()
+    const urls = [...body.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]!)
+    expect(urls.length).toBeGreaterThan(0)
+    for (const url of urls) expect(url.startsWith(`${SITE_URL}/`)).toBe(true)
   })
 })
 

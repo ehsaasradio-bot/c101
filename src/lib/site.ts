@@ -1,14 +1,20 @@
 /** Central site configuration. Change the domain and indexing flag here only. */
 
-export const SITE_URL = 'https://calc101.example.com'
+export const SITE_URL = 'https://c101.pages.dev'
 export const SITE_NAME = 'Calc101'
 export const SITE_DESCRIPTION =
   'Free online calculators for finance, health, math, and everyday life. Fast, accurate, no sign-up.'
 export const LOCALE = 'en_US'
 export const CURRENCY = 'USD'
 
-/** Set to false to ship a noindex build (staging, pre-launch). */
-export const ALLOW_INDEXING = true
+/**
+ * Set to false to ship a noindex build (staging, pre-launch).
+ *
+ * Currently false: the site is not launched. Flipping this to true is the
+ * single switch that opens it to search engines — it drives both the per-page
+ * robots meta and robots.txt, so the two can never disagree.
+ */
+export const ALLOW_INDEXING = false
 
 /**
  * Cloudflare Pages serves at trailing-slash URLs and 308-redirects non-slash → slash.
