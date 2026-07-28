@@ -1,9 +1,20 @@
 {
   "extends": "astro/tsconfigs/strict",
-  "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist", "node_modules", "test-results", "playwright-report"],
+  "include": [
+    ".astro/types.d.ts",
+    "**/*"
+  ],
+  "exclude": [
+    "dist",
+    "ios",
+    "node_modules",
+    "playwright-report",
+    "test-results"
+  ],
   "compilerOptions": {
     "strictNullChecks": true,
-    "types": ["vitest/globals"]
+    "types": [
+      "vitest/globals"
+    ]
   }
 }

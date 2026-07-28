@@ -7,3 +7,11 @@ playwright-report/
 *.log
 .env
 .env.production
+
+# iOS spike: generated artefacts and build output. bridge.js and catalog.json
+# are produced from src/calculators by ios/scripts/build-bridge.mjs — committing
+# them would let the app drift from the source they are generated out of.
+ios/Shared/bridge.js
+ios/Shared/catalog.json
+ios/App/build/
+ios/Bridge/.build/

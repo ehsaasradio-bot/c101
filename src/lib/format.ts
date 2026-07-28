@@ -49,6 +49,24 @@ function formatDuration(total: number, from: NonNullable<Extract<FormatSpec, { s
   return hours > 0 ? `${hours}:${pad(minutes)}:${pad(seconds)}` : `${minutes}:${pad(seconds)}`
 }
 
+/**
+ * `Intl.NumberFormat` is expensive to construct and cheap to reuse, but a
+ * result can carry thirty formatted figures and every keystroke rebuilds all of
+ * them. Constructing one per value made formatting, not arithmetic, the bulk of
+ * the cost of a recalculation. There are only a handful of distinct shapes, so
+ * they are built once and kept.
+ */
+const formatters = new Map<string, Intl.NumberFormat>()
+
+function numberFormat(key: string, options: Intl.NumberFormatOptions): Intl.NumberFormat {
+  let formatter = formatters.get(key)
+  if (!formatter) {
+    formatter = new Intl.NumberFormat(LOCALE, options)
+    formatters.set(key, formatter)
+  }
+  return formatter
+}
+
 export function formatValue(value: number | string, spec: FormatSpec): string {
   if (spec.style === 'raw') return String(value)
 
@@ -58,9 +76,10 @@ export function formatValue(value: number | string, spec: FormatSpec): string {
   switch (spec.style) {
     case 'currency': {
       const decimals = spec.decimals ?? 2
-      return new Intl.NumberFormat(LOCALE, {
+      const currency = spec.currency ?? CURRENCY
+      return numberFormat(`c:${currency}:${decimals}`, {
         style: 'currency',
-        currency: spec.currency ?? CURRENCY,
+        currency,
         minimumFractionDigits: decimals,
         maximumFractionDigits: decimals,
       }).format(n)
@@ -73,7 +92,7 @@ export function formatValue(value: number | string, spec: FormatSpec): string {
     }
     case 'decimal': {
       const decimals = spec.decimals ?? 2
-      const text = new Intl.NumberFormat(LOCALE, {
+      const text = numberFormat(`d:${decimals}`, {
         minimumFractionDigits: decimals,
         maximumFractionDigits: decimals,
       }).format(n)
