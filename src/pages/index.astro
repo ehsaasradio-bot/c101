@@ -1,11 +1,12 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Seo from '../seo/Seo.astro'
-import { CategoryGrid, CalculatorGrid } from '../theme'
-import { byCategory, calculators } from '../calculators'
+import { Hero, CategoryGrid, CalculatorGrid } from '../theme'
+import { byCategory, bySlug, calculators } from '../calculators'
 import { categories } from '../lib/categories'
-import { calculatorHref } from '../lib/view'
+import { calculatorHref, defaultValues, toResultView } from '../lib/view'
 import { SITE_DESCRIPTION, SITE_NAME } from '../lib/site'
+import { itemList } from '../seo/jsonld'
 
 const withCounts = categories.map((category) => ({
   ...category,
@@ -20,27 +21,71 @@ const popular = calculators
     href: calculatorHref(calc.slug),
     description: calc.description,
   }))
+
+/*
+ * Hero figures are computed here, from the same `compute` functions the pages
+ * use — not written by hand. They cannot drift from what the calculator
+ * actually returns, and a calculator that stops computing takes its card down
+ * with it rather than leaving a stale number on the front page.
+ */
+const samples = ['mortgage-calculator', 'compound-interest-calculator', 'bmi-calculator', 'tip-calculator']
+  .flatMap((slug) => {
+    const calc = bySlug.get(slug)
+    if (!calc) return []
+    try {
+      const result = toResultView(calc.compute(defaultValues(calc) as never), calc.scale)
+      return [
+        {
+          title: calc.title.replace(/ Calculator$/, ''),
+          label: result.primary.label,
+          value: result.primary.text,
+          href: calculatorHref(slug),
+        },
+      ]
+    } catch {
+      return []
+    }
+  })
 ---
 
 <BaseLayout title={SITE_NAME} description={SITE_DESCRIPTION}>
-  <Seo slot="head" title={`${SITE_NAME} — Free Online Calculators`} description={SITE_DESCRIPTION} />
+  <Seo
+    slot="head"
+    title={`${SITE_NAME} — Free Online Calculators`}
+    description={SITE_DESCRIPTION}
+    schemas={[itemList(popular)]}
+  />
 
-  <h1 class="text-3xl font-semibold tracking-tight text-ink">Free online calculators</h1>
-  <p class="mt-3 max-w-2xl text-sm leading-relaxed text-ink-muted">{SITE_DESCRIPTION}</p>
+  <Hero
+    eyebrow={`${calculators.length} calculators · free · no sign-up`}
+    title="Calculators that show their working."
+    subtitle={SITE_DESCRIPTION}
+    actions={[
+      { label: 'Browse all calculators', href: '/calculators/', primary: true },
+      { label: 'Most used', href: '#most-used' },
+    ]}
+    samples={samples}
+  />
 
-  <section class="mt-10">
-    <h2 class="sr-only">Categories</h2>
-    <CategoryGrid categories={withCounts} />
-  </section>
+  {/* The shell renders <main> full-bleed so the hero can span it, which means
+      everything after the hero supplies its own container. */}
+  <div class="mx-auto max-w-6xl px-4 pb-4">
+    <section>
+      <h2 class="text-xl font-semibold tracking-tight text-ink">Browse by category</h2>
+      <div class="mt-4">
+        <CategoryGrid categories={withCounts} />
+      </div>
+    </section>
 
-  {
-    popular.length > 0 && (
-      <section class="mt-12">
-        <h2 class="text-lg font-semibold text-ink">Most used</h2>
-        <div class="mt-4">
-          <CalculatorGrid items={popular} />
-        </div>
-      </section>
-    )
-  }
+    {
+      popular.length > 0 && (
+        <section id="most-used" class="mt-14 scroll-mt-24">
+          <h2 class="text-xl font-semibold tracking-tight text-ink">Most used</h2>
+          <div class="mt-4">
+            <CalculatorGrid items={popular} />
+          </div>
+        </section>
+      )
+    }
+  </div>
 </BaseLayout>

@@ -1,0 +1,54 @@
+---
+import type { HeroProps } from '../contract'
+
+type Props = HeroProps
+const { eyebrow, title, subtitle, actions = [], samples = [] } = Astro.props
+---
+
+{/* Deliberately plain, like the rest of this theme. It exists so `default`
+    satisfies every slot in the contract — a theme that omits one cannot be
+    swapped back to without breaking the build. */}
+<section>
+  {eyebrow && <p class="text-xs font-medium text-accent">{eyebrow}</p>}
+
+  <h1 class="mt-2 text-3xl font-semibold tracking-tight text-ink">{title}</h1>
+  <p class="mt-3 max-w-2xl text-sm leading-relaxed text-ink-muted">{subtitle}</p>
+
+  {
+    actions.length > 0 && (
+      <div class="mt-5 flex flex-wrap gap-2">
+        {actions.map((action) => (
+          <a
+            href={action.href}
+            class:list={[
+              'rounded-control px-4 py-2 text-sm font-medium',
+              action.primary
+                ? 'bg-accent text-accent-ink'
+                : 'border border-border-subtle text-ink hover:border-accent',
+            ]}
+          >
+            {action.label}
+          </a>
+        ))}
+      </div>
+    )
+  }
+
+  {
+    samples.length > 0 && (
+      <ul class="mt-6 grid gap-2 sm:grid-cols-3">
+        {samples.map((sample) => (
+          <li class="rounded-card border border-border-subtle bg-surface p-3">
+            <a href={sample.href} class="block">
+              <span class="block text-xs text-ink-muted">{sample.title}</span>
+              <span class="mt-1 block text-lg font-semibold tabular-nums text-ink">
+                {sample.value}
+              </span>
+              <span class="block text-xs text-ink-muted">{sample.label}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</section>

@@ -1,0 +1,100 @@
+---
+import type { HeroProps } from '../contract'
+
+type Props = HeroProps
+const { eyebrow, title, subtitle, actions = [], samples = [] } = Astro.props
+---
+
+<section class="relative overflow-hidden">
+  <div
+    class="pointer-events-none absolute -right-40 -top-56 size-[44rem] rounded-full opacity-70 blur-3xl"
+    style="background: radial-gradient(circle, color-mix(in oklch, var(--c-accent) 24%, transparent), transparent 70%)"
+    aria-hidden="true"
+  >
+  </div>
+  <div
+    class="pointer-events-none absolute -left-52 top-24 size-[32rem] rounded-full opacity-50 blur-3xl"
+    style="background: radial-gradient(circle, color-mix(in oklch, var(--c-cat-2) 22%, transparent), transparent 70%)"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div
+    class="relative mx-auto max-w-6xl px-4 pb-14 pt-16 grid gap-12 lg:grid-cols-[1.05fr_1fr] lg:items-center"
+  >
+    <div>
+      {
+        eyebrow && (
+          <p class="inline-flex items-center gap-2 rounded-full border border-border-subtle bg-surface px-3 py-1.5 text-xs font-medium text-ink">
+            <span class="size-1.5 rounded-full bg-accent" aria-hidden="true" />
+            {eyebrow}
+          </p>
+        )
+      }
+
+      <h1 class="mt-5 text-4xl font-semibold leading-[1.08] tracking-tight text-ink sm:text-5xl">
+        {title}
+      </h1>
+      <p class="mt-5 max-w-xl text-base leading-relaxed text-ink-muted">{subtitle}</p>
+
+      {
+        actions.length > 0 && (
+          <div class="mt-8 flex flex-wrap gap-3">
+            {actions.map((action) =>
+              action.primary ? (
+                <a
+                  href={action.href}
+                  class="rounded-control bg-accent px-5 py-2.5 text-sm font-medium text-accent-ink transition-opacity hover:opacity-90"
+                >
+                  {action.label}
+                </a>
+              ) : (
+                <a
+                  href={action.href}
+                  class="rounded-control border border-border-subtle bg-surface px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-accent hover:text-accent"
+                >
+                  {action.label}
+                </a>
+              ),
+            )}
+          </div>
+        )
+      }
+    </div>
+
+    {/* Real figures from real calculators, rendered at build time — the same
+        values these pages show with JavaScript disabled. */}
+    {
+      samples.length > 0 && (
+        <ul class="grid gap-3 sm:grid-cols-2 lg:gap-4">
+          {samples.map((sample, i) => (
+            <li
+              data-cat={i % 5}
+              class:list={[
+                'rounded-card border border-border-subtle bg-surface p-4',
+                i % 2 === 1 ? 'lg:translate-y-6' : '',
+              ]}
+            >
+              <a href={sample.href} class="group block">
+                <span class="flex items-center gap-2">
+                  <span
+                    class="size-2 rounded-full"
+                    style="background: var(--cat)"
+                    aria-hidden="true"
+                  />
+                  <span class="truncate text-xs font-medium text-ink-muted group-hover:text-accent">
+                    {sample.title}
+                  </span>
+                </span>
+                <span class="mt-2 block text-2xl font-semibold tabular-nums leading-tight text-ink">
+                  {sample.value}
+                </span>
+                <span class="mt-0.5 block truncate text-[11px] text-ink-muted">{sample.label}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
+</section>

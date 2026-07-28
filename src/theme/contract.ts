@@ -80,6 +80,20 @@ export interface RelatedGridProps {
   links: ReadonlyArray<{ slug: string; title: string; href: string }>
 }
 
+export interface HeroProps {
+  /** Small line above the headline, e.g. a count or a promise. */
+  eyebrow?: string
+  title: string
+  subtitle: string
+  actions?: ReadonlyArray<{ label: string; href: string; primary?: boolean }>
+  /**
+   * Real results from real calculators, computed at build time. Using genuine
+   * figures rather than lorem keeps the hero honest and doubles as proof the
+   * pages render without JavaScript.
+   */
+  samples?: ReadonlyArray<{ title: string; label: string; value: string; href: string }>
+}
+
 export interface CalculatorGridProps {
   items: ReadonlyArray<{ slug: string; title: string; href: string; description: string }>
 }

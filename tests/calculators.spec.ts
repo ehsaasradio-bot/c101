@@ -405,6 +405,50 @@ test.describe('scenarios', () => {
   })
 })
 
+test.describe('home hero', () => {
+  test('shows real computed figures, not hand-written ones', async ({ page }) => {
+    await page.goto('/')
+
+    // The hero claims live results. Derive the truth from the registry the same
+    // way the page does, so a drifting figure fails rather than lingering.
+    const { defaultValues, toResultView } = await import('../src/lib/view')
+    const mortgage = calculators.find((c) => c.slug === 'mortgage-calculator')!
+    const expected = toResultView(
+      mortgage.compute(defaultValues(mortgage) as never),
+      mortgage.scale,
+    ).primary.text
+
+    const card = page.locator('a[href="/calculators/mortgage-calculator/"]').first()
+    await expect(card).toContainText(expected)
+  })
+
+  test('the headline, count and calls to action are present and correct', async ({ page }) => {
+    await page.goto('/')
+
+    await expect(page.locator('h1')).toHaveCount(1)
+    // The count is derived, so adding calculator #42 must not leave it stale.
+    await expect(page.getByText(`${calculators.length} calculators`, { exact: false })).toBeVisible()
+
+    await expect(page.locator('a[href="/calculators/"]').first()).toBeVisible()
+    // The secondary action is an in-page anchor; its target must exist.
+    await expect(page.locator('#most-used')).toHaveCount(1)
+  })
+
+  test('every hero figure is a live link to the calculator that produced it', async ({ page }) => {
+    await page.goto('/')
+    const links = page.locator('section a[href^="/calculators/"]')
+    const count = await links.count()
+    expect(count).toBeGreaterThan(0)
+
+    for (let i = 0; i < count; i++) {
+      const href = (await links.nth(i).getAttribute('href'))!
+      if (href === '/calculators/') continue
+      const slug = href.replace(/^\/calculators\//, '').replace(/\/$/, '')
+      expect(calculators.some((c) => c.slug === slug), `${href} is a real calculator`).toBe(true)
+    }
+  })
+})
+
 test.describe('indexing', () => {
   /**
    * One flag governs whether the site is open to search engines. These assert
