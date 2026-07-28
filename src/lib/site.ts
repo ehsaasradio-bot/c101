@@ -1,6 +1,8 @@
 /** Central site configuration. Change the domain and indexing flag here only. */
 
-export const SITE_URL = 'https://c101.pages.dev'
+// Cloudflare appends a suffix when the bare subdomain is already taken
+// globally, so the project is `c101` but the domain is not `c101.pages.dev`.
+export const SITE_URL = 'https://c101-ccc.pages.dev'
 export const SITE_NAME = 'Calc101'
 export const SITE_DESCRIPTION =
   'Free online calculators for finance, health, math, and everyday life. Fast, accurate, no sign-up.'
