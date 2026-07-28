@@ -1,0 +1,27 @@
+---
+import type { BreadcrumbsProps } from '../contract'
+
+type Props = BreadcrumbsProps
+const { items } = Astro.props
+---
+
+<nav aria-label="Breadcrumb">
+  <ol class="flex flex-wrap items-center gap-2 text-xs text-ink-muted">
+    {
+      items.map((item, i) => (
+        <li class="flex items-center gap-2">
+          {i > 0 && <span aria-hidden="true">›</span>}
+          {i === items.length - 1 ? (
+            <span aria-current="page" class="font-medium text-ink">
+              {item.name}
+            </span>
+          ) : (
+            <a href={item.href} class="hover:text-accent transition-colors">
+              {item.name}
+            </a>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+</nav>

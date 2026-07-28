@@ -1,0 +1,39 @@
+---
+import { ALLOW_INDEXING, LOCALE, SITE_NAME, SITE_DESCRIPTION, absolute } from '../lib/site'
+import { organization } from './jsonld'
+
+interface Props {
+  title: string
+  description?: string
+  /** Extra JSON-LD documents for this page type. */
+  schemas?: ReadonlyArray<Record<string, unknown>>
+  ogType?: 'website' | 'article'
+}
+
+const { title, description = SITE_DESCRIPTION, schemas = [], ogType = 'website' } = Astro.props
+
+// Cloudflare 308-redirects non-slash → slash, so a canonical without the slash
+// would point at a redirect rather than the served URL.
+const canonical = absolute(Astro.url.pathname)
+const fullTitle = `${title} | ${SITE_NAME}`
+const documents = [organization(), ...schemas]
+---
+
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<meta name="robots" content={ALLOW_INDEXING ? 'index, follow' : 'noindex, nofollow'} />
+<link rel="canonical" href={canonical} />
+
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:type" content={ogType} />
+<meta property="og:url" content={canonical} />
+<meta property="og:site_name" content={SITE_NAME} />
+<meta property="og:locale" content={LOCALE} />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+
+{/* Inert data, not code. `is:inline` is correct here and keeps it out of the bundle. */}
+{documents.map((doc) => <script is:inline type="application/ld+json" set:html={JSON.stringify(doc)} />)}

@@ -1,0 +1,164 @@
+@import 'tailwindcss';
+
+/* Scan the theme directory explicitly — Tailwind v4 has no config file and
+   class detection is filesystem-based. */
+@source '../';
+
+/*
+ * The ONLY place raw visual values live. A palette-only reskin is a diff of
+ * this block and nothing else.
+ */
+:root {
+  --c-surface: oklch(100% 0 0);
+  --c-surface-alt: oklch(97.5% 0.005 250);
+  --c-surface-sunken: oklch(95% 0.007 250);
+  --c-border: oklch(90% 0.008 250);
+  --c-ink: oklch(24% 0.02 250);
+  --c-ink-muted: oklch(52% 0.015 250);
+  --c-accent: oklch(55% 0.17 255);
+  --c-accent-ink: oklch(100% 0 0);
+
+  /* Semantic bands. `BandId` in src/lib/types.ts maps here — a calculator
+     never names a colour, it names a band. */
+  --c-band-critical: oklch(58% 0.19 25);
+  --c-band-warn: oklch(70% 0.15 75);
+  --c-band-neutral: oklch(65% 0.02 250);
+  --c-band-good: oklch(58% 0.15 240);
+  --c-band-excellent: oklch(58% 0.15 155);
+
+  --r-card: 0.75rem;
+  --r-control: 0.5rem;
+
+  /* Motion. Restrained by intent: long enough to read as deliberate, short
+     enough that a repeat user never waits on it. */
+  --motion-med: 480ms;
+  --motion-flash: 900ms;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  /* The tint a stat briefly takes when its value actually changed. */
+  --c-flash: oklch(93% 0.05 255);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --c-surface: oklch(19% 0.015 260);
+    --c-surface-alt: oklch(23% 0.015 260);
+    --c-surface-sunken: oklch(16% 0.015 260);
+    --c-border: oklch(32% 0.015 260);
+    --c-ink: oklch(96% 0.004 250);
+    --c-ink-muted: oklch(72% 0.012 250);
+    --c-accent: oklch(72% 0.14 255);
+    --c-accent-ink: oklch(18% 0.02 260);
+
+    --c-flash: oklch(32% 0.06 260);
+
+    --c-band-critical: oklch(70% 0.17 25);
+    --c-band-warn: oklch(80% 0.14 75);
+    --c-band-neutral: oklch(72% 0.02 250);
+    --c-band-good: oklch(72% 0.13 240);
+    --c-band-excellent: oklch(72% 0.14 155);
+  }
+}
+
+/*
+ * `@theme inline` is required, not optional. Plain `@theme` resolves values at
+ * build time and bakes the literal into every utility, so the media-query
+ * overrides above would silently do nothing. `inline` makes utilities emit
+ * `var(--c-*)` instead, which is what lets a runtime override win.
+ */
+@theme inline {
+  --color-surface: var(--c-surface);
+  --color-surface-alt: var(--c-surface-alt);
+  --color-surface-sunken: var(--c-surface-sunken);
+  --color-border-subtle: var(--c-border);
+  --color-ink: var(--c-ink);
+  --color-ink-muted: var(--c-ink-muted);
+  --color-accent: var(--c-accent);
+  --color-accent-ink: var(--c-accent-ink);
+  --color-band: var(--band, var(--c-band-neutral));
+
+  --radius-card: var(--r-card);
+  --radius-control: var(--r-control);
+}
+
+/*
+ * Band resolution. The island writes `data-band="good"` and nothing else; this
+ * is where a token becomes a colour. Never in JavaScript.
+ */
+[data-band='critical'] {
+  --band: var(--c-band-critical);
+}
+[data-band='warn'] {
+  --band: var(--c-band-warn);
+}
+[data-band='neutral'] {
+  --band: var(--c-band-neutral);
+}
+[data-band='good'] {
+  --band: var(--c-band-good);
+}
+[data-band='excellent'] {
+  --band: var(--c-band-excellent);
+}
+
+/*
+ * Motion. All of it is driven by what the island already writes per
+ * src/islands/CONTRACT.md — the `--calc-pos` custom property and a
+ * `data-changed` marker — so no JavaScript here creates or styles an element.
+ */
+
+/* The scale pointer glides instead of snapping. One rule, every calculator
+   that declares a scale. Hooked on an explicit attribute rather than the DOM
+   shape, so restructuring Meter.astro cannot silently kill the transition. */
+[data-calc-pointer] {
+  transition: left var(--motion-med) var(--ease);
+}
+
+/* A stat tints briefly when, and only when, its own value actually changed.
+   Flashing every row on every keystroke would be noise, not signal. */
+@keyframes calc-flash {
+  from {
+    background-color: var(--c-flash);
+  }
+  to {
+    background-color: var(--c-surface-sunken);
+  }
+}
+
+[data-changed] {
+  animation: calc-flash var(--motion-flash) var(--ease);
+}
+
+/* The headline counts rather than jumps. `tabular-nums` on the element keeps
+   the digits from reflowing mid-tween. */
+[data-animate='count'] {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--c-surface-alt);
+    color: var(--c-ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  :focus-visible {
+    outline: 2px solid var(--c-accent);
+    outline-offset: 2px;
+  }
+  [hidden] {
+    display: none !important;
+  }
+}

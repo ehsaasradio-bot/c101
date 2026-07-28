@@ -1,0 +1,36 @@
+---
+import type { RelatedGridProps } from '../contract'
+
+type Props = RelatedGridProps
+const { links } = Astro.props
+---
+
+{
+  links.length > 0 && (
+    <section class="mt-12">
+      <h2 class="text-xl font-semibold tracking-tight text-ink">You might also like</h2>
+      <ul class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {links.map((link, i) => (
+          <li>
+            <a
+              href={link.href}
+              data-cat={i % 5}
+              class="group flex h-full items-center gap-3 rounded-card border border-border-subtle bg-surface p-4 transition-colors hover:border-accent"
+            >
+              <span
+                class="grid size-9 shrink-0 place-items-center rounded-control text-sm font-semibold"
+                style="background: color-mix(in oklch, var(--cat) 16%, transparent); color: var(--cat)"
+                aria-hidden="true"
+              >
+                {link.title.charAt(0)}
+              </span>
+              <span class="text-sm font-medium leading-snug text-ink group-hover:text-accent">
+                {link.title}
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}

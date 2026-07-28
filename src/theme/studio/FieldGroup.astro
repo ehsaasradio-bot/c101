@@ -1,0 +1,156 @@
+---
+import type { FieldGroupProps } from '../contract'
+import { allowedOptions, resolveBounds } from '../../lib/view'
+import { decoratedTicks, softRange } from './range'
+
+type Props = FieldGroupProps
+const { fields, values } = Astro.props
+
+const boxClass =
+  'rounded-control border border-border-subtle bg-surface px-3 py-2 text-sm font-medium text-ink ' +
+  'aria-[invalid=true]:border-[var(--c-band-critical)]'
+
+/** A slider only makes sense with both ends known. */
+const sliderable = (f: (typeof fields)[number]) =>
+  f.kind === 'number' && f.min !== undefined && f.max !== undefined
+---
+
+<div class="space-y-6">
+  {
+    fields.map((field) => {
+      const value = values[field.id]
+      if (field.kind === 'select') {
+        // Every option is rendered, but ones invalid for the current category
+        // are hidden rather than removed — so switching only toggles an
+        // attribute and this theme's script never builds markup.
+        const allowed = allowedOptions(field, values)
+        return (
+          <div data-select-row={field.id} data-variants={field.variants ? JSON.stringify(field.variants) : undefined}>
+            <div class="flex items-center justify-between gap-4">
+              <label class="text-sm font-medium text-ink" for={`field-${field.id}`}>
+                {field.label}
+              </label>
+              <select id={`field-${field.id}`} data-calc-field={field.id} class={boxClass}>
+                {field.options.map((option) => (
+                  <option
+                    value={option.value}
+                    selected={option.value === String(value)}
+                    hidden={!allowed.includes(option.value)}
+                    disabled={!allowed.includes(option.value)}
+                  >
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+            {field.help && <p class="mt-1.5 text-xs text-ink-muted">{field.help}</p>}
+          </div>
+        )
+      }
+
+      if (field.kind === 'toggle') {
+        return (
+          <label class="flex items-center gap-3 text-sm font-medium text-ink">
+            <input
+              id={`field-${field.id}`}
+              data-calc-field={field.id}
+              type="checkbox"
+              checked={Boolean(value)}
+              class="size-4 accent-[var(--c-accent)]"
+            />
+            {field.label}
+          </label>
+        )
+      }
+
+      if (field.kind === 'number' && sliderable(field)) {
+        // Bounds for the unit currently selected — a height slider must span
+        // 50–250 in centimetres but 20–98 in inches.
+        const active = resolveBounds(field, values)
+        const { min, max, cappedMax, cappedMin } = softRange(
+          active.min ?? field.min!,
+          active.max ?? field.max!,
+          field.default,
+        )
+        const num = Number(value)
+        const clamped = Math.min(Math.max(num, min), max)
+        const fill = ((clamped - min) / (max - min)) * 100
+        return (
+          <div
+            data-field-row={field.id}
+            data-variants={field.variants ? JSON.stringify(field.variants) : undefined}
+            data-base-min={field.min}
+            data-base-max={field.max}
+          >
+            <div class="flex items-center justify-between gap-4">
+              <label class="text-sm font-medium text-ink" for={`field-${field.id}`}>
+                {field.label}
+              </label>
+              <div class="flex items-center gap-1.5">
+                {active.unit && active.unit !== '%' && (
+                  <span data-unit-label class="text-xs text-ink-muted">
+                    {active.unit}
+                  </span>
+                )}
+                {/* The number box is the accessible control and the one the
+                    island reads. The slider mirrors it. */}
+                <input
+                  id={`field-${field.id}`}
+                  data-calc-field={field.id}
+                  type="number"
+                  value={String(value ?? '')}
+                  min={active.min}
+                  max={active.max}
+                  step={active.step}
+                  inputmode="decimal"
+                  autocomplete="off"
+                  class={`${boxClass} w-32 text-right`}
+                />
+              </div>
+            </div>
+
+            <input
+              type="range"
+              class="studio-range mt-3"
+              aria-label={`${field.label} slider`}
+              data-mirrors={field.id}
+              min={min}
+              max={max}
+              step={active.step ?? 1}
+              value={String(clamped)}
+              style={`--fill: ${fill.toFixed(2)}%`}
+            />
+
+            {/* Fixed count of ticks so a unit switch only rewrites their text —
+                the theme's script never has to generate markup. */}
+            <div data-ticks class="mt-1.5 flex justify-between text-[11px] text-ink-muted">
+              {decoratedTicks(min, max, active.unit, cappedMin, cappedMax).map((t) => <span>{t}</span>)}
+            </div>
+            {field.help && <p class="mt-1.5 text-xs text-ink-muted">{field.help}</p>}
+          </div>
+        )
+      }
+
+      return (
+        <div>
+          <label class="block text-sm font-medium text-ink mb-1.5" for={`field-${field.id}`}>
+            {field.label}
+          </label>
+          <input
+            id={`field-${field.id}`}
+            data-calc-field={field.id}
+            type={field.kind === 'number' ? 'number' : field.kind === 'date' ? 'date' : 'text'}
+            value={String(value ?? '')}
+            min={field.kind === 'number' ? field.min : undefined}
+            max={field.kind === 'number' ? field.max : undefined}
+            step={field.kind === 'number' ? field.step : undefined}
+            placeholder={field.kind === 'text' ? field.placeholder : undefined}
+            class={`${boxClass} w-full`}
+            autocomplete="off"
+          />
+          {field.help && <p class="mt-1.5 text-xs text-ink-muted">{field.help}</p>}
+        </div>
+      )
+    })
+  }
+</div>

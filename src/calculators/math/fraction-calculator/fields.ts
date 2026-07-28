@@ -1,0 +1,56 @@
+import type { Field } from '../../../lib/types'
+
+export const fields = [
+  {
+    kind: 'number',
+    id: 'numeratorA',
+    label: 'First numerator',
+    default: 10,
+    min: -10000000,
+    max: 10000000,
+    step: 1,
+    help: 'The top number of the first fraction.',
+  },
+  {
+    kind: 'number',
+    id: 'denominatorA',
+    label: 'First denominator',
+    default: 20,
+    min: -10000000,
+    max: 10000000,
+    step: 1,
+    help: 'The bottom number of the first fraction. Cannot be zero.',
+  },
+  {
+    kind: 'select',
+    id: 'operation',
+    label: 'Operation',
+    default: 'add',
+    options: [
+      { value: 'add', label: 'Add (+)' },
+      { value: 'subtract', label: 'Subtract (−)' },
+      { value: 'multiply', label: 'Multiply (×)' },
+      { value: 'divide', label: 'Divide (÷)' },
+    ],
+  },
+  {
+    kind: 'number',
+    id: 'numeratorB',
+    label: 'Second numerator',
+    default: 1,
+    min: -10000000,
+    max: 10000000,
+    step: 1,
+    help: 'The top number of the second fraction.',
+  },
+  {
+    kind: 'number',
+    id: 'denominatorB',
+    label: 'Second denominator',
+    default: 3,
+    min: -10000000,
+    max: 10000000,
+    step: 1,
+    help: 'The bottom number of the second fraction. Cannot be zero.',
+  },
+] as const satisfies readonly Field[]

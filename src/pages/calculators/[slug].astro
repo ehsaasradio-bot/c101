@@ -1,0 +1,129 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import Seo from '../../seo/Seo.astro'
+import { CalculatorPage } from '../../theme'
+import { calculators, bySlug } from '../../calculators'
+import { categoryById, disclaimers } from '../../lib/categories'
+import { defaultValues, toCalculatorView, toResultView } from '../../lib/view'
+import { breadcrumbList, faqPage, softwareApplication } from '../../seo/jsonld'
+import { absolute } from '../../lib/site'
+
+// One file, every calculator. Adding calculator #171 means adding a directory
+// and one line to the registry — no page file, no sitemap edit, no test edit.
+export function getStaticPaths() {
+  // `params` only. A CalculatorDef holds `compute`, a function, which does not
+  // survive getStaticPaths' props serialization — it would arrive as undefined.
+  return calculators.map((calc) => ({ params: { slug: calc.slug } }))
+}
+
+const calc = bySlug.get(Astro.params.slug!)!
+const category = categoryById.get(calc.category)!
+
+const view = toCalculatorView(calc, bySlug)
+// Because `compute` is a real function rather than a string, the result can be
+// computed here at build time. The page is correct and useful before any
+// JavaScript loads, and with JavaScript disabled entirely.
+const initial = toResultView(calc.compute(defaultValues(calc) as never), calc.scale)
+
+const breadcrumbs = [
+  { name: 'Home', href: '/' },
+  { name: category.name, href: `${category.href}/` },
+  { name: calc.title, href: view.href },
+]
+
+/*
+ * Scenario presets, built here because this is where `compute` exists.
+ *
+ * Each one nudges a single numeric field up by a quarter of its default and
+ * shows the headline that produces, so a visitor can see which input actually
+ * moves the number. Anything that throws — or that fails to move the result —
+ * is dropped rather than shown as a dead card.
+ */
+const baseValues = defaultValues(calc)
+const round = (n: number, step?: number) => {
+  const s = step && step > 0 ? step : 1
+  return Math.round(n / s) * s
+}
+
+const scenarios = [
+  {
+    label: 'Current',
+    detail: 'Your inputs as they stand',
+    primaryText: initial.primary.text,
+    values: {},
+    current: true,
+  },
+  ...calc.fields
+    .filter((f) => f.kind === 'number' && f.default !== 0)
+    .slice(0, 3)
+    .flatMap((field) => {
+      if (field.kind !== 'number') return []
+      let next = round(field.default * 1.25, field.step)
+      if (field.max !== undefined) next = Math.min(next, field.max)
+      if (next === field.default) next = field.default + (field.step ?? 1)
+
+      try {
+        const scenarioValues = { ...baseValues, [field.id]: next }
+        const result = toResultView(calc.compute(scenarioValues as never), calc.scale)
+        if (result.primary.text === initial.primary.text) return []
+        return [
+          {
+            label: field.label,
+            detail: `${field.unit ? `${field.unit} ` : ''}${next.toLocaleString('en-US')}`,
+            primaryText: result.primary.text,
+            /*
+             * The COMPLETE input state, not just the field that changed.
+             *
+             * A scenario is computed against the default units, so applying it
+             * as a delta would reinterpret the number in whatever unit is
+             * selected now — "10" landing as 10 mpg instead of 10 L/100 km, and
+             * producing a figure that does not match the one on the card.
+             * Carrying every field makes the card's promise exact.
+             */
+            values: Object.fromEntries(
+              Object.entries(scenarioValues).map(([id, value]) => [id, String(value)]),
+            ),
+          },
+        ]
+      } catch {
+        return []
+      }
+    }),
+]
+---
+
+<BaseLayout title={calc.title} description={calc.description} breadcrumbs={breadcrumbs}>
+  <Seo
+    slot="head"
+    title={calc.seoTitle}
+    description={calc.description}
+    schemas={[
+      softwareApplication(calc, absolute(view.href)),
+      faqPage(calc.faqs),
+      breadcrumbList(breadcrumbs),
+    ]}
+  />
+
+  {/*
+    The island wiring lives in the page, not the theme, so a theme swap cannot
+    break interactivity. The theme owns everything visual inside.
+    Config travels as inert JSON — never `define:vars`, which would force the
+    script inline and unbundled, and is precisely why the reference had to ship
+    its formulas as eval'd strings.
+  */}
+  <calc-form data-slug={calc.slug}>
+    <script is:inline type="application/json" data-calc-config set:html={JSON.stringify(view)} />
+    <CalculatorPage
+      calc={view}
+      initial={initial}
+      scenarios={scenarios}
+      disclaimer={calc.disclaimer ? disclaimers[calc.disclaimer] : undefined}
+    />
+  </calc-form>
+</BaseLayout>
+
+<script>
+  import '../../islands/calc-form.ts'
+  // The theme's own behaviour, via the seam — never a concrete theme path.
+  import '../../theme/client.ts'
+</script>

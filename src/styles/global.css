@@ -1,0 +1,5 @@
+/*
+ * Half of a theme swap. The other half is `src/theme/index.ts`.
+ * A palette-only reskin is this line pointed at a different tokens file.
+ */
+@import '../theme/studio/tokens.css';

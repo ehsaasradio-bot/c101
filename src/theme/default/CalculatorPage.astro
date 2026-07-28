@@ -1,0 +1,37 @@
+---
+import type { CalculatorPageProps } from '../contract'
+import FieldGroup from './FieldGroup.astro'
+import ResultCard from './ResultCard.astro'
+import FaqList from './FaqList.astro'
+import RelatedGrid from './RelatedGrid.astro'
+import { defaultValues } from '../../lib/view'
+
+type Props = CalculatorPageProps
+const { calc, initial, disclaimer } = Astro.props
+
+// The same values the page computed `initial` from, so the inputs and the
+// rendered result always agree on first paint.
+const values = defaultValues(calc)
+---
+
+<article>
+  <header>
+    <h1 class="text-2xl font-semibold tracking-tight text-ink">{calc.title}</h1>
+    <p class="mt-2 max-w-2xl text-sm leading-relaxed text-ink-muted">{calc.intro}</p>
+  </header>
+
+  <div class="mt-6 grid gap-6 lg:grid-cols-2 lg:items-start">
+    <section class="rounded-card border border-border-subtle bg-surface p-5" aria-label="Inputs">
+      <FieldGroup fields={calc.fields} values={values} />
+    </section>
+
+    <section aria-label="Result" aria-live="polite">
+      <ResultCard result={initial} resultLabel={calc.resultLabel} scale={calc.scale} />
+    </section>
+  </div>
+
+  {disclaimer && <p class="mt-4 text-xs text-ink-muted">{disclaimer}</p>}
+
+  <FaqList faqs={calc.faqs} />
+  <RelatedGrid links={calc.relatedLinks} />
+</article>

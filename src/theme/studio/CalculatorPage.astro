@@ -1,0 +1,192 @@
+---
+import type { CalculatorPageProps } from '../contract'
+import FieldGroup from './FieldGroup.astro'
+import SummaryCard from './SummaryCard.astro'
+import TimeChart from './TimeChart.astro'
+import FaqList from './FaqList.astro'
+import RelatedGrid from './RelatedGrid.astro'
+import { defaultValues } from '../../lib/view'
+
+type Props = CalculatorPageProps
+const { calc, initial, disclaimer, scenarios = [] } = Astro.props
+
+const values = defaultValues(calc)
+const badges = ['Accurate', 'Real-time', 'Easy to use', '100% free']
+
+// The two figures floated over the hero art. Taken from whatever the calculator
+// already returns, so this works for every calculator, not just this one.
+const highlights = [
+  { label: initial.primary.label, text: initial.primary.text },
+  initial.stats[1] ?? initial.stats[0],
+].filter(Boolean)
+---
+
+<article>
+  <header class="relative overflow-hidden">
+    <div
+      class="pointer-events-none absolute -right-32 -top-40 size-[34rem] rounded-full opacity-60 blur-3xl"
+      style="background: radial-gradient(circle, color-mix(in oklch, var(--c-accent) 22%, transparent), transparent 70%)"
+      aria-hidden="true"
+    >
+    </div>
+
+    <div class="relative mx-auto max-w-6xl px-4 pb-10 pt-8 grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-center">
+      <div>
+        <h1 class="text-4xl font-semibold tracking-tight text-ink sm:text-5xl">{calc.title}</h1>
+        <p class="mt-4 max-w-xl text-base leading-relaxed text-ink-muted">{calc.intro}</p>
+
+        <ul class="mt-6 flex flex-wrap gap-2">
+          {
+            badges.map((badge, i) => (
+              <li
+                data-cat={i % 5}
+                class="inline-flex items-center gap-1.5 rounded-full border border-border-subtle bg-surface px-3 py-1.5 text-xs font-medium text-ink"
+              >
+                <span class="size-1.5 rounded-full" style="background: var(--cat)" />
+                {badge}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      {/* Hero art. An abstract rendering of the calculator's own first series,
+          so it means something rather than being decoration. */}
+      <div class="relative">
+        <div class="rounded-card border border-border-subtle bg-surface p-6">
+          <svg viewBox="0 0 320 170" class="w-full" role="img" aria-label="Illustrative growth curve">
+            <defs>
+              <linearGradient id="heroFade" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="var(--c-cat-1)" stop-opacity="0.28"></stop>
+                <stop offset="100%" stop-color="var(--c-cat-1)" stop-opacity="0"></stop>
+              </linearGradient>
+            </defs>
+            <path
+              d="M8 158 C 70 150, 120 132, 160 100 S 250 34, 312 14 L312 162 L8 162 Z"
+              fill="url(#heroFade)"></path>
+            <path
+              d="M8 158 C 70 150, 120 132, 160 100 S 250 34, 312 14"
+              fill="none"
+              stroke="var(--c-cat-1)"
+              stroke-width="3"
+              stroke-linecap="round"></path>
+            {
+              [
+                [8, 158],
+                [96, 141],
+                [160, 100],
+                [232, 56],
+                [312, 14],
+              ].map(([cx, cy]) => (
+                <circle cx={cx} cy={cy} r="4" fill="var(--c-surface)" stroke="var(--c-cat-1)" stroke-width="2.5" />
+              ))
+            }
+          </svg>
+        </div>
+
+        {
+          highlights.map((h, i) => (
+            <div
+              class:list={[
+                'absolute w-44 rounded-card border border-border-subtle bg-surface p-3 shadow-sm',
+                i === 0 ? '-left-2 top-4 sm:-left-6' : '-right-2 bottom-4 sm:-right-6',
+              ]}
+            >
+              <p class="truncate text-[11px] text-ink-muted">{h!.label}</p>
+              <p
+                data-hero-highlight={i}
+                class="mt-0.5 text-lg font-semibold tabular-nums text-ink"
+              >
+                {h!.text}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </header>
+
+  <div class="mx-auto max-w-6xl px-4">
+    <div class="grid gap-6 lg:grid-cols-[1fr_1.05fr] lg:items-start">
+      <section class="rounded-card border border-border-subtle bg-surface p-6" aria-label="Inputs">
+        <div class="flex items-center justify-between gap-4">
+          <h2 class="text-sm font-semibold text-ink">Details</h2>
+          <span class="flex items-center gap-1.5 text-xs text-ink-muted">
+            <span class="size-1.5 rounded-full" style="background: var(--c-cat-5)"></span>
+            Updates as you type
+          </span>
+        </div>
+        <div class="mt-5">
+          <FieldGroup fields={calc.fields} values={values} />
+        </div>
+      </section>
+
+      <SummaryCard result={initial} resultLabel={calc.resultLabel} scale={calc.scale} />
+    </div>
+
+    {initial.series.length > 0 && <div class="mt-6"><TimeChart series={initial.series} /></div>}
+
+    {
+      scenarios.length > 0 && (
+        <section class="mt-6" aria-label="Compare scenarios">
+          <div class="flex flex-wrap items-baseline justify-between gap-2">
+            <h2 class="text-xl font-semibold tracking-tight text-ink">Compare scenarios</h2>
+            <p class="text-sm text-ink-muted">See how one change moves the result</p>
+          </div>
+          <ul class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {scenarios.map((scenario) => (
+              <li
+                class:list={[
+                  'flex h-full flex-col rounded-card border bg-surface p-4',
+                  scenario.current ? 'border-accent' : 'border-border-subtle',
+                ]}
+              >
+                <span class="flex items-center gap-2 text-sm font-medium text-ink">
+                  <span
+                    class:list={[
+                      'grid size-4 place-items-center rounded-full border',
+                      scenario.current ? 'border-accent bg-accent' : 'border-border-subtle',
+                    ]}
+                    aria-hidden="true"
+                  >
+                    {scenario.current && <span class="size-1.5 rounded-full bg-[var(--c-accent-ink)]" />}
+                  </span>
+                  {scenario.label}
+                </span>
+                <span class="mt-1 text-xs text-ink-muted">{scenario.detail}</span>
+                {/* The "current" card states what the inputs give right now, so
+                    it has to follow them; the presets are fixed by definition. */}
+                <span
+                  class="mt-3 text-xl font-semibold tabular-nums text-ink"
+                  data-scenario-live={scenario.current ? '' : undefined}
+                >
+                  {scenario.primaryText}
+                </span>
+                <span class="mt-auto pt-3">
+                  {scenario.current ? (
+                    <span class="block rounded-control bg-surface-sunken px-3 py-1.5 text-center text-xs font-medium text-ink-muted">
+                      Current
+                    </span>
+                  ) : (
+                    <button
+                      type="button"
+                      data-scenario={JSON.stringify(scenario.values)}
+                      class="w-full rounded-control border border-border-subtle px-3 py-1.5 text-xs font-medium text-ink transition-colors hover:border-accent hover:text-accent"
+                    >
+                      Use scenario
+                    </button>
+                  )}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    {disclaimer && <p class="mt-6 text-xs text-ink-muted">{disclaimer}</p>}
+
+    <FaqList faqs={calc.faqs} />
+    <RelatedGrid links={calc.relatedLinks} />
+  </div>
+</article>

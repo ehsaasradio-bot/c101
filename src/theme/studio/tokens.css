@@ -1,0 +1,217 @@
+@import 'tailwindcss';
+
+@source '../';
+
+/*
+ * Studio theme. Same token names as `default`, different values and a richer
+ * component set — so pages, calculators and the island are untouched by the swap.
+ */
+:root {
+  --c-surface: oklch(100% 0 0);
+  --c-surface-alt: oklch(98.4% 0.008 300);
+  --c-surface-sunken: oklch(97% 0.012 300);
+  --c-border: oklch(92.5% 0.012 300);
+  --c-ink: oklch(21% 0.03 295);
+  --c-ink-muted: oklch(55% 0.03 295);
+  --c-accent: oklch(53% 0.23 288);
+  --c-accent-soft: oklch(96% 0.03 290);
+  --c-accent-ink: oklch(100% 0 0);
+
+  /* Categorical ramp for parts and series. Index-addressed, never named by a
+     calculator — `parts[0]` is simply "the first component". */
+  --c-cat-1: oklch(56% 0.22 290);
+  --c-cat-2: oklch(70% 0.14 190);
+  --c-cat-3: oklch(75% 0.16 65);
+  --c-cat-4: oklch(70% 0.17 350);
+  --c-cat-5: oklch(65% 0.16 145);
+
+  --c-band-critical: oklch(60% 0.20 25);
+  --c-band-warn: oklch(75% 0.15 70);
+  --c-band-neutral: oklch(70% 0.02 300);
+  --c-band-good: oklch(60% 0.17 260);
+  --c-band-excellent: oklch(62% 0.16 155);
+
+  --c-flash: oklch(95% 0.04 290);
+
+  --r-card: 1rem;
+  --r-control: 0.625rem;
+
+  --motion-med: 480ms;
+  --motion-flash: 900ms;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --c-surface: oklch(20% 0.022 295);
+    --c-surface-alt: oklch(16% 0.02 295);
+    --c-surface-sunken: oklch(24% 0.022 295);
+    --c-border: oklch(31% 0.022 295);
+    --c-ink: oklch(96% 0.006 300);
+    --c-ink-muted: oklch(72% 0.02 300);
+    --c-accent: oklch(72% 0.17 288);
+    --c-accent-soft: oklch(28% 0.06 290);
+    --c-accent-ink: oklch(17% 0.03 295);
+
+    --c-cat-1: oklch(70% 0.17 290);
+    --c-cat-2: oklch(76% 0.12 190);
+    --c-cat-3: oklch(80% 0.14 65);
+    --c-cat-4: oklch(76% 0.14 350);
+    --c-cat-5: oklch(73% 0.14 145);
+
+    --c-band-critical: oklch(70% 0.17 25);
+    --c-band-warn: oklch(80% 0.14 70);
+    --c-band-neutral: oklch(72% 0.02 300);
+    --c-band-good: oklch(72% 0.14 260);
+    --c-band-excellent: oklch(74% 0.14 155);
+
+    --c-flash: oklch(30% 0.06 290);
+  }
+}
+
+@theme inline {
+  --color-surface: var(--c-surface);
+  --color-surface-alt: var(--c-surface-alt);
+  --color-surface-sunken: var(--c-surface-sunken);
+  --color-border-subtle: var(--c-border);
+  --color-ink: var(--c-ink);
+  --color-ink-muted: var(--c-ink-muted);
+  --color-accent: var(--c-accent);
+  --color-accent-soft: var(--c-accent-soft);
+  --color-accent-ink: var(--c-accent-ink);
+  --color-band: var(--band, var(--c-band-neutral));
+
+  --radius-card: var(--r-card);
+  --radius-control: var(--r-control);
+}
+
+[data-band='critical'] {
+  --band: var(--c-band-critical);
+}
+[data-band='warn'] {
+  --band: var(--c-band-warn);
+}
+[data-band='neutral'] {
+  --band: var(--c-band-neutral);
+}
+[data-band='good'] {
+  --band: var(--c-band-good);
+}
+[data-band='excellent'] {
+  --band: var(--c-band-excellent);
+}
+
+/* Categorical colour by position. This is why `Part` carries no colour: the
+   theme assigns one from its own ramp based on order. */
+[data-cat='0'] {
+  --cat: var(--c-cat-1);
+}
+[data-cat='1'] {
+  --cat: var(--c-cat-2);
+}
+[data-cat='2'] {
+  --cat: var(--c-cat-3);
+}
+[data-cat='3'] {
+  --cat: var(--c-cat-4);
+}
+[data-cat='4'] {
+  --cat: var(--c-cat-5);
+}
+
+[data-calc-pointer] {
+  transition: left var(--motion-med) var(--ease);
+}
+
+@keyframes calc-flash {
+  from {
+    background-color: var(--c-flash);
+  }
+  to {
+    background-color: transparent;
+  }
+}
+
+[data-changed] {
+  animation: calc-flash var(--motion-flash) var(--ease);
+}
+
+[data-animate='count'] {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Range inputs are the primary control in this theme, so they get real styling
+   rather than the browser default. */
+.studio-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  outline: none;
+  background: linear-gradient(
+    to right,
+    var(--c-accent) 0%,
+    var(--c-accent) var(--fill, 50%),
+    var(--c-surface-sunken) var(--fill, 50%),
+    var(--c-surface-sunken) 100%
+  );
+}
+.studio-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: var(--c-accent);
+  border: 3px solid var(--c-surface);
+  box-shadow: 0 0 0 1px var(--c-border);
+  cursor: pointer;
+}
+.studio-range::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: var(--c-accent);
+  border: 3px solid var(--c-surface);
+  cursor: pointer;
+}
+
+/* Chart lines draw in on first paint. */
+@keyframes studio-draw {
+  from {
+    stroke-dashoffset: var(--len, 1000);
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--c-surface-alt);
+    color: var(--c-ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  :focus-visible {
+    outline: 2px solid var(--c-accent);
+    outline-offset: 2px;
+  }
+  [hidden] {
+    display: none !important;
+  }
+}

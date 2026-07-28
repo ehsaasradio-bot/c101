@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import Seo from '../../seo/Seo.astro'
+import { CalculatorGrid } from '../../theme'
+import { byCategory } from '../../calculators'
+import { categories, categoryById } from '../../lib/categories'
+import { calculatorHref } from '../../lib/view'
+import { breadcrumbList, itemList } from '../../seo/jsonld'
+
+// Categories live under /categories/, not /calculators/. Sibling [slug].astro
+// and [category].astro in one directory is not resolvable in Astro, and any
+// calculator ever slugged "financial" would collide with the category page.
+export function getStaticPaths() {
+  return categories.map((category) => ({ params: { category: category.id } }))
+}
+
+const category = categoryById.get(Astro.params.category as never)!
+const items = (byCategory.get(category.id) ?? []).map((calc) => ({
+  slug: calc.slug,
+  title: calc.title,
+  href: calculatorHref(calc.slug),
+  description: calc.description,
+}))
+
+const breadcrumbs = [
+  { name: 'Home', href: '/' },
+  { name: category.name, href: `${category.href}/` },
+]
+---
+
+<BaseLayout title={category.name} description={category.description} breadcrumbs={breadcrumbs}>
+  <Seo
+    slot="head"
+    title={`${category.name} Calculators`}
+    description={category.description}
+    schemas={[itemList(items), breadcrumbList(breadcrumbs)]}
+  />
+
+  <h1 class="text-2xl font-semibold tracking-tight text-ink">{category.name} calculators</h1>
+  <p class="mt-2 max-w-2xl text-sm leading-relaxed text-ink-muted">{category.intro}</p>
+
+  <div class="mt-8">
+    <CalculatorGrid items={items} />
+  </div>
+</BaseLayout>

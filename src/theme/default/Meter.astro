@@ -1,0 +1,50 @@
+---
+import type { MeterProps } from '../contract'
+
+type Props = MeterProps
+const { scale, percent, bandLabel } = Astro.props
+
+const visualMax = scale.clampMax ?? scale.max
+const span = visualMax - scale.min
+
+// Band widths as percentages of the visible track. The colour of each segment
+// comes from `data-band` on the segment itself — resolved by tokens.css, never
+// named here and never named by a calculator.
+const segments = scale.bands
+  .filter((band) => band.from < visualMax)
+  .map((band) => ({
+    id: band.id,
+    label: band.label,
+    width: ((Math.min(band.to, visualMax) - Math.max(band.from, scale.min)) / span) * 100,
+  }))
+---
+
+<figure class="mt-5" data-calc-scale style={`--calc-pos: ${(percent ?? 0).toFixed(2)}%`}>
+  <figcaption class="sr-only">Where this result sits on the scale</figcaption>
+
+  <div class="flex h-2 overflow-hidden rounded-full" role="presentation">
+    {
+      segments.map((segment) => (
+        <span
+          data-band={segment.id}
+          style={`width:${segment.width.toFixed(2)}%;background:var(--band)`}
+          title={segment.label}
+        />
+      ))
+    }
+  </div>
+
+  <div class="relative h-4">
+    <span
+      data-calc-pointer
+      class="absolute top-0 size-2 -translate-x-1/2 rounded-full border-2 border-[var(--c-surface)] bg-ink"
+      style="left: var(--calc-pos)"
+      aria-hidden="true"></span>
+  </div>
+
+  <div class="flex justify-between text-xs text-ink-muted">
+    <span>{scale.min}{scale.unit}</span>
+    <span data-calc-out="band-label" class="font-medium text-band">{bandLabel ?? ''}</span>
+    <span>{visualMax}{scale.unit}</span>
+  </div>
+</figure>

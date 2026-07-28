@@ -1,0 +1,85 @@
+---
+import type { ResultView } from '../../lib/types'
+
+interface Props {
+  parts: ResultView['parts']
+  centerValue: string
+  centerLabel: string
+}
+
+const { parts, centerValue, centerLabel } = Astro.props
+
+// Stroke-dasharray on a circle is the cheapest correct donut: no path maths, no
+// library, and the browser antialiases the joins for us.
+const R = 56
+const C = 2 * Math.PI * R
+
+let offset = 0
+const arcs = parts.map((part, i) => {
+  const dash = (part.percent / 100) * C
+  const arc = { i, dash, offset, label: part.label }
+  offset += dash
+  return arc
+})
+---
+
+<div class="flex items-center gap-5" data-studio-donut>
+  <div class="relative size-36 shrink-0">
+    {/* The centre label sits in normal flow rather than in the SVG, so the
+        -90° rotation that makes arcs start at 12 o'clock cannot tip the text. */}
+    {/* Constrained to the ring's inner diameter. A label like "Total monthly
+        payment" is far wider than "Final balance", and unconstrained centred
+        text simply overflows the donut and gets clipped by the arcs. */}
+    <div class="absolute inset-0 grid place-content-center">
+      <div class="w-[5.5rem] text-center">
+        <p class="text-[10px] leading-tight text-balance text-ink-muted">{centerLabel}</p>
+        <p
+          data-donut-center
+          class="mt-0.5 text-sm font-semibold leading-tight tabular-nums text-ink"
+        >
+          {centerValue}
+        </p>
+      </div>
+    </div>
+    <svg viewBox="0 0 140 140" class="size-36 -rotate-90" role="img" aria-label={centerLabel}>
+    <circle cx="70" cy="70" r={R} fill="none" stroke="var(--c-surface-sunken)" stroke-width="16"
+    ></circle>
+    {
+      arcs.map((arc) => (
+        <circle
+          data-cat={arc.i % 5}
+          data-donut-arc={arc.i}
+          cx="70"
+          cy="70"
+          r={R}
+          fill="none"
+          stroke="var(--cat)"
+          stroke-width="16"
+          stroke-dasharray={`${arc.dash.toFixed(2)} ${(C - arc.dash).toFixed(2)}`}
+          stroke-dashoffset={(-arc.offset).toFixed(2)}
+          style="transition: stroke-dasharray var(--motion-med) var(--ease), stroke-dashoffset var(--motion-med) var(--ease)"
+        >
+          <title>{arc.label}</title>
+        </circle>
+      ))
+    }
+    </svg>
+  </div>
+
+  <ul class="min-w-0 flex-1 space-y-2">
+    {
+      parts.map((part, i) => (
+        <li data-cat={i % 5} class="flex items-baseline gap-2 text-sm">
+          <span class="size-2.5 shrink-0 rounded-full" style="background: var(--cat)" />
+          <span class="min-w-0 flex-1 truncate text-ink-muted">{part.label}</span>
+          <span data-donut-value={i} class="font-medium tabular-nums text-ink">
+            {part.text}
+          </span>
+          <span data-donut-percent={i} class="w-11 text-right text-xs tabular-nums text-ink-muted">
+            {part.percent.toFixed(0)}%
+          </span>
+        </li>
+      ))
+    }
+  </ul>
+</div>

@@ -1,0 +1,45 @@
+import type { Field } from '../../../lib/types'
+
+export const fields = [
+  {
+    kind: 'number',
+    id: 'amount',
+    label: 'Loan amount',
+    default: 25_000,
+    min: 500,
+    max: 500_000,
+    step: 500,
+    unit: '$',
+  },
+  {
+    kind: 'number',
+    id: 'rate',
+    label: 'Annual interest rate (APR)',
+    default: 8.5,
+    min: 0,
+    max: 60,
+    step: 0.1,
+    unit: '%',
+  },
+  {
+    kind: 'number',
+    id: 'months',
+    label: 'Term',
+    default: 60,
+    min: 1,
+    max: 480,
+    step: 1,
+    unit: 'months',
+  },
+  {
+    kind: 'number',
+    id: 'extra',
+    label: 'Extra monthly payment',
+    default: 0,
+    min: 0,
+    max: 5000,
+    step: 25,
+    unit: '$',
+    help: 'Optional. Extra payments go straight to principal.',
+  },
+] as const satisfies readonly Field[]

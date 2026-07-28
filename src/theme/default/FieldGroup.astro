@@ -1,0 +1,64 @@
+---
+import type { FieldGroupProps } from '../contract'
+
+type Props = FieldGroupProps
+const { fields, values } = Astro.props
+
+const controlClass =
+  'w-full rounded-control border border-border-subtle bg-surface px-3 py-2 text-sm text-ink ' +
+  'aria-[invalid=true]:border-[var(--c-band-critical)]'
+---
+
+<div class="grid gap-4 sm:grid-cols-2">
+  {
+    fields.map((field) => (
+      <div class={field.kind === 'toggle' ? 'sm:col-span-2' : ''}>
+        <label class="block text-sm font-medium text-ink mb-1" for={`field-${field.id}`}>
+          {field.label}
+          {field.kind === 'number' && field.unit && (
+            <span class="text-ink-muted font-normal"> ({field.unit})</span>
+          )}
+        </label>
+
+        {field.kind === 'select' ? (
+          <select
+            id={`field-${field.id}`}
+            data-calc-field={field.id}
+            class={controlClass}
+            autocomplete="off"
+          >
+            {field.options.map((option) => (
+              <option value={option.value} selected={option.value === String(values[field.id])}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        ) : field.kind === 'toggle' ? (
+          <input
+            id={`field-${field.id}`}
+            data-calc-field={field.id}
+            type="checkbox"
+            checked={Boolean(values[field.id])}
+            class="size-4 align-middle accent-[var(--c-accent)]"
+          />
+        ) : (
+          <input
+            id={`field-${field.id}`}
+            data-calc-field={field.id}
+            type={field.kind === 'number' ? 'number' : field.kind === 'date' ? 'date' : 'text'}
+            value={String(values[field.id] ?? '')}
+            min={field.kind === 'number' ? field.min : undefined}
+            max={field.kind === 'number' ? field.max : undefined}
+            step={field.kind === 'number' ? field.step : undefined}
+            placeholder={field.kind === 'text' ? field.placeholder : undefined}
+            inputmode={field.kind === 'number' ? 'decimal' : undefined}
+            class={controlClass}
+            autocomplete="off"
+          />
+        )}
+
+        {field.help && <p class="mt-1 text-xs text-ink-muted">{field.help}</p>}
+      </div>
+    ))
+  }
+</div>

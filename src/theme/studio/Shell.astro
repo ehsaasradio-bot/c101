@@ -1,0 +1,85 @@
+---
+import type { ShellProps } from '../contract'
+import Breadcrumbs from './Breadcrumbs.astro'
+import { SITE_NAME } from '../../lib/site'
+import { categories } from '../../lib/categories'
+
+type Props = ShellProps
+const { breadcrumbs } = Astro.props
+---
+
+<div class="min-h-screen flex flex-col">
+  <header class="sticky top-0 z-30 bg-surface/90 backdrop-blur border-b border-border-subtle">
+    <div class="mx-auto max-w-6xl px-4 h-16 flex items-center gap-8">
+      <a href="/" class="flex items-center gap-2 shrink-0">
+        <span
+          class="grid size-8 place-items-center rounded-lg bg-accent text-accent-ink font-semibold"
+          >C</span
+        >
+        <span class="font-semibold tracking-tight text-ink">{SITE_NAME}</span>
+      </a>
+
+      <nav aria-label="Categories" class="hidden md:flex items-center gap-6 text-sm">
+        {
+          categories.map((category) => (
+            <a href={`${category.href}/`} class="text-ink-muted hover:text-accent transition-colors">
+              {category.name}
+            </a>
+          ))
+        }
+        <a href="/calculators/" class="text-ink-muted hover:text-accent transition-colors">
+          All calculators
+        </a>
+      </nav>
+
+      <div class="ml-auto flex items-center gap-2">
+        <span
+          class="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-accent-soft px-3 py-1 text-xs font-medium text-accent"
+        >
+          <span class="size-1.5 rounded-full bg-accent"></span>
+          100% free
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1">
+    {
+      breadcrumbs && breadcrumbs.length > 0 && (
+        <div class="mx-auto max-w-6xl px-4 pt-6">
+          <Breadcrumbs items={breadcrumbs} />
+        </div>
+      )
+    }
+    <slot />
+  </main>
+
+  <footer class="mt-16 border-t border-border-subtle bg-surface">
+    <div class="mx-auto max-w-6xl px-4 py-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4 text-sm">
+      <div>
+        <p class="font-semibold text-ink">{SITE_NAME}</p>
+        <p class="mt-2 text-ink-muted leading-relaxed">
+          Every calculation runs in your browser. Nothing is sent anywhere.
+        </p>
+      </div>
+      {
+        categories.map((category) => (
+          <div>
+            <p class="font-medium text-ink">{category.name}</p>
+            <a
+              href={`${category.href}/`}
+              class="mt-2 inline-block text-ink-muted hover:text-accent transition-colors"
+            >
+              Browse {category.name.toLowerCase()}
+            </a>
+          </div>
+        ))
+      }
+    </div>
+    <div class="border-t border-border-subtle">
+      <p class="mx-auto max-w-6xl px-4 py-4 text-xs text-ink-muted">
+        &copy; {new Date().getFullYear()} {SITE_NAME}
+      </p>
+    </div>
+  </footer>
+</div>

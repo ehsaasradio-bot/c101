@@ -1,0 +1,22 @@
+---
+import type { CalculatorGridProps } from '../contract'
+
+type Props = CalculatorGridProps
+const { items } = Astro.props
+---
+
+<ul class="grid gap-3 sm:grid-cols-2">
+  {
+    items.map((item) => (
+      <li>
+        <a
+          href={item.href}
+          class="block h-full rounded-card border border-border-subtle bg-surface p-4 hover:border-accent"
+        >
+          <span class="block text-sm font-medium text-ink">{item.title}</span>
+          <span class="mt-1 block text-xs leading-relaxed text-ink-muted">{item.description}</span>
+        </a>
+      </li>
+    ))
+  }
+</ul>

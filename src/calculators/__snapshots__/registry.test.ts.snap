@@ -1,0 +1,2499 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`registry > auto-loan-calculator > default output is stable 1`] = `
+{
+  "band": "warn",
+  "primary": {
+    "format": {
+      "style": "currency",
+    },
+    "label": "Monthly payment",
+    "text": "$537.42",
+    "value": 537.4177813346232,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Amount financed",
+      "text": "$26,820",
+      "value": 26820,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Sales tax",
+      "text": "$1,820",
+      "value": 1820,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Total interest",
+      "text": "$5,425",
+      "value": 5425.066880077393,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Total of payments",
+      "text": "$32,245",
+      "value": 32245.066880077393,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Total cost of the car",
+      "text": "$37,245",
+      "value": 37245.06688007739,
+    },
+    {
+      "format": {
+        "style": "percent",
+      },
+      "label": "Cash and trade-in up front",
+      "text": "16.7%",
+      "value": 16.666666666666664,
+    },
+    {
+      "format": {
+        "from": "months",
+        "style": "duration",
+      },
+      "label": "Loan term",
+      "text": "5 years",
+      "value": 60,
+    },
+  ],
+}
+`;
+
+exports[`registry > average-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "decimals": 4,
+      "style": "decimal",
+    },
+    "label": "Mean (average)",
+    "text": "19.4000",
+    "value": 19.4,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+      },
+      "label": "Count",
+      "text": "5",
+      "value": 5,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+      },
+      "label": "Sum",
+      "text": "97.0000",
+      "value": 97,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+      },
+      "label": "Median",
+      "text": "18.0000",
+      "value": 18,
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Mode",
+      "text": "No mode (all values occur once)",
+      "value": "No mode (all values occur once)",
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+      },
+      "label": "Minimum",
+      "text": "12.0000",
+      "value": 12,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+      },
+      "label": "Maximum",
+      "text": "30.0000",
+      "value": 30,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+      },
+      "label": "Range",
+      "text": "18.0000",
+      "value": 18,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+      },
+      "label": "Population std dev",
+      "text": "6.2482",
+      "value": 6.248199740725323,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+      },
+      "label": "Sample std dev",
+      "text": "6.9857",
+      "value": 6.985699678629192,
+    },
+  ],
+}
+`;
+
+exports[`registry > bmi-calculator > default output is stable 1`] = `
+{
+  "band": "excellent",
+  "primary": {
+    "format": {
+      "decimals": 1,
+      "style": "decimal",
+    },
+    "label": "Body mass index",
+    "text": "22.9",
+    "value": 22.857142857142858,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 1,
+        "style": "decimal",
+        "unit": "kg",
+      },
+      "label": "Healthy range (low)",
+      "text": "56.7 kg",
+      "value": 56.65625,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "decimal",
+        "unit": "kg",
+      },
+      "label": "Healthy range (high)",
+      "text": "76.3 kg",
+      "value": 76.25625,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "decimal",
+        "unit": "kg",
+      },
+      "label": "Difference from healthy",
+      "text": "0.0 kg",
+      "value": 0,
+    },
+  ],
+}
+`;
+
+exports[`registry > bmr-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "decimals": 0,
+      "style": "decimal",
+      "unit": "kcal/day",
+    },
+    "label": "Basal metabolic rate",
+    "text": "1,649 kcal/day",
+    "value": 1648.75,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+        "unit": "kcal/day",
+      },
+      "label": "Sedentary (little exercise)",
+      "text": "1,979 kcal/day",
+      "value": 1978.5,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+        "unit": "kcal/day",
+      },
+      "label": "Lightly active (1-3 days/wk)",
+      "text": "2,267 kcal/day",
+      "value": 2267.03125,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+        "unit": "kcal/day",
+      },
+      "label": "Moderately active (3-5 days/wk)",
+      "text": "2,556 kcal/day",
+      "value": 2555.5625,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+        "unit": "kcal/day",
+      },
+      "label": "Very active (6-7 days/wk)",
+      "text": "2,844 kcal/day",
+      "value": 2844.09375,
+    },
+  ],
+}
+`;
+
+exports[`registry > body-fat-calculator > default output is stable 1`] = `
+{
+  "band": "neutral",
+  "primary": {
+    "format": {
+      "decimals": 1,
+      "style": "percent",
+    },
+    "label": "Body fat",
+    "text": "21.7%",
+    "value": 21.676730279952487,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 1,
+        "style": "percent",
+      },
+      "label": "Lean mass share",
+      "text": "78.3%",
+      "value": 78.3232697200475,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "decimal",
+      },
+      "label": "Waist-to-height ratio",
+      "text": "0.52",
+      "value": 0.5168539325842697,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "decimal",
+        "unit": "cm",
+      },
+      "label": "Waist − neck",
+      "text": "54.0 cm",
+      "value": 53.99999999999999,
+    },
+  ],
+}
+`;
+
+exports[`registry > break-even-calculator > default output is stable 1`] = `
+{
+  "band": "neutral",
+  "primary": {
+    "format": {
+      "decimals": 0,
+      "style": "decimal",
+      "unit": "units",
+    },
+    "label": "Break-even volume",
+    "text": "2,000 units",
+    "value": 2000,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Break-even revenue",
+      "text": "$120,000",
+      "value": 120000,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Contribution margin per unit",
+      "text": "$25.00",
+      "value": 25,
+    },
+    {
+      "format": {
+        "style": "percent",
+      },
+      "label": "Contribution margin",
+      "text": "41.7%",
+      "value": 41.66666666666667,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+        "unit": "units",
+      },
+      "label": "Units to clear (whole)",
+      "text": "2,000 units",
+      "value": 2000,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Variable cost at break-even",
+      "text": "$70,000",
+      "value": 70000,
+    },
+  ],
+}
+`;
+
+exports[`registry > circle-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "decimals": 6,
+      "style": "decimal",
+    },
+    "label": "Area",
+    "text": "314.159265",
+    "value": 314.1592653589793,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 6,
+        "style": "decimal",
+      },
+      "label": "Radius",
+      "text": "10.000000",
+      "value": 10,
+    },
+    {
+      "format": {
+        "decimals": 6,
+        "style": "decimal",
+      },
+      "label": "Diameter",
+      "text": "20.000000",
+      "value": 20,
+    },
+    {
+      "format": {
+        "decimals": 6,
+        "style": "decimal",
+      },
+      "label": "Circumference",
+      "text": "62.831853",
+      "value": 62.83185307179586,
+    },
+  ],
+}
+`;
+
+exports[`registry > compound-interest-calculator > default output is stable 1`] = `
+{
+  "band": "excellent",
+  "primary": {
+    "format": {
+      "style": "currency",
+    },
+    "label": "Final balance",
+    "text": "$144,572.72",
+    "value": 144572.72045492497,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Total contributed",
+      "text": "$58,000",
+      "value": 58000,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Total interest",
+      "text": "$86,573",
+      "value": 86572.72045492497,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "percent",
+      },
+      "label": "Growth on what you put in",
+      "text": "149.3%",
+      "value": 149.26331112918098,
+    },
+    {
+      "format": {
+        "decimals": 3,
+        "style": "percent",
+      },
+      "label": "Effective annual rate",
+      "text": "7.229%",
+      "value": 7.229008085623589,
+    },
+    {
+      "format": {
+        "from": "months",
+        "style": "duration",
+      },
+      "label": "Time horizon",
+      "text": "20 years",
+      "value": 240,
+    },
+  ],
+}
+`;
+
+exports[`registry > cooking-converter-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "decimals": 1,
+      "style": "decimal",
+      "unit": "ml",
+    },
+    "label": "Millilitres",
+    "text": "236.6 ml",
+    "value": 236.588,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 3,
+        "style": "decimal",
+        "unit": "tsp",
+      },
+      "label": "Teaspoons",
+      "text": "48.000 tsp",
+      "value": 47.99996753852771,
+    },
+    {
+      "format": {
+        "decimals": 3,
+        "style": "decimal",
+        "unit": "tbsp",
+      },
+      "label": "Tablespoons",
+      "text": "16.000 tbsp",
+      "value": 15.999945897692537,
+    },
+    {
+      "format": {
+        "decimals": 3,
+        "style": "decimal",
+        "unit": "fl oz",
+      },
+      "label": "Fluid ounces",
+      "text": "8.000 fl oz",
+      "value": 8,
+    },
+    {
+      "format": {
+        "decimals": 3,
+        "style": "decimal",
+        "unit": "cups",
+      },
+      "label": "Cups",
+      "text": "1.000 cups",
+      "value": 1,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+        "unit": "pt",
+      },
+      "label": "Pints",
+      "text": "0.5000 pt",
+      "value": 0.5,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+        "unit": "qt",
+      },
+      "label": "Quarts",
+      "text": "0.2500 qt",
+      "value": 0.24999973582796273,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+        "unit": "l",
+      },
+      "label": "Litres",
+      "text": "0.2366 l",
+      "value": 0.236588,
+    },
+  ],
+}
+`;
+
+exports[`registry > credit-card-payoff-calculator > default output is stable 1`] = `
+{
+  "band": "neutral",
+  "primary": {
+    "format": {
+      "from": "months",
+      "style": "duration",
+    },
+    "label": "Time to pay off",
+    "text": "2 years 2 months",
+    "value": 26,
+  },
+  "stats": [
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Total interest",
+      "text": "$1,358.22",
+      "value": 1358.2226108473724,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Total paid",
+      "text": "$6,358.22",
+      "value": 6358.222610847372,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+      },
+      "label": "Number of payments",
+      "text": "26",
+      "value": 26,
+    },
+    {
+      "format": {
+        "style": "percent",
+      },
+      "label": "Interest as a share of the balance",
+      "text": "27.2%",
+      "value": 27.16445221694745,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Final payment",
+      "text": "$108.22",
+      "value": 108.22261084737372,
+    },
+  ],
+}
+`;
+
+exports[`registry > discount-calculator > default output is stable 1`] = `
+{
+  "band": "excellent",
+  "primary": {
+    "format": {
+      "style": "currency",
+    },
+    "label": "Final price",
+    "text": "$81.19",
+    "value": 81.1875,
+  },
+  "stats": [
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "You save",
+      "text": "$25.00",
+      "value": 25,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Price before tax",
+      "text": "$75.00",
+      "value": 75,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Sales tax",
+      "text": "$6.19",
+      "value": 6.1875,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Total saved vs full price",
+      "text": "$27.06",
+      "value": 27.0625,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "percent",
+      },
+      "label": "Share of ticket price paid",
+      "text": "75.0%",
+      "value": 75,
+    },
+  ],
+}
+`;
+
+exports[`registry > electricity-cost-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "style": "currency",
+    },
+    "label": "Cost per month",
+    "text": "$20.40",
+    "value": 20.400000000000002,
+  },
+  "stats": [
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Cost per day",
+      "text": "$0.68",
+      "value": 0.68,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Cost per year",
+      "text": "$245",
+      "value": 244.8,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "decimal",
+        "unit": "kWh",
+      },
+      "label": "kWh per month",
+      "text": "120.0 kWh",
+      "value": 120,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+        "unit": "kWh",
+      },
+      "label": "kWh per year",
+      "text": "1,440 kWh",
+      "value": 1440,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Cost per running hour",
+      "text": "$0.17",
+      "value": 0.17,
+    },
+  ],
+}
+`;
+
+exports[`registry > fraction-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "style": "raw",
+    },
+    "label": "Simplified fraction",
+    "text": "5/6",
+    "value": "5/6",
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 6,
+        "style": "decimal",
+      },
+      "label": "Decimal value",
+      "text": "0.833333",
+      "value": 0.8333333333333334,
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Mixed number",
+      "text": "5/6",
+      "value": "5/6",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Before simplifying",
+      "text": "50/60",
+      "value": "50/60",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Divided top and bottom by",
+      "text": "10",
+      "value": 10,
+    },
+  ],
+}
+`;
+
+exports[`registry > fuel-cost-calculator > default output is stable 1`] = `
+{
+  "band": "neutral",
+  "primary": {
+    "format": {
+      "style": "currency",
+    },
+    "label": "Trip fuel cost",
+    "text": "$14.40",
+    "value": 14.4,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 2,
+        "style": "decimal",
+        "unit": "L",
+      },
+      "label": "Fuel used",
+      "text": "8.00 L",
+      "value": 8,
+    },
+    {
+      "format": {
+        "decimals": 3,
+        "style": "currency",
+      },
+      "label": "Cost per km",
+      "text": "$0.144",
+      "value": 0.14400000000000002,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Round-trip cost",
+      "text": "$28.80",
+      "value": 28.8,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "decimal",
+        "unit": "L/100km",
+      },
+      "label": "Consumption",
+      "text": "8.00 L/100km",
+      "value": 8,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "decimal",
+        "unit": "km/L",
+      },
+      "label": "Metric economy",
+      "text": "12.50 km/L",
+      "value": 12.5,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "decimal",
+        "unit": "mpg",
+      },
+      "label": "US economy",
+      "text": "29.4 mpg",
+      "value": 29.40182291666666,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "decimal",
+        "unit": "mpg",
+      },
+      "label": "Imperial economy",
+      "text": "35.3 mpg",
+      "value": 35.310117041477774,
+    },
+  ],
+}
+`;
+
+exports[`registry > gcd-lcm-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "decimals": 0,
+      "style": "decimal",
+    },
+    "label": "Greatest common divisor",
+    "text": "12",
+    "value": 12,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+      },
+      "label": "Least common multiple",
+      "text": "720",
+      "value": 720,
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Coprime?",
+      "text": "No",
+      "value": "No",
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+      },
+      "label": "Common divisors",
+      "text": "6",
+      "value": 6,
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Factors of the first number",
+      "text": "2^4 × 3",
+      "value": "2^4 × 3",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Factors of the second number",
+      "text": "2^2 × 3^2 × 5",
+      "value": "2^2 × 3^2 × 5",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "GCD in prime form",
+      "text": "2^2 × 3",
+      "value": "2^2 × 3",
+    },
+  ],
+}
+`;
+
+exports[`registry > heart-rate-zone-calculator > default output is stable 1`] = `
+{
+  "band": "good",
+  "primary": {
+    "format": {
+      "decimals": 0,
+      "style": "decimal",
+      "unit": "bpm",
+    },
+    "label": "Estimated maximum heart rate",
+    "text": "190 bpm",
+    "value": 190,
+  },
+  "stats": [
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Zone 1 — Recovery (50–60%)",
+      "text": "125–138 bpm",
+      "value": "125–138 bpm",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Zone 2 — Endurance (60–70%)",
+      "text": "138–151 bpm",
+      "value": "138–151 bpm",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Zone 3 — Tempo (70–80%)",
+      "text": "151–164 bpm",
+      "value": "151–164 bpm",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Zone 4 — Threshold (80–90%)",
+      "text": "164–177 bpm",
+      "value": "164–177 bpm",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Zone 5 — VO2 max (90–100%)",
+      "text": "177–190 bpm",
+      "value": "177–190 bpm",
+    },
+  ],
+}
+`;
+
+exports[`registry > house-affordability-calculator > default output is stable 1`] = `
+{
+  "band": "excellent",
+  "primary": {
+    "format": {
+      "decimals": 0,
+      "style": "currency",
+    },
+    "label": "Maximum home price",
+    "text": "$392,243",
+    "value": 392242.72102785343,
+  },
+  "stats": [
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Max monthly housing payment",
+      "text": "$2,100.00",
+      "value": 2100,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Maximum loan amount",
+      "text": "$332,243",
+      "value": 332242.72102785343,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Down payment",
+      "text": "$60,000",
+      "value": 60000,
+    },
+    {
+      "format": {
+        "style": "percent",
+      },
+      "label": "Down payment share",
+      "text": "15.3%",
+      "value": 15.296650972329799,
+    },
+    {
+      "format": {
+        "style": "percent",
+      },
+      "label": "Existing debt-to-income",
+      "text": "6.7%",
+      "value": 6.666666666666667,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "decimal",
+        "unit": "×",
+      },
+      "label": "Price as a multiple of income",
+      "text": "4.36 ×",
+      "value": 4.358252455865038,
+    },
+  ],
+}
+`;
+
+exports[`registry > ideal-weight-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "decimals": 1,
+      "style": "decimal",
+      "unit": "kg",
+    },
+    "label": "Ideal body weight",
+    "text": "70.0 kg",
+    "value": 70.03484251968503,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 1,
+        "style": "decimal",
+        "unit": "kg",
+      },
+      "label": "Devine",
+      "text": "70.5 kg",
+      "value": 70.46456692913384,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "decimal",
+        "unit": "kg",
+      },
+      "label": "Robinson",
+      "text": "68.9 kg",
+      "value": 68.90551181102362,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "decimal",
+        "unit": "kg",
+      },
+      "label": "Miller",
+      "text": "68.7 kg",
+      "value": 68.74566929133857,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "decimal",
+        "unit": "kg",
+      },
+      "label": "Hamwi",
+      "text": "72.0 kg",
+      "value": 72.02362204724409,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "decimal",
+        "unit": "kg",
+      },
+      "label": "Healthy BMI range (low)",
+      "text": "56.7 kg",
+      "value": 56.65625,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "decimal",
+        "unit": "kg",
+      },
+      "label": "Healthy BMI range (high)",
+      "text": "76.3 kg",
+      "value": 76.25625,
+    },
+  ],
+}
+`;
+
+exports[`registry > inflation-calculator > default output is stable 1`] = `
+{
+  "band": "warn",
+  "primary": {
+    "format": {
+      "decimals": 2,
+      "style": "currency",
+    },
+    "label": "Future cost",
+    "text": "$18,061.11",
+    "value": 18061.11234669415,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 1,
+        "style": "percent",
+      },
+      "label": "Purchasing power lost",
+      "text": "44.6%",
+      "value": 44.63242458136655,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "currency",
+      },
+      "label": "Equivalent value today",
+      "text": "$5,536.76",
+      "value": 5536.757541863345,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "currency",
+      },
+      "label": "Purchasing power lost in dollars",
+      "text": "$4,463.24",
+      "value": 4463.242458136655,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "percent",
+      },
+      "label": "Cumulative inflation",
+      "text": "80.6%",
+      "value": 80.61112346694148,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "currency",
+      },
+      "label": "Extra cost versus today",
+      "text": "$8,061.11",
+      "value": 8061.11234669415,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "currency",
+      },
+      "label": "Average extra cost per year",
+      "text": "$403.06",
+      "value": 403.0556173347075,
+    },
+  ],
+}
+`;
+
+exports[`registry > loan-calculator > default output is stable 1`] = `
+{
+  "band": "good",
+  "primary": {
+    "format": {
+      "style": "currency",
+    },
+    "label": "Monthly payment",
+    "text": "$512.91",
+    "value": 512.9132831762815,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Total interest",
+      "text": "$5,775",
+      "value": 5774.796990576891,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Total repaid",
+      "text": "$30,775",
+      "value": 30774.79699057689,
+    },
+    {
+      "format": {
+        "from": "months",
+        "style": "duration",
+      },
+      "label": "Payoff time",
+      "text": "5 years",
+      "value": 60,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Interest saved",
+      "text": "$0",
+      "value": 0,
+    },
+    {
+      "format": {
+        "from": "months",
+        "style": "duration",
+      },
+      "label": "Time saved",
+      "text": "0 months",
+      "value": 0,
+    },
+  ],
+}
+`;
+
+exports[`registry > macro-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "decimals": 0,
+      "style": "decimal",
+      "unit": "g",
+    },
+    "label": "Daily protein",
+    "text": "150 g",
+    "value": 150,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+        "unit": "g",
+      },
+      "label": "Carbohydrate",
+      "text": "200 g",
+      "value": 200,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+        "unit": "g",
+      },
+      "label": "Fat",
+      "text": "67 g",
+      "value": 66.66666666666667,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+        "unit": "kcal",
+      },
+      "label": "Protein calories",
+      "text": "600 kcal",
+      "value": 600,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+        "unit": "kcal",
+      },
+      "label": "Carbohydrate calories",
+      "text": "800 kcal",
+      "value": 800,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+        "unit": "kcal",
+      },
+      "label": "Fat calories",
+      "text": "600 kcal",
+      "value": 600,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+        "unit": "g",
+      },
+      "label": "Protein per meal (3 meals)",
+      "text": "50 g",
+      "value": 50,
+    },
+  ],
+}
+`;
+
+exports[`registry > mortgage-calculator > default output is stable 1`] = `
+{
+  "band": "good",
+  "primary": {
+    "format": {
+      "style": "currency",
+    },
+    "label": "Monthly principal & interest",
+    "text": "$2,022.62",
+    "value": 2022.6176751774892,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Total monthly (PITI)",
+      "text": "$2,573",
+      "value": 2572.617675177489,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Loan amount",
+      "text": "$320,000",
+      "value": 320000,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Total interest",
+      "text": "$408,142",
+      "value": 408142.3630638961,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Total repaid",
+      "text": "$728,142",
+      "value": 728142.3630638961,
+    },
+    {
+      "format": {
+        "style": "percent",
+      },
+      "label": "Down payment",
+      "text": "20.0%",
+      "value": 20,
+    },
+    {
+      "format": {
+        "style": "percent",
+      },
+      "label": "Loan-to-value",
+      "text": "80.0%",
+      "value": 80,
+    },
+  ],
+}
+`;
+
+exports[`registry > net-worth-calculator > default output is stable 1`] = `
+{
+  "band": "neutral",
+  "primary": {
+    "format": {
+      "decimals": 0,
+      "style": "currency",
+    },
+    "label": "Net worth",
+    "text": "$240,000",
+    "value": 240000,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Total assets",
+      "text": "$440,000",
+      "value": 440000,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Total liabilities",
+      "text": "$200,000",
+      "value": 200000,
+    },
+    {
+      "format": {
+        "style": "percent",
+      },
+      "label": "Debt-to-asset ratio",
+      "text": "45.5%",
+      "value": 45.45454545454545,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Liquid assets",
+      "text": "$100,000",
+      "value": 100000,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Home equity",
+      "text": "$140,000",
+      "value": 140000,
+    },
+  ],
+}
+`;
+
+exports[`registry > one-rep-max-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "decimals": 1,
+      "style": "decimal",
+      "unit": "kg",
+    },
+    "label": "Estimated one-rep max",
+    "text": "114.6 kg",
+    "value": 114.58333333333334,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 1,
+        "style": "decimal",
+        "unit": "kg",
+      },
+      "label": "95% of 1RM",
+      "text": "108.9 kg",
+      "value": 108.85416666666669,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "decimal",
+        "unit": "kg",
+      },
+      "label": "90% of 1RM",
+      "text": "103.1 kg",
+      "value": 103.125,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "decimal",
+        "unit": "kg",
+      },
+      "label": "85% of 1RM",
+      "text": "97.4 kg",
+      "value": 97.39583333333334,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "decimal",
+        "unit": "kg",
+      },
+      "label": "80% of 1RM",
+      "text": "91.7 kg",
+      "value": 91.66666666666669,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "decimal",
+        "unit": "kg",
+      },
+      "label": "70% of 1RM",
+      "text": "80.2 kg",
+      "value": 80.20833333333334,
+    },
+  ],
+}
+`;
+
+exports[`registry > percentage-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "decimals": 4,
+      "style": "decimal",
+    },
+    "label": "A% of B",
+    "text": "50.0000",
+    "value": 50,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+      },
+      "label": "Remainder (B − result)",
+      "text": "150.0000",
+      "value": 150,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+      },
+      "label": "B increased by A%",
+      "text": "250.0000",
+      "value": 250,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+      },
+      "label": "B decreased by A%",
+      "text": "150.0000",
+      "value": 150,
+    },
+  ],
+}
+`;
+
+exports[`registry > percentage-change-calculator > default output is stable 1`] = `
+{
+  "band": "excellent",
+  "primary": {
+    "format": {
+      "decimals": 2,
+      "style": "percent",
+    },
+    "label": "Percentage change",
+    "text": "50.00%",
+    "value": 50,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+      },
+      "label": "Absolute difference",
+      "text": "25.0000",
+      "value": 25,
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Direction",
+      "text": "Increase",
+      "value": "Increase",
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+      },
+      "label": "Multiplier",
+      "text": "1.5000",
+      "value": 1.5,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "percent",
+      },
+      "label": "New as a share of original",
+      "text": "150.00%",
+      "value": 150,
+    },
+  ],
+}
+`;
+
+exports[`registry > quadratic-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "style": "raw",
+    },
+    "label": "Roots",
+    "text": "x = 4 or x = -1",
+    "value": "x = 4 or x = -1",
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+      },
+      "label": "Discriminant (b² − 4ac)",
+      "text": "25.0000",
+      "value": 25,
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Nature of the roots",
+      "text": "Two distinct real roots",
+      "value": "Two distinct real roots",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "First root",
+      "text": "x = 4",
+      "value": "x = 4",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Second root",
+      "text": "x = -1",
+      "value": "x = -1",
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+      },
+      "label": "Real roots",
+      "text": "2",
+      "value": 2,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+      },
+      "label": "Vertex x",
+      "text": "1.5000",
+      "value": 1.5,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+      },
+      "label": "Vertex y",
+      "text": "-6.2500",
+      "value": -6.25,
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Axis of symmetry",
+      "text": "x = 1.5",
+      "value": "x = 1.5",
+    },
+  ],
+}
+`;
+
+exports[`registry > ratio-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "decimals": 4,
+      "style": "decimal",
+    },
+    "label": "Missing term X",
+    "text": "12.0000",
+    "value": 12,
+  },
+  "stats": [
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Simplified ratio",
+      "text": "3:4",
+      "value": "3:4",
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+      },
+      "label": "Decimal ratio (A ÷ B)",
+      "text": "0.7500",
+      "value": 0.75,
+    },
+    {
+      "format": {
+        "style": "percent",
+      },
+      "label": "Share of A",
+      "text": "42.9%",
+      "value": 42.857142857142854,
+    },
+    {
+      "format": {
+        "style": "percent",
+      },
+      "label": "Share of B",
+      "text": "57.1%",
+      "value": 57.14285714285714,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+      },
+      "label": "Scale factor (C ÷ A)",
+      "text": "3.0000",
+      "value": 3,
+    },
+  ],
+}
+`;
+
+exports[`registry > retirement-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "decimals": 0,
+      "style": "currency",
+    },
+    "label": "Projected savings at retirement",
+    "text": "$691,307",
+    "value": 691306.7569766295,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Annual retirement income",
+      "text": "$27,652",
+      "value": 27652.270279065182,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Monthly retirement income",
+      "text": "$2,304",
+      "value": 2304.355856588765,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+      },
+      "label": "Years until retirement",
+      "text": "25",
+      "value": 25,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Total contributed",
+      "text": "$150,000",
+      "value": 150000,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Investment growth",
+      "text": "$491,307",
+      "value": 491306.7569766295,
+    },
+    {
+      "format": {
+        "style": "percent",
+      },
+      "label": "Growth as a share of the total",
+      "text": "71.1%",
+      "value": 71.0692832115973,
+    },
+  ],
+}
+`;
+
+exports[`registry > right-triangle-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "decimals": 6,
+      "style": "decimal",
+      "unit": "units",
+    },
+    "label": "Hypotenuse c",
+    "text": "5.000000 units",
+    "value": 5,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 6,
+        "style": "decimal",
+      },
+      "label": "Area",
+      "text": "6.000000",
+      "value": 6,
+    },
+    {
+      "format": {
+        "decimals": 6,
+        "style": "decimal",
+        "unit": "units",
+      },
+      "label": "Perimeter",
+      "text": "12.000000 units",
+      "value": 12,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+        "unit": "°",
+      },
+      "label": "Angle A (opposite leg a)",
+      "text": "36.8699 °",
+      "value": 36.86989764584402,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+        "unit": "°",
+      },
+      "label": "Angle B (opposite leg b)",
+      "text": "53.1301 °",
+      "value": 53.13010235415598,
+    },
+    {
+      "format": {
+        "decimals": 6,
+        "style": "decimal",
+        "unit": "units",
+      },
+      "label": "Altitude to the hypotenuse",
+      "text": "2.400000 units",
+      "value": 2.4,
+    },
+    {
+      "format": {
+        "decimals": 6,
+        "style": "decimal",
+        "unit": "units",
+      },
+      "label": "Inradius",
+      "text": "1.000000 units",
+      "value": 1,
+    },
+  ],
+}
+`;
+
+exports[`registry > roi-calculator > default output is stable 1`] = `
+{
+  "band": "good",
+  "primary": {
+    "format": {
+      "style": "percent",
+    },
+    "label": "Return on investment",
+    "text": "48.0%",
+    "value": 48,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Net profit",
+      "text": "$4,800",
+      "value": 4800,
+    },
+    {
+      "format": {
+        "style": "percent",
+      },
+      "label": "Annualized return",
+      "text": "8.2%",
+      "value": 8.156429832376855,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "decimal",
+        "unit": "×",
+      },
+      "label": "Growth multiple",
+      "text": "1.48 ×",
+      "value": 1.48,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Profit per year",
+      "text": "$960",
+      "value": 960,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Break-even final value",
+      "text": "$10,200",
+      "value": 10200,
+    },
+    {
+      "format": {
+        "from": "months",
+        "style": "duration",
+      },
+      "label": "Holding period",
+      "text": "5 years",
+      "value": 60,
+    },
+  ],
+}
+`;
+
+exports[`registry > running-pace-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "from": "seconds",
+      "style": "duration",
+    },
+    "label": "Pace per kilometre",
+    "text": "5:00",
+    "value": 300,
+  },
+  "stats": [
+    {
+      "format": {
+        "from": "seconds",
+        "style": "duration",
+      },
+      "label": "Pace per mile",
+      "text": "8:03",
+      "value": 482.80320000000006,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "decimal",
+        "unit": "km/h",
+      },
+      "label": "Speed",
+      "text": "12.00 km/h",
+      "value": 12,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "decimal",
+        "unit": "mph",
+      },
+      "label": "Speed",
+      "text": "7.46 mph",
+      "value": 7.456454306848007,
+    },
+    {
+      "format": {
+        "from": "seconds",
+        "style": "duration",
+      },
+      "label": "5K finish",
+      "text": "25:00",
+      "value": 1500,
+    },
+    {
+      "format": {
+        "from": "seconds",
+        "style": "duration",
+      },
+      "label": "10K finish",
+      "text": "50:00",
+      "value": 3000,
+    },
+    {
+      "format": {
+        "from": "seconds",
+        "style": "duration",
+      },
+      "label": "Half marathon finish",
+      "text": "1:45:29",
+      "value": 6329.25,
+    },
+    {
+      "format": {
+        "from": "seconds",
+        "style": "duration",
+      },
+      "label": "Marathon finish",
+      "text": "3:30:59",
+      "value": 12658.5,
+    },
+  ],
+}
+`;
+
+exports[`registry > salary-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "decimals": 0,
+      "style": "currency",
+    },
+    "label": "Annual salary",
+    "text": "$52,000",
+    "value": 52000,
+  },
+  "stats": [
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Hourly",
+      "text": "$25.00",
+      "value": 25,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Daily",
+      "text": "$200.00",
+      "value": 200,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Weekly",
+      "text": "$1,000.00",
+      "value": 1000,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Biweekly",
+      "text": "$2,000.00",
+      "value": 2000,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Semi-monthly",
+      "text": "$2,166.67",
+      "value": 2166.6666666666665,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Monthly",
+      "text": "$4,333.33",
+      "value": 4333.333333333333,
+    },
+  ],
+}
+`;
+
+exports[`registry > sales-tax-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "style": "currency",
+    },
+    "label": "Sales tax",
+    "text": "$8.25",
+    "value": 8.25,
+  },
+  "stats": [
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Pre-tax amount",
+      "text": "$100.00",
+      "value": 100,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Total with tax",
+      "text": "$108.25",
+      "value": 108.25,
+    },
+    {
+      "format": {
+        "decimals": 3,
+        "style": "percent",
+      },
+      "label": "Tax rate applied",
+      "text": "8.250%",
+      "value": 8.25,
+    },
+    {
+      "format": {
+        "style": "percent",
+      },
+      "label": "Tax as a share of the total",
+      "text": "7.6%",
+      "value": 7.621247113163972,
+    },
+  ],
+}
+`;
+
+exports[`registry > savings-goal-calculator > default output is stable 1`] = `
+{
+  "band": "neutral",
+  "primary": {
+    "format": {
+      "from": "months",
+      "style": "duration",
+    },
+    "label": "Time to reach your goal",
+    "text": "4 years 10 months",
+    "value": 58,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Balance when you get there",
+      "text": "$25,225",
+      "value": 25225.227957805066,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Total deposited",
+      "text": "$17,400",
+      "value": 17400,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Interest earned",
+      "text": "$2,825",
+      "value": 2825.2279578050657,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Out of pocket",
+      "text": "$22,400",
+      "value": 22400,
+    },
+    {
+      "format": {
+        "style": "percent",
+      },
+      "label": "Growth as a share of the final balance",
+      "text": "11.2%",
+      "value": 11.200009619460733,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+      },
+      "label": "Months of deposits",
+      "text": "58",
+      "value": 58,
+    },
+  ],
+}
+`;
+
+exports[`registry > tdee-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "decimals": 0,
+      "style": "decimal",
+      "unit": "kcal/day",
+    },
+    "label": "Maintenance calories",
+    "text": "2,556 kcal/day",
+    "value": 2555.5625,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+        "unit": "kcal/day",
+      },
+      "label": "BMR (at complete rest)",
+      "text": "1,649 kcal/day",
+      "value": 1648.75,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+        "unit": "kcal/day",
+      },
+      "label": "Mild weight loss (-500)",
+      "text": "2,056 kcal/day",
+      "value": 2055.5625,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+        "unit": "kcal/day",
+      },
+      "label": "Mild weight gain (+500)",
+      "text": "3,056 kcal/day",
+      "value": 3055.5625,
+    },
+    {
+      "format": {
+        "decimals": 3,
+        "style": "decimal",
+      },
+      "label": "Activity multiplier",
+      "text": "1.550",
+      "value": 1.55,
+    },
+  ],
+}
+`;
+
+exports[`registry > tip-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "style": "currency",
+    },
+    "label": "Each person pays",
+    "text": "$50.15",
+    "value": 50.15,
+  },
+  "stats": [
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Tip amount",
+      "text": "$15.30",
+      "value": 15.299999999999997,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Total with tip",
+      "text": "$100.30",
+      "value": 100.3,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Tip per person",
+      "text": "$7.65",
+      "value": 7.649999999999999,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Bill per person",
+      "text": "$42.50",
+      "value": 42.5,
+    },
+    {
+      "format": {
+        "style": "percent",
+      },
+      "label": "Effective tip rate",
+      "text": "18.0%",
+      "value": 17.999999999999996,
+    },
+  ],
+}
+`;
+
+exports[`registry > unit-converter-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "decimals": 4,
+      "style": "decimal",
+      "unit": "mi",
+    },
+    "label": "Result in mi",
+    "text": "62.1371 mi",
+    "value": 62.13711922373339,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 6,
+        "style": "decimal",
+        "unit": "mi",
+      },
+      "label": "1 km in mi",
+      "text": "0.621371 mi",
+      "value": 0.621371192237334,
+    },
+    {
+      "format": {
+        "decimals": 6,
+        "style": "decimal",
+        "unit": "km",
+      },
+      "label": "1 mi in km",
+      "text": "1.609344 km",
+      "value": 1.609344,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+        "unit": "m",
+      },
+      "label": "Value in m",
+      "text": "100,000.0000 m",
+      "value": 100000,
+    },
+  ],
+}
+`;
+
+exports[`registry > water-intake-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "decimals": 2,
+      "style": "decimal",
+      "unit": "L",
+    },
+    "label": "Daily water target",
+    "text": "2.95 L",
+    "value": 2.95,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+        "unit": "ml",
+      },
+      "label": "Millilitres",
+      "text": "2,950 ml",
+      "value": 2950,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "decimal",
+        "unit": "cups",
+      },
+      "label": "Cups (240 ml)",
+      "text": "12.3 cups",
+      "value": 12.291666666666666,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "decimal",
+        "unit": "glasses",
+      },
+      "label": "Glasses (250 ml)",
+      "text": "11.8 glasses",
+      "value": 11.8,
+    },
+  ],
+}
+`;

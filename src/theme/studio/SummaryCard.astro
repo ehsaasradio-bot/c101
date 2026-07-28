@@ -1,0 +1,135 @@
+---
+import type { ResultCardProps } from '../contract'
+import Meter from './Meter.astro'
+import Donut from './Donut.astro'
+
+type Props = ResultCardProps
+const { result, resultLabel, scale } = Astro.props
+
+const isRule = (step: (typeof result.steps)[number]): step is { rule: true } => 'rule' in step
+---
+
+<section class="rounded-card border border-border-subtle bg-surface p-6" aria-label="Result">
+  <div class="flex items-center justify-between gap-4">
+    <h2 class="text-sm font-semibold text-ink">Summary</h2>
+    {
+      result.bandLabel && (
+        <span
+          data-calc-out="band-label"
+          class="rounded-full px-2.5 py-1 text-xs font-medium"
+          style="background: color-mix(in oklch, var(--band) 15%, transparent); color: var(--band)"
+        >
+          {result.bandLabel}
+        </span>
+      )
+    }
+  </div>
+
+  <div data-calc-result class="mt-4">
+    <p data-calc-out="primary-label" class="text-sm text-ink-muted">{resultLabel}</p>
+    <p
+      data-calc-out="primary"
+      data-animate="count"
+      class="mt-1 text-4xl font-semibold tracking-tight tabular-nums text-ink"
+    >
+      {result.primary.text}
+    </p>
+
+    {scale && <Meter scale={scale} percent={result.scalePercent} band={result.band} bandLabel={result.bandLabel} />}
+
+    {
+      result.parts.length > 0 && (
+        <div class="mt-6 border-t border-border-subtle pt-6">
+          <Donut
+            parts={result.parts}
+            centerValue={result.partsTotal.text}
+            centerLabel={result.partsTotal.label}
+          />
+        </div>
+      )
+    }
+
+    <dl data-calc-list="stats" class="mt-6 grid gap-2 sm:grid-cols-2">
+      {
+        result.stats.map((stat) => (
+          <div class="rounded-control border border-border-subtle bg-surface-sunken px-3 py-2.5">
+            <dt data-slot="label" class="text-xs text-ink-muted">
+              {stat.label}
+            </dt>
+            <dd data-slot="value" class="mt-0.5 text-sm font-semibold tabular-nums text-ink">
+              {stat.text}
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+
+    <ul data-calc-list="notes" class="mt-4 space-y-1.5">
+      {
+        result.notes.map((note) => (
+          <li data-slot="value" class="text-xs leading-relaxed text-ink-muted">
+            {note}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <p
+    data-calc-error
+    hidden
+    role="alert"
+    class="mt-4 rounded-control border px-3 py-2 text-sm"
+    style="color: var(--c-band-critical); border-color: var(--c-band-critical); background: color-mix(in oklch, var(--c-band-critical) 8%, transparent)"
+  >
+  </p>
+
+  {
+    result.steps.length > 0 && (
+      <details class="mt-4 rounded-control border border-border-subtle">
+        <summary class="cursor-pointer px-4 py-3 text-sm font-medium text-ink">
+          How this is calculated
+        </summary>
+        <dl data-calc-list="steps" class="px-4 pb-4 text-sm">
+          {result.steps.map((step) =>
+            isRule(step) ? (
+              <hr class="my-2 border-border-subtle" />
+            ) : (
+              <div class="flex justify-between gap-4 py-1">
+                <dt data-slot="label" class="text-ink-muted">
+                  {step.label}
+                </dt>
+                <dd data-slot="value" class="tabular-nums text-ink">
+                  {step.text}
+                </dd>
+              </div>
+            ),
+          )}
+        </dl>
+      </details>
+    )
+  }
+</section>
+
+{/* Cloned by the island — restyle a row here and the island needs no change. */}
+<template data-calc-row="stat">
+  <div class="rounded-control border border-border-subtle bg-surface-sunken px-3 py-2.5">
+    <dt data-slot="label" class="text-xs text-ink-muted"></dt>
+    <dd data-slot="value" class="mt-0.5 text-sm font-semibold tabular-nums text-ink"></dd>
+  </div>
+</template>
+
+<template data-calc-row="step">
+  <div class="flex justify-between gap-4 py-1">
+    <dt data-slot="label" class="text-ink-muted"></dt>
+    <dd data-slot="value" class="tabular-nums text-ink"></dd>
+  </div>
+</template>
+
+<template data-calc-row="rule">
+  <hr class="my-2 border-border-subtle" />
+</template>
+
+<template data-calc-row="note">
+  <li data-slot="value" class="text-xs leading-relaxed text-ink-muted"></li>
+</template>

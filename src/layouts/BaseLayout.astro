@@ -1,0 +1,33 @@
+---
+import '../styles/global.css'
+import { Shell } from '../theme'
+
+interface Props {
+  title: string
+  description: string
+  breadcrumbs?: ReadonlyArray<{ name: string; href: string }>
+}
+
+const { title, description, breadcrumbs } = Astro.props
+---
+
+{/*
+  This file owns <html> and <head>, deliberately outside src/theme/. SEO is
+  rendered into the `head` slot by each page, so swapping the theme cannot
+  silently drop canonicals or structured data — which is exactly what would
+  happen if <head> lived in a presentation component.
+*/}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <slot name="head" />
+  </head>
+  <body>
+    <Shell title={title} description={description} breadcrumbs={breadcrumbs}>
+      <slot />
+    </Shell>
+  </body>
+</html>

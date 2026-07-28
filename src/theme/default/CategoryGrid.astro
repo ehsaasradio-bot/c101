@@ -1,0 +1,25 @@
+---
+import type { CategoryGridProps } from '../contract'
+
+type Props = CategoryGridProps
+const { categories } = Astro.props
+---
+
+<ul class="grid gap-3 sm:grid-cols-2">
+  {
+    categories.map((category) => (
+      <li>
+        <a
+          href={`${category.href}/`}
+          class="block h-full rounded-card border border-border-subtle bg-surface p-5 hover:border-accent"
+        >
+          <span class="flex items-baseline justify-between gap-3">
+            <span class="text-base font-semibold text-ink">{category.name}</span>
+            <span class="text-xs text-ink-muted">{category.count}</span>
+          </span>
+          <span class="mt-2 block text-sm leading-relaxed text-ink-muted">{category.intro}</span>
+        </a>
+      </li>
+    ))
+  }
+</ul>
