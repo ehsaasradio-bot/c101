@@ -23,7 +23,13 @@ const arcs = parts.map((part, i) => {
 })
 ---
 
-<div class="flex items-center gap-5" data-studio-donut>
+{/* The block owns its own separator and spacing so it can hide itself whole
+    when a calculator stops returning components. It is deliberately NOT the
+    flex row: Tailwind's `.flex` and preflight's `[hidden]` rule have equal
+    specificity, and the utility is emitted later, so `hidden` on a flex element
+    silently does nothing. */}
+<div data-studio-donut class="mt-6 border-t border-border-subtle pt-6">
+  <div class="flex items-center gap-5">
   <div class="relative size-36 shrink-0">
     {/* The centre label sits in normal flow rather than in the SVG, so the
         -90° rotation that makes arcs start at 12 o'clock cannot tip the text. */}
@@ -32,7 +38,9 @@ const arcs = parts.map((part, i) => {
         text simply overflows the donut and gets clipped by the arcs. */}
     <div class="absolute inset-0 grid place-content-center">
       <div class="w-[5.5rem] text-center">
-        <p class="text-[10px] leading-tight text-balance text-ink-muted">{centerLabel}</p>
+        <p data-donut-center-label class="text-[10px] leading-tight text-balance text-ink-muted">
+          {centerLabel}
+        </p>
         <p
           data-donut-center
           class="mt-0.5 text-sm font-semibold leading-tight tabular-nums text-ink"
@@ -44,42 +52,81 @@ const arcs = parts.map((part, i) => {
     <svg viewBox="0 0 140 140" class="size-36 -rotate-90" role="img" aria-label={centerLabel}>
     <circle cx="70" cy="70" r={R} fill="none" stroke="var(--c-surface-sunken)" stroke-width="16"
     ></circle>
-    {
-      arcs.map((arc) => (
-        <circle
-          data-cat={arc.i % 5}
-          data-donut-arc={arc.i}
-          cx="70"
-          cy="70"
-          r={R}
-          fill="none"
-          stroke="var(--cat)"
-          stroke-width="16"
-          stroke-dasharray={`${arc.dash.toFixed(2)} ${(C - arc.dash).toFixed(2)}`}
-          stroke-dashoffset={(-arc.offset).toFixed(2)}
-          style="transition: stroke-dasharray var(--motion-med) var(--ease), stroke-dashoffset var(--motion-med) var(--ease)"
-        >
-          <title>{arc.label}</title>
-        </circle>
-      ))
-    }
+    {/* Arcs live in their own <g> so studio.ts can reconcile the whole set
+        against a part count that changed, without disturbing the track behind
+        them. A mortgage drops "Property tax" when you zero it and gains "PMI"
+        when the deposit falls below 20% — the count is not a build-time fact. */}
+    <g data-donut-arcs>
+      {
+        arcs.map((arc) => (
+          <circle
+            data-cat={arc.i % 5}
+            cx="70"
+            cy="70"
+            r={R}
+            fill="none"
+            stroke="var(--cat)"
+            stroke-width="16"
+            stroke-dasharray={`${arc.dash.toFixed(2)} ${(C - arc.dash).toFixed(2)}`}
+            stroke-dashoffset={(-arc.offset).toFixed(2)}
+            style="transition: stroke-dasharray var(--motion-med) var(--ease), stroke-dashoffset var(--motion-med) var(--ease)"
+          >
+            <title data-slot="label">{arc.label}</title>
+          </circle>
+        ))
+      }
+    </g>
     </svg>
   </div>
 
-  <ul class="min-w-0 flex-1 space-y-2">
+  <ul data-donut-legend class="min-w-0 flex-1 space-y-2">
     {
       parts.map((part, i) => (
         <li data-cat={i % 5} class="flex items-baseline gap-2 text-sm">
           <span class="size-2.5 shrink-0 rounded-full" style="background: var(--cat)" />
-          <span class="min-w-0 flex-1 truncate text-ink-muted">{part.label}</span>
-          <span data-donut-value={i} class="font-medium tabular-nums text-ink">
+          <span data-slot="label" class="min-w-0 flex-1 truncate text-ink-muted">
+            {part.label}
+          </span>
+          <span data-slot="value" class="font-medium tabular-nums text-ink">
             {part.text}
           </span>
-          <span data-donut-percent={i} class="w-11 text-right text-xs tabular-nums text-ink-muted">
+          <span data-slot="percent" class="w-11 text-right text-xs tabular-nums text-ink-muted">
             {part.percent.toFixed(0)}%
           </span>
         </li>
       ))
     }
   </ul>
+  </div>
+
+  {/* Cloned by studio.ts, exactly as the island clones [data-calc-row]. Restyle
+      a row here and the script needs no change — see src/islands/CONTRACT.md. */}
+  {/* The arc prototype is wrapped in a throwaway <svg> on purpose: a bare
+      <circle> inside a <template> is parsed in the HTML namespace and becomes an
+      unknown element that never paints once cloned into the chart. The wrapper
+      puts the parser into foreign-content mode so this is a real SVGCircleElement. */}
+  <template data-donut-row="arc">
+    <svg>
+      <circle
+        cx="70"
+        cy="70"
+        r={R}
+        fill="none"
+        stroke="var(--cat)"
+        stroke-width="16"
+        style="transition: stroke-dasharray var(--motion-med) var(--ease), stroke-dashoffset var(--motion-med) var(--ease)"
+      >
+        <title data-slot="label"></title>
+      </circle>
+    </svg>
+  </template>
+
+  <template data-donut-row="legend">
+    <li class="flex items-baseline gap-2 text-sm">
+      <span class="size-2.5 shrink-0 rounded-full" style="background: var(--cat)"></span>
+      <span data-slot="label" class="min-w-0 flex-1 truncate text-ink-muted"></span>
+      <span data-slot="value" class="font-medium tabular-nums text-ink"></span>
+      <span data-slot="percent" class="w-11 text-right text-xs tabular-nums text-ink-muted"></span>
+    </li>
+  </template>
 </div>

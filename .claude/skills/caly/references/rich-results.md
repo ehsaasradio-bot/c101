@@ -14,18 +14,20 @@ decides what to draw.
 
 Drawn as a donut with a legend by the studio theme.
 
-**The number of parts may not depend on input.** This is the constraint that
-bites hardest, because nothing in the test suite catches it. The donut's arcs
-and legend rows are server-rendered once, one element per part, and the theme
-updates them by index (`[data-donut-arc="2"]`). A later result with fewer parts
-leaves the surplus arcs frozen at their build-time geometry; one with more parts
-silently drops the extras. Either way the visible slices stop summing to the
-total printed in the centre.
+**The number of parts may vary with input.** A mortgage drops "Property tax"
+when you zero it and gains "PMI" once the deposit falls below 20%; the studio
+theme reconciles its arcs and legend rows against whatever comes back, cloning
+its own `<template>` for anything new. Filtering zero-valued components out of
+the list is the normal thing to do.
 
-So a splitter over a variable-length list cannot draw one slice per item. Find
-the fixed decomposition underneath it — "bedrooms vs shared space" is always
-two, whatever the household size — and put the per-item figures in `stats`,
-which the island rebuilds from a template and may vary freely.
+**But whatever you can ever draw, draw at the defaults too.** The donut and the
+chart are server-rendered from the default result, and only when that result has
+something to show. A calculator whose parts appear only for some non-default
+input gets no donut on the page at all, and no client-side redraw can conjure
+back a container that was never rendered. This is the progressive-enhancement
+rule in `src/islands/CONTRACT.md` — never rely on the island to fill in a card
+the server did not render — and `registry.test.ts` enforces it by sweeping every
+field across its range.
 
 ```ts
 parts: [
@@ -68,11 +70,13 @@ series: [
 ]
 ```
 
-**The number of series is pinned the same way parts are** — the theme looks up
-`[data-chart-line="1"]` by index — but the number of *points* inside a series is
-free, because the path's `d` attribute is rebuilt from scratch on every
-recompute. A horizon that grows from 10 years to 30 is fine; a result that
-sometimes has two lines and sometimes three is not.
+**The number of series varies the same way parts do**, and so does the number of
+*points* inside one — the theme reconciles the lines and rebuilds each path's `d`
+from scratch on every recompute. A horizon that grows from 10 years to 30 is
+fine, and so is a result that drops to no lines at all: the chart hides itself
+rather than leave a stale curve standing. The same defaults rule applies — a
+calculator that can ever chart something must chart it at its defaults, or the
+figure is never rendered for the script to find.
 
 Rules the conformance suite enforces: at least two points, strictly increasing
 x, all values finite. Keep it to about 45 points — thin long horizons with a

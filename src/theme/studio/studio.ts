@@ -259,33 +259,119 @@ if (form) {
   }
 
   // ── Charts ───────────────────────────────────────────────────────────────
-  const donut = document.querySelector('[data-studio-donut]')
+  const donut = document.querySelector<HTMLElement>('[data-studio-donut]')
   const chart = document.querySelector<HTMLElement>('[data-studio-chart]')
   const R = 56
   const CIRC = 2 * Math.PI * R
 
+  const slot = (row: Element, name: string, text: string) => {
+    const el = row.querySelector<HTMLElement>(`[data-slot="${name}"]`)
+    if (el) el.textContent = text
+  }
+
+  /**
+   * The prototype row a theme `<template>` holds, ready to clone.
+   *
+   * SVG prototypes are wrapped in a throwaway `<svg>` inside their template so
+   * the parser builds them in the right namespace; unwrap that here rather than
+   * in every caller. A bare `<path>` in a template is an unknown HTML element
+   * and paints nothing once cloned into a chart.
+   */
+  const prototype = (root: ParentNode, selector: string): Element | null => {
+    const template = root.querySelector<HTMLTemplateElement>(selector)
+    const first = template?.content.firstElementChild
+    // Lowercase tagName only happens for foreign content, so this cannot
+    // mistake an HTML row (SPAN, LI) for the wrapper.
+    const node = first?.tagName === 'svg' ? first.firstElementChild : first
+    return node ? (node.cloneNode(true) as Element) : null
+  }
+
+  /**
+   * Brings `container` to `count` rows, cloning the theme's own `<template>`
+   * for anything new, then fills every row from its index.
+   *
+   * A part or series count is NOT a build-time fact — a mortgage drops
+   * "Property tax" when you zero it and gains "PMI" below a 20% deposit — so
+   * nothing here may assume the server-rendered arity survives.
+   *
+   * Deliberately a reconcile rather than the island's wholesale
+   * `replaceChildren`: arcs and lines carry CSS transitions, and an element
+   * created this frame has no previous value to animate from. Touching the DOM
+   * only when the count really changed keeps the common keystroke — same rows,
+   * new numbers — tweening as before.
+   */
+  const reconcile = (
+    container: Element,
+    count: number,
+    proto: (index: number) => Element | null,
+    fill: (row: Element, index: number) => void,
+  ) => {
+    while (container.children.length > count) container.lastElementChild!.remove()
+    while (container.children.length < count) {
+      const row = proto(container.children.length)
+      if (!row) break
+      container.append(row)
+    }
+    Array.from(container.children).forEach(fill)
+  }
+
   const drawDonut = (view: ResultView) => {
     if (!donut) return
+
     const centre = donut.querySelector('[data-donut-center]')
     if (centre) centre.textContent = view.partsTotal.text
-    let offset = 0
-    view.parts.forEach((part, i) => {
-      const arc = donut.querySelector<SVGCircleElement>(`[data-donut-arc="${i}"]`)
+    const centreLabel = donut.querySelector('[data-donut-center-label]')
+    if (centreLabel) centreLabel.textContent = view.partsTotal.label
+
+    // A ring with no components is not a donut. Hide the block rather than
+    // leave the previous breakdown standing under a total it no longer splits.
+    donut.hidden = view.parts.length === 0
+    if (view.parts.length === 0) return
+
+    // Offsets are cumulative, so they are resolved up front — a row's geometry
+    // depends on every row before it, not on its own index.
+    let running = 0
+    const geometry = view.parts.map((part) => {
       const dash = (part.percent / 100) * CIRC
-      if (arc) {
+      const offset = running
+      running += dash
+      return { dash, offset }
+    })
+
+    const arcs = donut.querySelector('[data-donut-arcs]')
+    if (arcs) {
+      const proto = () => prototype(donut, 'template[data-donut-row="arc"]')
+      reconcile(arcs, view.parts.length, proto, (arc, i) => {
+        const { dash, offset } = geometry[i]!
+        // An index, never a colour: CSS resolves [data-cat] to a hue. The same
+        // rule the island follows with data-band. See src/islands/CONTRACT.md.
+        arc.setAttribute('data-cat', String(i % 5))
         arc.setAttribute('stroke-dasharray', `${dash.toFixed(2)} ${(CIRC - dash).toFixed(2)}`)
         arc.setAttribute('stroke-dashoffset', (-offset).toFixed(2))
-      }
-      const value = donut.querySelector(`[data-donut-value="${i}"]`)
-      if (value) value.textContent = part.text
-      const percent = donut.querySelector(`[data-donut-percent="${i}"]`)
-      if (percent) percent.textContent = `${part.percent.toFixed(0)}%`
-      offset += dash
-    })
+        slot(arc, 'label', view.parts[i]!.label)
+      })
+    }
+
+    const legend = donut.querySelector('[data-donut-legend]')
+    if (legend) {
+      const proto = () => prototype(donut, 'template[data-donut-row="legend"]')
+      reconcile(legend, view.parts.length, proto, (row, i) => {
+        const part = view.parts[i]!
+        row.setAttribute('data-cat', String(i % 5))
+        slot(row, 'label', part.label)
+        slot(row, 'value', part.text)
+        slot(row, 'percent', `${part.percent.toFixed(0)}%`)
+      })
+    }
   }
 
   const drawChart = (view: ResultView) => {
-    if (!chart || view.series.length === 0) return
+    if (!chart) return
+    // Nothing to plot: hide it rather than leave the previous curve on screen
+    // as though it still described the inputs.
+    chart.hidden = view.series.length === 0
+    if (view.series.length === 0) return
+
     const geo = JSON.parse(chart.dataset.chartGeometry ?? '{}') as {
       W: number
       H: number
@@ -302,13 +388,33 @@ if (form) {
     const sx = (x: number) => PAD.left + ((x - xMin) / (xMax - xMin || 1)) * (W - PAD.left - PAD.right)
     const sy = (y: number) => H - PAD.bottom - (y / yMax) * (H - PAD.top - PAD.bottom)
 
-    view.series.forEach((series, i) => {
+    const legend = chart.querySelector('[data-chart-legend]')
+    if (legend) {
+      const proto = () => prototype(chart, 'template[data-chart-row="legend"]')
+      reconcile(legend, view.series.length, proto, (row, i) => {
+        row.setAttribute('data-cat', String(i % 5))
+        slot(row, 'label', view.series[i]!.label)
+      })
+    }
+
+    const lines = chart.querySelector('[data-chart-series]')
+    if (!lines) return
+
+    // Only the first series is filled, so index picks the prototype — the same
+    // way the island picks between a step row and a rule.
+    const seriesProto = (i: number) =>
+      prototype(chart, `template[data-chart-row="${i === 0 ? 'series-filled' : 'series'}"]`)
+
+    reconcile(lines, view.series.length, seriesProto, (group, i) => {
+      const series = view.series[i]!
+      group.setAttribute('data-cat', String(i % 5))
+
       const d = series.points
         .map((p, j) => `${j === 0 ? 'M' : 'L'}${sx(p[0]).toFixed(1)} ${sy(p[1]).toFixed(1)}`)
         .join(' ')
-      chart.querySelector(`[data-chart-line="${i}"]`)?.setAttribute('d', d)
+      group.querySelector('[data-slot="line"]')?.setAttribute('d', d)
 
-      const areaEl = chart.querySelector(`[data-chart-area="${i}"]`)
+      const areaEl = group.querySelector('[data-slot="area"]')
       if (areaEl) {
         const last = series.points[series.points.length - 1]!
         const first = series.points[0]!
