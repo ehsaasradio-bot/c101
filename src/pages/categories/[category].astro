@@ -36,10 +36,17 @@ const breadcrumbs = [
     schemas={[itemList(items), breadcrumbList(breadcrumbs)]}
   />
 
-  <h1 class="text-2xl font-semibold tracking-tight text-ink">{category.name} calculators</h1>
-  <p class="mt-2 max-w-2xl text-sm leading-relaxed text-ink-muted">{category.intro}</p>
+  {/*
+    Shell wraps its breadcrumb in this container but not its <slot />, so a page
+    whose content is not itself wrapped runs edge to edge. CalculatorPage and
+    Hero carry their own; a plain page like this one has to say so.
+  */}
+  <div class="mx-auto max-w-6xl px-4">
+    <h1 class="text-2xl font-semibold tracking-tight text-ink">{category.name} calculators</h1>
+    <p class="mt-2 max-w-2xl text-sm leading-relaxed text-ink-muted">{category.intro}</p>
 
-  <div class="mt-8">
-    <CalculatorGrid items={items} />
+    <div class="mt-8">
+      <CalculatorGrid items={items} />
+    </div>
   </div>
 </BaseLayout>
