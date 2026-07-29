@@ -9,7 +9,10 @@ const { result, resultLabel, scale } = Astro.props
 const isRule = (step: (typeof result.steps)[number]): step is { rule: true } => 'rule' in step
 ---
 
-<section class="rounded-card border border-border-subtle bg-surface p-6" aria-label="Result">
+{/* min-w-0 for the same reason as the Inputs card it sits beside in the grid:
+    without it a grid item will not shrink below its content's min-content
+    width, and the page scrolls sideways on a phone. */}
+<section class="min-w-0 rounded-card border border-border-subtle bg-surface p-6" aria-label="Result">
   <div class="flex items-center justify-between gap-4">
     <h2 class="text-sm font-semibold text-ink">Summary</h2>
     {

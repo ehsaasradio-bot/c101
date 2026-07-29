@@ -63,17 +63,101 @@ test('every page aligns its content with the header', async ({ page }) => {
  * A page must never scroll sideways. Kept separate from the alignment check
  * because a page can be correctly inset and still overflow — a wide table, an
  * unwrapped chart — and the two failures want different fixes.
+ *
+ * Phone width matters more than desktop here, and is where this actually broke:
+ * 22 of the 47 routes scrolled sideways at 375px. Grid and flex items default to
+ * min-width:auto, so they refuse to shrink below their content's min-content
+ * width — and form controls carry a large intrinsic one, a `<select>` sizing
+ * itself to its longest option. Desktop is wide enough to hide all of it.
  */
-test('no page scrolls horizontally', async ({ page }) => {
-  const offenders: string[] = []
+const viewports = [
+  { name: 'desktop', width: 1280, height: 720 },
+  { name: 'mobile', width: 375, height: 812 },
+]
 
-  for (const route of routes) {
-    await page.goto(route)
+/**
+ * The category nav is `hidden md:flex`, so on a phone the header was a logo and
+ * nothing else — every category and the full index reachable only by scrolling
+ * past the whole calculator to the footer, which does not even link the index.
+ *
+ * The replacement is a <details> disclosure. No script is involved at all, which
+ * is what keeps it working before the island loads and keeps `_headers` free of
+ * an inline-script allowance. What is worth pinning is the part a future
+ * refactor could quietly break: that it opens from the keyboard without
+ * hand-rolled ARIA, and that it stays absent at desktop.
+ */
+test.describe('mobile navigation', () => {
+  test('the header exposes every category and the index at 375px', async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 812 })
+    await page.goto('/calculators/mortgage-calculator/')
+
+    const menu = page.locator('header details')
+    const panel = menu.locator('nav')
+
+    await expect(panel).toBeHidden()
+
+    await menu.locator('summary').click()
+    await expect(panel).toBeVisible()
+
+    for (const name of ['Financial', 'Health & Fitness', 'Math', 'Everyday', 'All calculators']) {
+      await expect(panel.getByRole('link', { name, exact: true })).toBeVisible()
+    }
+
+    // The panel must not push the page sideways while open.
     const overflow = await page.evaluate(
       () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
     )
-    if (overflow > 0) offenders.push(`${route}: overflows by ${overflow}px`)
-  }
+    expect(overflow).toBe(0)
 
-  expect(offenders, `Pages that scroll horizontally:\n${offenders.join('\n')}`).toEqual([])
+    // And it actually navigates.
+    await panel.getByRole('link', { name: 'All calculators', exact: true }).click()
+    await expect(page).toHaveURL(/\/calculators\/$/)
+  })
+
+  test('it opens from the keyboard alone', async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 812 })
+    await page.goto('/calculators/mortgage-calculator/')
+
+    const menu = page.locator('header details')
+    await menu.locator('summary').focus()
+    await page.keyboard.press('Enter')
+    await expect(menu.locator('nav')).toBeVisible()
+  })
+
+  test('the desktop header is untouched by it', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 720 })
+    await page.goto('/calculators/mortgage-calculator/')
+
+    // The disclosure must not merely be closed at desktop — it must not render,
+    // or it would occupy space beside the nav it exists to replace.
+    await expect(page.locator('header details')).toBeHidden()
+    await expect(
+      page.locator('header nav[aria-label="Categories"]').first().getByRole('link', {
+        name: 'All calculators',
+        exact: true,
+      }),
+    ).toBeVisible()
+  })
 })
+
+for (const viewport of viewports) {
+  test(`no page scrolls horizontally at ${viewport.name} (${viewport.width}px)`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: viewport.width, height: viewport.height })
+    const offenders: string[] = []
+
+    for (const route of routes) {
+      await page.goto(route)
+      const overflow = await page.evaluate(
+        () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      )
+      if (overflow > 0) offenders.push(`${route}: overflows by ${overflow}px`)
+    }
+
+    expect(
+      offenders,
+      `Pages that scroll horizontally at ${viewport.width}px:\n${offenders.join('\n')}`,
+    ).toEqual([])
+  })
+}

@@ -30,7 +30,17 @@ const sliderable = (f: (typeof fields)[number]) =>
               <label class="text-sm font-medium text-ink" for={`field-${field.id}`}>
                 {field.label}
               </label>
-              <select id={`field-${field.id}`} data-calc-field={field.id} class={boxClass}>
+              {/* min-w-0 so a long option cannot widen the page. A select is a
+                  flex item here, so it defaults to min-width:auto and sizes to
+                  its longest option — "Moderately active (3-5 days/week)" and
+                  friends pushed three calculator pages into sideways scrolling
+                  on a phone. Selects clip their own text natively, so the only
+                  cost is an ellipsis on the widest option at the smallest size. */}
+              <select
+                id={`field-${field.id}`}
+                data-calc-field={field.id}
+                class={`${boxClass} min-w-0`}
+              >
                 {field.options.map((option) => (
                   <option
                     value={option.value}

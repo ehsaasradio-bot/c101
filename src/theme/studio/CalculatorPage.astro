@@ -107,8 +107,18 @@ const highlights = [
   </header>
 
   <div class="mx-auto max-w-6xl px-4">
+    {/*
+      min-w-0 on both cards, or the page scrolls sideways on a phone. A grid
+      item defaults to min-width:auto, so it refuses to shrink below its
+      content's min-content width — and an <input> carries a large intrinsic
+      width, which pushed this single-column track to 484px inside a 343px
+      viewport. It only shows below `lg`, where the two columns stack.
+    */}
     <div class="grid gap-6 lg:grid-cols-[1fr_1.05fr] lg:items-start">
-      <section class="rounded-card border border-border-subtle bg-surface p-6" aria-label="Inputs">
+      <section
+        class="min-w-0 rounded-card border border-border-subtle bg-surface p-6"
+        aria-label="Inputs"
+      >
         <div class="flex items-center justify-between gap-4">
           <h2 class="text-sm font-semibold text-ink">Details</h2>
           <span class="flex items-center gap-1.5 text-xs text-ink-muted">

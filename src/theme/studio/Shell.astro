@@ -39,6 +39,63 @@ const { breadcrumbs } = Astro.props
           <span class="size-1.5 rounded-full bg-accent"></span>
           100% free
         </span>
+
+        {/*
+          Below `md` the nav above is display:none, which left the header with a
+          logo and nothing else — every category and the full index were
+          unreachable without scrolling past the whole calculator to the footer.
+
+          A <details> rather than a scripted menu: it needs no JavaScript, so it
+          works before the island loads and with scripting off entirely, and it
+          keeps `_headers` free of the inline-script allowance a click handler
+          would want. <summary> is already a button to assistive tech and to the
+          keyboard, so there is no ARIA to hand-roll.
+
+          The trade-off is that tapping outside does not close it — closing means
+          tapping the control again. That is the price of not shipping a script,
+          and it is the same bargain the rest of this theme makes.
+        */}
+        <details class="relative md:hidden">
+          <summary
+            class="grid size-9 cursor-pointer list-none place-items-center rounded-lg border border-border-subtle text-ink-muted [&::-webkit-details-marker]:hidden"
+            aria-label="Menu"
+          >
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 18 18"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.75"
+              stroke-linecap="round"
+              aria-hidden="true"
+            >
+              <path d="M2.5 5h13M2.5 9h13M2.5 13h13"></path>
+            </svg>
+          </summary>
+
+          <nav
+            aria-label="Categories"
+            class="absolute right-0 top-full mt-2 w-56 rounded-card border border-border-subtle bg-surface p-2 text-sm shadow-lg"
+          >
+            {
+              categories.map((category) => (
+                <a
+                  href={`${category.href}/`}
+                  class="block rounded-lg px-3 py-2 text-ink-muted transition-colors hover:bg-surface-sunken hover:text-accent"
+                >
+                  {category.name}
+                </a>
+              ))
+            }
+            <a
+              href="/calculators/"
+              class="block rounded-lg px-3 py-2 text-ink-muted transition-colors hover:bg-surface-sunken hover:text-accent"
+            >
+              All calculators
+            </a>
+          </nav>
+        </details>
       </div>
     </div>
   </header>
