@@ -52,12 +52,12 @@ const compact = (v: number) =>
 >
   <figcaption class="flex flex-wrap items-center justify-between gap-3">
     <span class="text-sm font-semibold text-ink">Balance over time</span>
-    <span class="flex items-center gap-4 text-xs text-ink-muted">
+    <span data-chart-legend class="flex items-center gap-4 text-xs text-ink-muted">
       {
         series.map((s, i) => (
           <span data-cat={i % 5} class="flex items-center gap-1.5">
             <span class="h-0.5 w-4 rounded-full" style="background: var(--cat)" />
-            {s.label}
+            <span data-slot="label">{s.label}</span>
           </span>
         ))
       }
@@ -90,31 +90,87 @@ const compact = (v: number) =>
       ))
     }
 
-    {
-      series.map((s, i) => (
-        <g data-cat={i % 5}>
-          {i === 0 && (
+    {/* Series live in their own <g> so studio.ts can reconcile the whole set
+        against a count that changed: an inflation chart has two lines, and none
+        at all once you ask for zero years. */}
+    <g data-chart-series>
+      {
+        series.map((s, i) => (
+          <g data-cat={i % 5}>
+            {i === 0 && (
+              <path
+                data-slot="area"
+                d={area(s)}
+                fill="var(--cat)"
+                opacity="0.10"
+                style="transition: d var(--motion-med) var(--ease)"
+              />
+            )}
             <path
-              data-chart-area={i}
-              d={area(s)}
-              fill="var(--cat)"
-              opacity="0.10"
+              data-slot="line"
+              d={path(s)}
+              fill="none"
+              stroke="var(--cat)"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
               style="transition: d var(--motion-med) var(--ease)"
             />
-          )}
-          <path
-            data-chart-line={i}
-            d={path(s)}
-            fill="none"
-            stroke="var(--cat)"
-            stroke-width="2.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            style="transition: d var(--motion-med) var(--ease)"
-          />
-        </g>
-      ))
-    }
+          </g>
+        ))
+      }
+    </g>
   </svg>
   <p class="mt-1 text-center text-xs text-ink-muted">{xLabel}</p>
+
+  {/* Cloned by studio.ts, exactly as the island clones [data-calc-row]. Two row
+      kinds rather than a flag, so "the first line is the filled one" stays a
+      decision of this file — the script only picks a prototype by index, the
+      way the island picks between a step row and a rule. The throwaway <svg>
+      wrapper puts the parser in foreign-content mode; a bare <path> inside a
+      <template> is an unknown HTML element and never paints. */}
+  <template data-chart-row="series-filled">
+    <svg>
+      <g>
+        <path
+          data-slot="area"
+          fill="var(--cat)"
+          opacity="0.10"
+          style="transition: d var(--motion-med) var(--ease)"
+        ></path>
+        <path
+          data-slot="line"
+          fill="none"
+          stroke="var(--cat)"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          style="transition: d var(--motion-med) var(--ease)"
+        ></path>
+      </g>
+    </svg>
+  </template>
+
+  <template data-chart-row="series">
+    <svg>
+      <g>
+        <path
+          data-slot="line"
+          fill="none"
+          stroke="var(--cat)"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          style="transition: d var(--motion-med) var(--ease)"
+        ></path>
+      </g>
+    </svg>
+  </template>
+
+  <template data-chart-row="legend">
+    <span class="flex items-center gap-1.5">
+      <span class="h-0.5 w-4 rounded-full" style="background: var(--cat)"></span>
+      <span data-slot="label"></span>
+    </span>
+  </template>
 </figure>

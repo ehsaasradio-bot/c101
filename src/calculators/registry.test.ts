@@ -2,7 +2,62 @@ import { describe, expect, test } from 'vitest'
 import { calculators, bySlug } from './index'
 import { categoryById } from '../lib/categories'
 import { defaultValues, toResultView } from '../lib/view'
-import type { CalculatorDef } from '../lib/types'
+import type { CalcResult, CalculatorDef, Field } from '../lib/types'
+
+/**
+ * Every value a field can actually take, sampled: its bounds, its default, the
+ * small integers that tend to be special-cased (0, 1, 2), and a few interior
+ * points. Enough to reach the branches that add or drop a component — PMI
+ * appearing once the deposit falls below 20%, a property tax of zero dropping
+ * its own slice.
+ */
+function samples(field: Field): unknown[] {
+  switch (field.kind) {
+    case 'number': {
+      const { min, max, default: def } = field
+      const interior =
+        min !== undefined && max !== undefined
+          ? [0.25, 0.5, 0.75].map((f) => min + (max - min) * f)
+          : []
+      return [min, max, def, 0, 1, 2, ...interior]
+        .filter((v): v is number => typeof v === 'number' && Number.isFinite(v))
+        .filter((v) => (min === undefined || v >= min) && (max === undefined || v <= max))
+        .map((v) => Number(v.toFixed(6)))
+    }
+    case 'select':
+      return field.options.map((o) => o.value)
+    case 'toggle':
+      return [true, false]
+    case 'date':
+      return ['2020-01-01', '2030-12-31']
+    case 'text':
+      return [field.default]
+  }
+}
+
+/**
+ * Each result a visitor can actually reach, labelled by the single input that
+ * produced it. One field moves at a time from the defaults, which keeps this
+ * linear in the field count while still crossing the interesting thresholds.
+ */
+function* reachable(calc: CalculatorDef): Generator<readonly [string, CalcResult]> {
+  const base = defaultValues(calc)
+  yield ['defaults', calc.compute(base as never)]
+
+  for (const field of calc.fields) {
+    for (const value of samples(field)) {
+      let result: CalcResult
+      try {
+        result = calc.compute({ ...base, [field.id]: value } as never)
+      } catch {
+        // A CalcError is a refusal to answer, not an answer. The island shows
+        // the message and the theme draws nothing, so there is no shape to check.
+        continue
+      }
+      yield [`${field.id}=${String(value)}`, result]
+    }
+  }
+}
 
 /**
  * The guardrail that lets this scale to 170 calculators without codegen.
@@ -138,6 +193,67 @@ describe('registry', () => {
         expect(Number.isFinite(part.value)).toBe(true)
         expect(part.value).toBeGreaterThanOrEqual(0)
         expect(part.label.length).toBeGreaterThan(0)
+      }
+    })
+
+    /*
+     * The count of `parts` and `series` is NOT fixed — a mortgage drops
+     * "Property tax" when you zero it and gains "PMI" below a 20% deposit — and
+     * the studio theme reconciles its rows against whatever comes back. What it
+     * cannot do is conjure a container that was never rendered: the donut and
+     * the chart are server-rendered from the DEFAULT result, and only when that
+     * result has something to draw (SummaryCard.astro, CalculatorPage.astro).
+     *
+     * So a calculator that produces components only for some non-default input
+     * would have no donut on the page at all, and no client-side redraw can fix
+     * that. This is the progressive-enhancement rule in src/islands/CONTRACT.md
+     * — never rely on the island to fill in a card the server did not render —
+     * pointed at the one thing that survived making the count dynamic.
+     */
+    test('anything drawable off-default is already drawable at the defaults', () => {
+      const atDefault = calc.compute(defaultValues(calc) as never)
+      const hasParts = (atDefault.parts?.length ?? 0) > 0
+      const hasSeries = (atDefault.series?.length ?? 0) > 0
+
+      for (const [how, result] of reachable(calc)) {
+        if (result.parts?.length) {
+          expect(hasParts, `${calc.slug}: parts appear at ${how} but not at the defaults`).toBe(true)
+        }
+        if (result.series?.length) {
+          expect(hasSeries, `${calc.slug}: series appear at ${how} but not at the defaults`).toBe(
+            true,
+          )
+        }
+      }
+    })
+
+    // The same honesty check as above, across the whole input space rather than
+    // only the defaults. The donut prints the whole in its centre, so slices
+    // that stop adding up are a visible lie — and until the theme reconciled its
+    // arcs, zeroing one component silently left a stale slice behind to prove it.
+    test('parts stay an honest decomposition across the input space', () => {
+      for (const [how, result] of reachable(calc)) {
+        if (!result.parts?.length) continue
+        const whole = Number((result.partsTotal ?? result.primary).value)
+        if (!Number.isFinite(whole)) continue
+        const sum = result.parts.reduce((acc, p) => acc + p.value, 0)
+        expect(sum, `${calc.slug} @ ${how}`).toBeCloseTo(whole, 4)
+        for (const part of result.parts) {
+          expect(Number.isFinite(part.value), `${calc.slug} @ ${how}`).toBe(true)
+          expect(part.value, `${calc.slug} @ ${how}`).toBeGreaterThanOrEqual(0)
+          expect(part.label.length, `${calc.slug} @ ${how}`).toBeGreaterThan(0)
+        }
+      }
+    })
+
+    // Every series the theme draws gets its path built from points[0] and
+    // points[at-1]; an empty one would throw inside the redraw.
+    test('every drawn series has points, across the input space', () => {
+      for (const [how, result] of reachable(calc)) {
+        for (const series of result.series ?? []) {
+          expect(series.points.length, `${calc.slug} @ ${how}`).toBeGreaterThan(0)
+          expect(series.label.length, `${calc.slug} @ ${how}`).toBeGreaterThan(0)
+        }
       }
     })
 

@@ -39,13 +39,11 @@ const isRule = (step: (typeof result.steps)[number]): step is { rule: true } => 
 
     {
       result.parts.length > 0 && (
-        <div class="mt-6 border-t border-border-subtle pt-6">
-          <Donut
-            parts={result.parts}
-            centerValue={result.partsTotal.text}
-            centerLabel={result.partsTotal.label}
-          />
-        </div>
+        <Donut
+          parts={result.parts}
+          centerValue={result.partsTotal.text}
+          centerLabel={result.partsTotal.label}
+        />
       )
     }
 

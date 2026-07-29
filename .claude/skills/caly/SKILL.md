@@ -58,25 +58,30 @@ through.
 ## What the tests cannot see
 
 The suites are exhaustive about data and blind to the DOM. Both of the problems
-below survived a full green run — 1949 unit tests, `astro check`, and the
-Playwright suite — and were caught only by building the page and using it. Do
-that before you call the work done.
+below survived a full green run — unit tests, `astro check`, and the Playwright
+suite — and were caught only by building the page and using it. Do that before
+you call the work done.
 
-**`parts` must have a fixed count, and so must `series`.** The donut and the
-chart are server-rendered once at build time, one element per part, and the
-theme updates them *by index* (`[data-donut-arc="2"]`). A later result with
-fewer parts leaves the surplus arcs frozen at their build-time geometry — a
-housemate who no longer exists still holding 29% of the ring, beside a centre
-total the visible slices no longer sum to. A result with more parts silently
-drops the extras.
+The first has since been fixed in the theme and fenced off by a conformance
+test; it is kept here because the shape of the mistake recurs, and because the
+lesson holds — a green suite is not evidence that the page is right.
 
-So the number of parts may not depend on input. A rent splitter cannot draw one
-slice per person; it can draw "bedrooms vs shared space", which is always two.
-Per-person figures belong in `stats`.
+**Whatever you can ever draw, draw at the defaults too.** The donut and the
+chart are server-rendered from the *default* result, and only when that result
+has something to show. A calculator whose parts or series appear only for some
+non-default input gets no donut and no chart on the page at all — and no
+client-side redraw can conjure back a container that was never rendered.
 
-`stats`, `steps` and `notes` are free to vary in length — the island clones a
-`<template>` per row and replaces the list wholesale. So is the number of
-*points* within a series; only the number of series is pinned.
+The counts themselves are free to vary. A mortgage drops "Property tax" when you
+zero it and gains "PMI" below a 20% deposit; the theme reconciles its arcs and
+lines against whatever comes back, cloning its own `<template>` per row exactly
+as the island does for `stats`, `steps` and `notes`. A series count that falls to
+zero hides the chart rather than stranding the previous curve.
+
+This was not always true: the theme used to update arcs *by index* against
+markup fixed at build time, which left a housemate who no longer existed still
+holding 29% of the ring. `registry.test.ts` now sweeps every field across its
+range, so the defaults rule above is enforced rather than remembered.
 
 **`kind: 'text'` renders as a single-line input.** Help text promising "one per
 line" cannot be followed, and a column pasted out of a spreadsheet arrives with
