@@ -35,7 +35,7 @@ const def = {
       a: 'No, but both legs must use the same unit. The hypotenuse and perimeter then come back in that unit, the area in that unit squared, and the angles in degrees regardless of the length unit you chose.',
     },
   ],
-  related: ['circle-calculator', 'quadratic-calculator', 'percentage-calculator'],
+  related: ['circle-calculator', 'quadratic-calculator', 'percentage-calculator', 'slope-calculator', 'volume-calculator'],
   compute,
   lastReviewed: '2026-07-27',
   priority: 0.7,

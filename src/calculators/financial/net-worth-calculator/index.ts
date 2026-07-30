@@ -48,7 +48,7 @@ const def = {
       a: 'Once or twice a year is enough for most people. Tracking it too frequently mostly captures market noise, while an annual snapshot taken on the same date each year shows whether saving and debt repayment are actually working.',
     },
   ],
-  related: ['savings-goal-calculator', 'retirement-calculator', 'mortgage-calculator'],
+  related: ['savings-goal-calculator', 'retirement-calculator', 'mortgage-calculator', 'budget-calculator'],
   disclaimer: 'financial',
   lastReviewed: '2026-07-27',
   priority: 0.7,

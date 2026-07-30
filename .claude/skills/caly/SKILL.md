@@ -128,6 +128,13 @@ first numeric one tolerates that, and never rely on an exact default elsewhere.
 skips those automatically; do not add a snapshot around a value that changes at
 midnight.
 
+**A date in a result is read by a person, not parsed by one.** `2027-05-06` as
+a headline looks like a database key. Spell it out — but from a fixed month
+table, never `toLocaleDateString`: compute runs at build time in Node and again
+in the browser, and the two must produce the same string, which is why
+`format.ts` pins its locale. Keep ISO for the steps, where an unambiguous
+machine-readable form is the useful one.
+
 **Prefer real-world defaults.** They are what a visitor sees first, what the
 homepage samples, and what the tests assert. A default sitting exactly on a band
 boundary looks broken the moment the band label disagrees with the result.

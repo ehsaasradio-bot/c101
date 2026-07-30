@@ -31,7 +31,7 @@ const def = {
       a: 'Area depends on the radius squared, so multiplying the radius by two multiplies the area by two squared, which is four. Circumference depends on the radius only to the first power, so it merely doubles.',
     },
   ],
-  related: ['right-triangle-calculator', 'percentage-calculator', 'unit-converter-calculator'],
+  related: ['right-triangle-calculator', 'percentage-calculator', 'unit-converter-calculator', 'area-calculator'],
   compute,
   lastReviewed: '2026-07-27',
   priority: 0.7,

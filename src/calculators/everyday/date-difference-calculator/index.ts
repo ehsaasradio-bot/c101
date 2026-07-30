@@ -35,7 +35,7 @@ const def = {
       a: 'Yes. February 29 is a real day in the count, so any span crossing a leap day includes it, and the month breakdown borrows the correct 28 or 29 day length when it needs to.',
     },
   ],
-  related: ['age-calculator', 'tip-calculator'],
+  related: ['age-calculator', 'tip-calculator', 'due-date-calculator'],
   lastReviewed: '2026-07-27',
   priority: 0.7,
   compute,

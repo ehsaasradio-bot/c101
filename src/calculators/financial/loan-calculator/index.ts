@@ -44,7 +44,7 @@ const def = {
       a: 'A longer term lowers the monthly payment but raises the total interest, sometimes sharply. Pick the shortest term whose payment you can comfortably sustain.',
     },
   ],
-  related: ['auto-loan-calculator', 'credit-card-payoff-calculator', 'mortgage-calculator'],
+  related: ['auto-loan-calculator', 'credit-card-payoff-calculator', 'mortgage-calculator', 'apr-calculator'],
   disclaimer: 'financial',
   lastReviewed: '2026-07-27',
   priority: 0.85,

@@ -38,7 +38,7 @@ const def = {
       a: 'The calculator counts the actual calendar days between the two dates, leap days included, and also shows that total as complete weeks and complete months. Because it counts whole days rather than hours, the figure does not depend on your time of birth or your time zone.',
     },
   ],
-  related: ['date-difference-calculator', 'retirement-calculator', 'tip-calculator'],
+  related: ['date-difference-calculator', 'retirement-calculator', 'tip-calculator', 'business-days-calculator'],
   lastReviewed: '2026-07-27',
   priority: 0.8,
 } satisfies CalculatorDef<typeof fields>

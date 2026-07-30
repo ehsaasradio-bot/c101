@@ -43,7 +43,7 @@ const def = {
       a: 'Divide 72 by your annual percentage rate to estimate the years needed to double your money. At 8% that is about nine years. It is an approximation, but a very quick sanity check on any long-run projection.',
     },
   ],
-  related: ['savings-goal-calculator', 'retirement-calculator', 'inflation-calculator'],
+  related: ['savings-goal-calculator', 'retirement-calculator', 'inflation-calculator', 'simple-interest-calculator'],
   disclaimer: 'financial',
   lastReviewed: '2026-07-27',
   priority: 0.8,

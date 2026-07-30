@@ -32,7 +32,7 @@ const def = {
       a: 'Separate them with commas, spaces, semicolons, or line breaks — a column pasted straight out of a spreadsheet works fine. Negative numbers and decimals are accepted, and anything that is not a number is reported as an error rather than silently skipped.',
     },
   ],
-  related: ['percentage-calculator', 'percentage-change-calculator', 'gcd-lcm-calculator'],
+  related: ['percentage-calculator', 'percentage-change-calculator', 'gcd-lcm-calculator', 'z-score-calculator'],
   lastReviewed: '2026-07-27',
   priority: 0.7,
 } satisfies CalculatorDef<typeof fields>

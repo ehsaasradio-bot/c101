@@ -1,5 +1,94 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`registry > 401k-calculator > default output is stable 1`] = `
+{
+  "band": "warn",
+  "primary": {
+    "format": {
+      "decimals": 0,
+      "style": "currency",
+    },
+    "label": "Projected 401(k) balance at retirement",
+    "text": "$1,289,025",
+    "value": 1289024.6793692051,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Employer match left on the table",
+      "text": "$64,582",
+      "value": 64581.81565538278,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Match forgone each year",
+      "text": "$350",
+      "value": 350,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Extra per month to capture it all",
+      "text": "$58",
+      "value": 58.333333333333336,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "percent",
+      },
+      "label": "Share of the match captured",
+      "text": "83.3%",
+      "value": 83.33333333333334,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Employer match collected",
+      "text": "$96,124",
+      "value": 96124.3630246366,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Your total contributions",
+      "text": "$192,249",
+      "value": 192248.7260492732,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Investment growth",
+      "text": "$970,652",
+      "value": 970651.5902952952,
+    },
+    {
+      "format": {
+        "from": "months",
+        "style": "duration",
+      },
+      "label": "Years of contributions",
+      "text": "35 years",
+      "value": 420,
+    },
+  ],
+}
+`;
+
 exports[`registry > amortization-calculator > default output is stable 1`] = `
 {
   "band": undefined,
@@ -622,6 +711,83 @@ exports[`registry > break-even-calculator > default output is stable 1`] = `
       "label": "Variable cost at break-even",
       "text": "$70,000",
       "value": 70000,
+    },
+  ],
+}
+`;
+
+exports[`registry > budget-calculator > default output is stable 1`] = `
+{
+  "band": "neutral",
+  "primary": {
+    "format": {
+      "decimals": 0,
+      "style": "currency",
+    },
+    "label": "Off the 50/30/20 split by",
+    "text": "$900",
+    "value": 900,
+  },
+  "stats": [
+    {
+      "format": {
+        "style": "percent",
+      },
+      "label": "Needs share of take-home",
+      "text": "63.0%",
+      "value": 63,
+    },
+    {
+      "format": {
+        "style": "percent",
+      },
+      "label": "Wants share of take-home",
+      "text": "18.0%",
+      "value": 18,
+    },
+    {
+      "format": {
+        "style": "percent",
+      },
+      "label": "Savings share of take-home",
+      "text": "14.0%",
+      "value": 14.000000000000002,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Needs vs the 50% target",
+      "text": "$650",
+      "value": 650,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Wants vs the 30% target",
+      "text": "-$600",
+      "value": -600,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Savings vs the 20% target",
+      "text": "-$300",
+      "value": -300,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Unallocated each month",
+      "text": "$250",
+      "value": 250,
     },
   ],
 }
@@ -1714,6 +1880,104 @@ exports[`registry > ideal-weight-calculator > default output is stable 1`] = `
 }
 `;
 
+exports[`registry > income-tax-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "decimals": 0,
+      "style": "currency",
+    },
+    "label": "Federal income tax",
+    "text": "$9,870",
+    "value": 9870,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 0,
+        "style": "percent",
+      },
+      "label": "Marginal tax rate",
+      "text": "22%",
+      "value": 22,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "percent",
+      },
+      "label": "Effective tax rate",
+      "text": "11.61%",
+      "value": 11.611764705882353,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Taxable income",
+      "text": "$68,900",
+      "value": 68900,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Standard deduction",
+      "text": "$16,100",
+      "value": 16100,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Income after federal tax",
+      "text": "$75,130",
+      "value": 75130,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "percent",
+      },
+      "label": "Effective rate on taxable income",
+      "text": "14.33%",
+      "value": 14.32510885341074,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Tax in the 10% bracket",
+      "text": "$1,240",
+      "value": 1240,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Tax in the 12% bracket",
+      "text": "$4,560",
+      "value": 4560,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Tax in the 22% bracket",
+      "text": "$4,070",
+      "value": 4070,
+    },
+  ],
+}
+`;
+
 exports[`registry > inflation-calculator > default output is stable 1`] = `
 {
   "band": "warn",
@@ -2197,6 +2461,79 @@ exports[`registry > paint-calculator > default output is stable 1`] = `
 }
 `;
 
+exports[`registry > paycheck-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "style": "currency",
+    },
+    "label": "Take-home pay per paycheck",
+    "text": "$2,103.42",
+    "value": 2103.4173076923075,
+  },
+  "stats": [
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Gross per paycheck",
+      "text": "$2,884.62",
+      "value": 2884.6153846153848,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Federal income tax",
+      "text": "$223.92",
+      "value": 223.92307692307693,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Social Security",
+      "text": "$169.55",
+      "value": 169.54615384615383,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Medicare",
+      "text": "$39.65",
+      "value": 39.651923076923076,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Deductions",
+      "text": "$348.08",
+      "value": 348.0769230769231,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Annual take-home",
+      "text": "$54,689",
+      "value": 54688.85,
+    },
+    {
+      "format": {
+        "style": "percent",
+      },
+      "label": "Effective federal rate",
+      "text": "15.0%",
+      "value": 15.014866666666665,
+    },
+  ],
+}
+`;
+
 exports[`registry > percentage-calculator > default output is stable 1`] = `
 {
   "band": undefined,
@@ -2288,6 +2625,103 @@ exports[`registry > percentage-change-calculator > default output is stable 1`] 
       "label": "New as a share of original",
       "text": "150.00%",
       "value": 150,
+    },
+  ],
+}
+`;
+
+exports[`registry > probability-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "decimals": 2,
+      "style": "percent",
+    },
+    "label": "P(A and B) — both happen",
+    "text": "6.00%",
+    "value": 6,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 2,
+        "style": "percent",
+      },
+      "label": "P(A or B) — at least one happens",
+      "text": "44.00%",
+      "value": 44,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "percent",
+      },
+      "label": "P(neither A nor B)",
+      "text": "56.00%",
+      "value": 56.00000000000001,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "percent",
+      },
+      "label": "P(exactly one of them)",
+      "text": "38.00%",
+      "value": 38,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "percent",
+      },
+      "label": "P(not A)",
+      "text": "70.00%",
+      "value": 70,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "percent",
+      },
+      "label": "P(not B)",
+      "text": "80.00%",
+      "value": 80,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "percent",
+      },
+      "label": "P(at least one A in 10 trials)",
+      "text": "97.18%",
+      "value": 97.17524751,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "percent",
+      },
+      "label": "P(at least one A or B in 10 trials)",
+      "text": "99.70%",
+      "value": 99.69669451090388,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "decimal",
+      },
+      "label": "Expected number of A occurrences",
+      "text": "3.00",
+      "value": 3,
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Event A stated as odds",
+      "text": "about 1 in 3.33",
+      "value": "about 1 in 3.33",
     },
   ],
 }
@@ -2431,6 +2865,93 @@ exports[`registry > ratio-calculator > default output is stable 1`] = `
       "label": "Scale factor (C ÷ A)",
       "text": "3.0000",
       "value": 3,
+    },
+  ],
+}
+`;
+
+exports[`registry > refinance-calculator > default output is stable 1`] = `
+{
+  "band": "warn",
+  "primary": {
+    "format": {
+      "from": "months",
+      "style": "duration",
+    },
+    "label": "Time to break even",
+    "text": "1 year 1 month",
+    "value": 13,
+  },
+  "stats": [
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "New monthly payment",
+      "text": "$1,458.93",
+      "value": 1458.9321411088729,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Monthly saving",
+      "text": "$361.33",
+      "value": 361.33078761406546,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Lifetime interest change",
+      "text": "$44,666",
+      "value": 44666.157616338576,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Interest left on your current loan",
+      "text": "$230,549",
+      "value": 230549.4131828557,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Interest on the new loan",
+      "text": "$275,216",
+      "value": 275215.5707991943,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Lifetime cost change, closing costs included",
+      "text": "$49,166",
+      "value": 49166.157616338576,
+    },
+    {
+      "format": {
+        "from": "months",
+        "style": "duration",
+      },
+      "label": "Current payoff time",
+      "text": "22 years",
+      "value": 264,
+    },
+    {
+      "format": {
+        "from": "months",
+        "style": "duration",
+      },
+      "label": "New payoff time",
+      "text": "30 years",
+      "value": 360,
     },
   ],
 }
@@ -3050,6 +3571,84 @@ exports[`registry > simple-interest-calculator > default output is stable 1`] = 
 }
 `;
 
+exports[`registry > slope-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "decimals": 6,
+      "style": "decimal",
+    },
+    "label": "Slope",
+    "text": "0.750000",
+    "value": 0.75,
+  },
+  "stats": [
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Line equation",
+      "text": "y = 0.75x + 2",
+      "value": "y = 0.75x + 2",
+    },
+    {
+      "format": {
+        "decimals": 6,
+        "style": "decimal",
+      },
+      "label": "Y-intercept b",
+      "text": "2.000000",
+      "value": 2,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+        "unit": "°",
+      },
+      "label": "Angle of inclination",
+      "text": "36.8699 °",
+      "value": 36.86989764584402,
+    },
+    {
+      "format": {
+        "decimals": 6,
+        "style": "decimal",
+      },
+      "label": "Distance between the points",
+      "text": "10.000000",
+      "value": 10,
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Midpoint",
+      "text": "(8, 8)",
+      "value": "(8, 8)",
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "percent",
+      },
+      "label": "Grade",
+      "text": "75.00%",
+      "value": 75,
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Rise : run ratio",
+      "text": "3 : 4",
+      "value": "3 : 4",
+    },
+  ],
+}
+`;
+
 exports[`registry > tdee-calculator > default output is stable 1`] = `
 {
   "band": undefined,
@@ -3211,6 +3810,68 @@ exports[`registry > unit-converter-calculator > default output is stable 1`] = `
 }
 `;
 
+exports[`registry > vo2max-calculator > default output is stable 1`] = `
+{
+  "band": "good",
+  "primary": {
+    "format": {
+      "decimals": 1,
+      "style": "decimal",
+      "unit": "ml/kg/min",
+    },
+    "label": "Estimated VO2 max",
+    "text": "42.4 ml/kg/min",
+    "value": 42.36753856472166,
+  },
+  "stats": [
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Fitness category",
+      "text": "Good",
+      "value": "Good",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Compared against",
+      "text": "Men aged 30 to 39",
+      "value": "Men aged 30 to 39",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "That category spans",
+      "text": "41.0 to 45.0 ml/kg/min",
+      "value": "41.0 to 45.0 ml/kg/min",
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "decimal",
+        "unit": "METs",
+      },
+      "label": "Aerobic capacity",
+      "text": "12.1 METs",
+      "value": 12.105011018491904,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "decimal",
+        "unit": "L/min",
+      },
+      "label": "Absolute oxygen uptake",
+      "text": "3.18 L/min",
+      "value": 3.1775653923541247,
+    },
+  ],
+}
+`;
+
 exports[`registry > volume-calculator > default output is stable 1`] = `
 {
   "band": undefined,
@@ -3312,6 +3973,68 @@ exports[`registry > water-intake-calculator > default output is stable 1`] = `
       "label": "Glasses (250 ml)",
       "text": "11.8 glasses",
       "value": 11.8,
+    },
+  ],
+}
+`;
+
+exports[`registry > z-score-calculator > default output is stable 1`] = `
+{
+  "band": "good",
+  "primary": {
+    "format": {
+      "decimals": 4,
+      "style": "decimal",
+    },
+    "label": "Z-score",
+    "text": "1.4000",
+    "value": 1.4,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 2,
+        "style": "percent",
+      },
+      "label": "Percentile (area to the left)",
+      "text": "91.92%",
+      "value": 91.9243288834375,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "percent",
+      },
+      "label": "Area to the right",
+      "text": "8.08%",
+      "value": 8.0756711165625,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+      },
+      "label": "Two-tailed p-value",
+      "text": "0.1615",
+      "value": 0.1615134223312499,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+      },
+      "label": "Distance from the mean",
+      "text": "14.0000",
+      "value": 14,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+      },
+      "label": "Standard deviations away",
+      "text": "1.4000",
+      "value": 1.4,
     },
   ],
 }

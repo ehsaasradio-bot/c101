@@ -49,7 +49,7 @@ const def = {
       a: 'Yes. Strong credit, large reserves, or an automated approval can stretch total debt to 43% or beyond, and many government-backed programs go higher still. Being approved for more is not the same as being able to afford more, so treat the rule as a budget rather than a ceiling.',
     },
   ],
-  related: ['mortgage-calculator', 'loan-calculator', 'salary-calculator'],
+  related: ['mortgage-calculator', 'loan-calculator', 'salary-calculator', 'down-payment-calculator', 'rent-vs-buy-calculator'],
   disclaimer: 'financial',
   lastReviewed: '2026-07-27',
   priority: 0.8,

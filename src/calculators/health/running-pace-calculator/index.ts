@@ -35,7 +35,7 @@ const def = {
       a: 'No. Endurance programmes typically put roughly 80% of weekly volume at an easy, conversational pace and reserve the remaining 20% for tempo work, intervals and races. Running every session hard mainly accumulates fatigue rather than fitness.',
     },
   ],
-  related: ['heart-rate-zone-calculator', 'bmr-calculator', 'tdee-calculator'],
+  related: ['heart-rate-zone-calculator', 'bmr-calculator', 'tdee-calculator', 'vo2max-calculator'],
   compute,
   disclaimer: 'health',
   lastReviewed: '2026-07-27',

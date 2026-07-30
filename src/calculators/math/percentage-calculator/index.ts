@@ -31,7 +31,7 @@ const def = {
       a: 'Yes. Negative percentages and negative bases are handled arithmetically, so a -20% increase is the same as a 20% decrease. Only a base of zero in the "A is what percent of B?" mode is rejected, since that division is undefined.',
     },
   ],
-  related: ['percentage-change-calculator', 'discount-calculator', 'ratio-calculator'],
+  related: ['percentage-change-calculator', 'discount-calculator', 'ratio-calculator', 'probability-calculator', 'gpa-calculator'],
   compute,
   lastReviewed: '2026-07-27',
   priority: 0.8,

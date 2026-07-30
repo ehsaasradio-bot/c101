@@ -36,7 +36,7 @@ const def = {
       a: 'It is the lowest temperature physically possible: 0 kelvin, which is −273.15°C or −459.67°F. Entering a temperature below it is rejected as invalid input rather than converted, because no such reading can exist.',
     },
   ],
-  related: ['cooking-converter-calculator', 'fuel-cost-calculator'],
+  related: ['cooking-converter-calculator', 'fuel-cost-calculator', 'paint-calculator'],
   lastReviewed: '2026-07-27',
   priority: 0.8,
 } satisfies CalculatorDef<typeof fields>

@@ -28,6 +28,11 @@ import apr from './financial/apr-calculator'
 import downPayment from './financial/down-payment-calculator'
 import debtPayoff from './financial/debt-payoff-calculator'
 import rentVsBuy from './financial/rent-vs-buy-calculator'
+import refinance from './financial/refinance-calculator'
+import incomeTax from './financial/income-tax-calculator'
+import paycheck from './financial/paycheck-calculator'
+import plan401k from './financial/401k-calculator'
+import budget from './financial/budget-calculator'
 
 // health
 import bmi from './health/bmi-calculator'
@@ -41,6 +46,7 @@ import heartRateZone from './health/heart-rate-zone-calculator'
 import oneRepMax from './health/one-rep-max-calculator'
 import runningPace from './health/running-pace-calculator'
 import dueDate from './health/due-date-calculator'
+import vo2max from './health/vo2max-calculator'
 
 // math
 import percentage from './math/percentage-calculator'
@@ -54,6 +60,9 @@ import gcdLcm from './math/gcd-lcm-calculator'
 import ratio from './math/ratio-calculator'
 import area from './math/area-calculator'
 import volume from './math/volume-calculator'
+import probability from './math/probability-calculator'
+import zScore from './math/z-score-calculator'
+import slope from './math/slope-calculator'
 
 // everyday
 import tip from './everyday/tip-calculator'
@@ -66,6 +75,7 @@ import electricityCost from './everyday/electricity-cost-calculator'
 import cookingConverter from './everyday/cooking-converter-calculator'
 import gpa from './everyday/gpa-calculator'
 import paint from './everyday/paint-calculator'
+import businessDays from './everyday/business-days-calculator'
 export const calculators: readonly CalculatorDef[] = [
   mortgage,
   amortization,
@@ -87,6 +97,11 @@ export const calculators: readonly CalculatorDef[] = [
   downPayment,
   debtPayoff,
   rentVsBuy,
+  refinance,
+  incomeTax,
+  paycheck,
+  plan401k,
+  budget,
   bmi,
   bmr,
   tdee,
@@ -98,6 +113,7 @@ export const calculators: readonly CalculatorDef[] = [
   oneRepMax,
   runningPace,
   dueDate,
+  vo2max,
   percentage,
   percentageChange,
   fraction,
@@ -109,6 +125,9 @@ export const calculators: readonly CalculatorDef[] = [
   ratio,
   area,
   volume,
+  probability,
+  zScore,
+  slope,
   tip,
   age,
   dateDifference,
@@ -119,6 +138,7 @@ export const calculators: readonly CalculatorDef[] = [
   cookingConverter,
   gpa,
   paint,
+  businessDays,
 ]
 
 export const bySlug: ReadonlyMap<string, CalculatorDef> = new Map(

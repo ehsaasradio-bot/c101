@@ -32,7 +32,7 @@ const def = {
     },
   ],
   compute,
-  related: ['house-affordability-calculator', 'inflation-calculator', 'retirement-calculator'],
+  related: ['house-affordability-calculator', 'inflation-calculator', 'retirement-calculator', 'income-tax-calculator', 'paycheck-calculator'],
   disclaimer: 'financial',
   lastReviewed: '2026-07-27',
   priority: 0.8,
