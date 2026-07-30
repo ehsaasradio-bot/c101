@@ -97,6 +97,15 @@ as a slider, so the left end is one drag away. If compute throws on zero, the
 minimum must be a usable positive value — match the field's `step` where that
 reads naturally.
 
+**A slider spans about 4× the default, not the declared max.** `softRange` in
+`theme/studio/range.ts` deliberately ignores validation bounds when sizing the
+track — a field accepting up to 100M would pin a realistic thumb to the far
+left — so it shows `niceCeil(|default| × 4)` and marks the capped end with `+`.
+The consequence is easy to miss: a field with `default: 1, max: 40` can only be
+dragged to 5, and everything past it is reachable only by typing. Choose the
+default so the useful range is draggable. No test sees this; you have to load
+the page.
+
 **A `max` beyond compute's own plausibility guard.** If compute rejects a height
 over 272 cm, a field max of 300 offers a value it will refuse.
 `field-bounds.test.ts` asserts every declared bound is one your own compute

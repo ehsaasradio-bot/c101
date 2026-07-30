@@ -199,3 +199,70 @@ describe('field bounds', () => {
     }
   })
 })
+
+/**
+ * A number field renders as a slider, and an HTML range snaps to `min + n *
+ * step`. A default off that grid therefore looks correct until someone touches
+ * the control, at which point it silently shifts — a 1.2 m dimension becoming
+ * 1.21, or a $25,000 goal becoming $25,001. Nothing else in the suite sees it,
+ * because the value only moves on interaction.
+ *
+ * Variants that CONVERT are exempt by nature: 70 kg is 154.3235835 lb, and no
+ * choice of step lands a converted quantity on a grid. Only the base default and
+ * non-converting variants are checked.
+ *
+ * Entries below are pre-existing debt, pinned both ways — fix one and this test
+ * fails until you delete its line, so the list can only shrink.
+ */
+const OFF_GRID_DEBT = new Set([
+  'savings-goal-calculator:goalAmount',
+  'right-triangle-calculator:sideA',
+  'right-triangle-calculator:sideB',
+  'circle-calculator:value',
+  'unit-converter-calculator:value[celsius]',
+  'unit-converter-calculator:value[fahrenheit]',
+  'fuel-cost-calculator:distance',
+  'cooking-converter-calculator:amount[millilitre]',
+])
+
+describe('slider step grid', () => {
+  test('every number default lands on min + n x step', () => {
+    const offGrid: string[] = []
+    const onGrid: string[] = []
+
+    const check = (key: string, min: number | undefined, step: number | undefined, def: number) => {
+      if (min === undefined || step === undefined || step <= 0) return
+      const n = (def - min) / step
+      ;(Math.abs(n - Math.round(n)) > 1e-9 ? offGrid : onGrid).push(key)
+    }
+
+    for (const calc of calculators) {
+      for (const field of calc.fields) {
+        if (field.kind !== 'number') continue
+        check(`${calc.slug}:${field.id}`, field.min, field.step, field.default)
+        if (!field.variants) continue
+        for (const [name, variant] of Object.entries(field.variants.cases)) {
+          // A converting variant restates the same quantity, so its value cannot
+          // be made to land on a grid. Only non-converting ones are checkable.
+          if ((variant.factor ?? 1) !== 1 || variant.convert) continue
+          check(
+            `${calc.slug}:${field.id}[${name}]`,
+            variant.min ?? field.min,
+            variant.step ?? field.step,
+            field.default,
+          )
+        }
+      }
+    }
+
+    expect(
+      offGrid.filter((k) => !OFF_GRID_DEBT.has(k)),
+      'New off-grid defaults. The slider will shift these the moment it is touched',
+    ).toEqual([])
+
+    expect(
+      onGrid.filter((k) => OFF_GRID_DEBT.has(k)),
+      'Fixed — delete these from OFF_GRID_DEBT',
+    ).toEqual([])
+  })
+})

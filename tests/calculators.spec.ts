@@ -517,8 +517,11 @@ test.describe('quicky', () => {
       await expect(forms.nth(i)).toHaveAttribute('data-ready', 'true')
     }
 
-    const mortgage = forms.filter({ has: page.locator('[data-calc-field="homePrice"]') })
-    const others = forms.filter({ hasNot: page.locator('[data-calc-field="homePrice"]') })
+    // By slug, not by field id. A field id is unique within a calculator, never
+    // across them — `homePrice` now appears in mortgage, down-payment and
+    // rent-vs-buy, and filtering on it silently matched three rows.
+    const mortgage = page.locator('#quicky calc-form[data-slug="mortgage-calculator"]')
+    const others = page.locator('#quicky calc-form:not([data-slug="mortgage-calculator"])')
     const otherAnswersBefore = await others.locator('[data-calc-out="primary"]').allTextContents()
 
     await mortgage.locator('[data-calc-field="homePrice"]').fill('600000')
@@ -534,8 +537,8 @@ test.describe('quicky', () => {
   test('a toggle cell works, and an error stays inside its own row', async ({ page }) => {
     await page.goto('/')
     const forms = page.locator('#quicky calc-form')
-    const tip = forms.filter({ has: page.locator('[data-calc-field="roundUp"]') })
-    const mortgage = forms.filter({ has: page.locator('[data-calc-field="homePrice"]') })
+    const tip = page.locator('#quicky calc-form[data-slug="tip-calculator"]')
+    const mortgage = page.locator('#quicky calc-form[data-slug="mortgage-calculator"]')
 
     await expect(tip.locator('[data-calc-out="primary"]')).toHaveText('$50.15')
     await tip.locator('[data-calc-field="roundUp"]').check()

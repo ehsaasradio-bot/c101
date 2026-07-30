@@ -9,6 +9,7 @@ import type { CalculatorDef } from '../lib/types'
 // file becomes a compile error instead of a silently shorter glob.
 // financial
 import mortgage from './financial/mortgage-calculator'
+import amortization from './financial/amortization-calculator'
 import loan from './financial/loan-calculator'
 import autoLoan from './financial/auto-loan-calculator'
 import creditCardPayoff from './financial/credit-card-payoff-calculator'
@@ -22,6 +23,11 @@ import houseAffordability from './financial/house-affordability-calculator'
 import breakEven from './financial/break-even-calculator'
 import netWorth from './financial/net-worth-calculator'
 import salesTax from './financial/sales-tax-calculator'
+import simpleInterest from './financial/simple-interest-calculator'
+import apr from './financial/apr-calculator'
+import downPayment from './financial/down-payment-calculator'
+import debtPayoff from './financial/debt-payoff-calculator'
+import rentVsBuy from './financial/rent-vs-buy-calculator'
 
 // health
 import bmi from './health/bmi-calculator'
@@ -34,6 +40,7 @@ import waterIntake from './health/water-intake-calculator'
 import heartRateZone from './health/heart-rate-zone-calculator'
 import oneRepMax from './health/one-rep-max-calculator'
 import runningPace from './health/running-pace-calculator'
+import dueDate from './health/due-date-calculator'
 
 // math
 import percentage from './math/percentage-calculator'
@@ -45,6 +52,8 @@ import rightTriangle from './math/right-triangle-calculator'
 import circle from './math/circle-calculator'
 import gcdLcm from './math/gcd-lcm-calculator'
 import ratio from './math/ratio-calculator'
+import area from './math/area-calculator'
+import volume from './math/volume-calculator'
 
 // everyday
 import tip from './everyday/tip-calculator'
@@ -55,8 +64,11 @@ import fuelCost from './everyday/fuel-cost-calculator'
 import discount from './everyday/discount-calculator'
 import electricityCost from './everyday/electricity-cost-calculator'
 import cookingConverter from './everyday/cooking-converter-calculator'
+import gpa from './everyday/gpa-calculator'
+import paint from './everyday/paint-calculator'
 export const calculators: readonly CalculatorDef[] = [
   mortgage,
+  amortization,
   loan,
   autoLoan,
   creditCardPayoff,
@@ -70,6 +82,11 @@ export const calculators: readonly CalculatorDef[] = [
   breakEven,
   netWorth,
   salesTax,
+  simpleInterest,
+  apr,
+  downPayment,
+  debtPayoff,
+  rentVsBuy,
   bmi,
   bmr,
   tdee,
@@ -80,6 +97,7 @@ export const calculators: readonly CalculatorDef[] = [
   heartRateZone,
   oneRepMax,
   runningPace,
+  dueDate,
   percentage,
   percentageChange,
   fraction,
@@ -89,6 +107,8 @@ export const calculators: readonly CalculatorDef[] = [
   circle,
   gcdLcm,
   ratio,
+  area,
+  volume,
   tip,
   age,
   dateDifference,
@@ -97,6 +117,8 @@ export const calculators: readonly CalculatorDef[] = [
   discount,
   electricityCost,
   cookingConverter,
+  gpa,
+  paint,
 ]
 
 export const bySlug: ReadonlyMap<string, CalculatorDef> = new Map(

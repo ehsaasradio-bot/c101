@@ -1,5 +1,245 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`registry > amortization-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "style": "currency",
+    },
+    "label": "Interest in year 10",
+    "text": "$16,745.08",
+    "value": 16745.08,
+  },
+  "stats": [
+    {
+      "format": {
+        "from": "months",
+        "style": "duration",
+      },
+      "label": "Principal overtakes interest at",
+      "text": "19 years 5 months",
+      "value": 233,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Monthly payment",
+      "text": "$1,896.20",
+      "value": 1896.2,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Total interest",
+      "text": "$382,636.71",
+      "value": 382636.71,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Total repaid",
+      "text": "$682,636.71",
+      "value": 682636.71,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "percent",
+      },
+      "label": "Interest as a share of what you repay",
+      "text": "56.1%",
+      "value": 56.052759014381174,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Principal in year 10",
+      "text": "$6,009.32",
+      "value": 6009.32,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Still owed after year 10",
+      "text": "$254,329.14",
+      "value": 254329.14,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "percent",
+      },
+      "label": "Share of year 10 going to interest",
+      "text": "73.6%",
+      "value": 73.59051436205745,
+    },
+  ],
+}
+`;
+
+exports[`registry > apr-calculator > default output is stable 1`] = `
+{
+  "band": "good",
+  "primary": {
+    "format": {
+      "decimals": 3,
+      "style": "percent",
+    },
+    "label": "APR",
+    "text": "6.695%",
+    "value": 6.695316949158689,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 2,
+        "style": "percent",
+      },
+      "label": "Quoted rate",
+      "text": "6.50%",
+      "value": 6.5,
+    },
+    {
+      "format": {
+        "decimals": 3,
+        "style": "percent",
+      },
+      "label": "APR premium",
+      "text": "0.195%",
+      "value": 0.19531694915868858,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Monthly payment",
+      "text": "$1,580.17",
+      "value": 1580.1700587324133,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Upfront costs",
+      "text": "$5,000",
+      "value": 5000,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Amount advanced",
+      "text": "$245,000",
+      "value": 245000,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Total interest",
+      "text": "$318,861",
+      "value": 318861.22114366875,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Total cost of credit",
+      "text": "$323,861",
+      "value": 323861.22114366875,
+    },
+  ],
+}
+`;
+
+exports[`registry > area-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "decimals": 2,
+      "style": "decimal",
+      "unit": "ft²",
+    },
+    "label": "Area",
+    "text": "192.00 ft²",
+    "value": 192,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+        "unit": "m²",
+      },
+      "label": "Square metres",
+      "text": "17.8374 m²",
+      "value": 17.837383680000002,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "decimal",
+        "unit": "ft²",
+      },
+      "label": "Square feet",
+      "text": "192.00 ft²",
+      "value": 192,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+        "unit": "yd²",
+      },
+      "label": "Square yards",
+      "text": "21.3333 yd²",
+      "value": 21.333333333333336,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "decimal",
+        "unit": "in²",
+      },
+      "label": "Square inches",
+      "text": "27,648.00 in²",
+      "value": 27648.000000000004,
+    },
+    {
+      "format": {
+        "decimals": 6,
+        "style": "decimal",
+        "unit": "acres",
+      },
+      "label": "Acres",
+      "text": "0.004408 acres",
+      "value": 0.00440771349862259,
+    },
+    {
+      "format": {
+        "decimals": 6,
+        "style": "decimal",
+        "unit": "ha",
+      },
+      "label": "Hectares",
+      "text": "0.001784 ha",
+      "value": 0.0017837383680000003,
+    },
+  ],
+}
+`;
+
 exports[`registry > auto-loan-calculator > default output is stable 1`] = `
 {
   "band": "warn",
@@ -638,6 +878,140 @@ exports[`registry > credit-card-payoff-calculator > default output is stable 1`]
 }
 `;
 
+exports[`registry > debt-payoff-calculator > default output is stable 1`] = `
+{
+  "band": "neutral",
+  "primary": {
+    "format": {
+      "from": "months",
+      "style": "duration",
+    },
+    "label": "Debt-free in",
+    "text": "2 years 10 months",
+    "value": 34,
+  },
+  "stats": [
+    {
+      "format": {
+        "from": "months",
+        "style": "duration",
+      },
+      "label": "Debt-free with snowball",
+      "text": "2 years 11 months",
+      "value": 35,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+        "unit": "month",
+      },
+      "label": "Months sooner with avalanche",
+      "text": "1 month",
+      "value": 1,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Interest saved with avalanche",
+      "text": "$478.79",
+      "value": 478.79003423611675,
+    },
+    {
+      "format": {
+        "style": "percent",
+      },
+      "label": "Saved as a share of snowball interest",
+      "text": "13.1%",
+      "value": 13.07254773751732,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Total interest (avalanche)",
+      "text": "$3,183.77",
+      "value": 3183.77095884423,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Total interest (snowball)",
+      "text": "$3,662.56",
+      "value": 3662.5609930803466,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Total debt today",
+      "text": "$28,900.00",
+      "value": 28900,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Total paid (avalanche)",
+      "text": "$32,083.77",
+      "value": 32083.77095884423,
+    },
+    {
+      "format": {
+        "from": "months",
+        "style": "duration",
+      },
+      "label": "First debt gone (snowball)",
+      "text": "4 months",
+      "value": 4,
+    },
+    {
+      "format": {
+        "from": "months",
+        "style": "duration",
+      },
+      "label": "First debt gone (avalanche)",
+      "text": "1 year 2 months",
+      "value": 14,
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Medical bill cleared",
+      "text": "Month 34 with avalanche, month 4 with snowball",
+      "value": "Month 34 with avalanche, month 4 with snowball",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Credit card cleared",
+      "text": "Month 14 with avalanche, month 16 with snowball",
+      "value": "Month 14 with avalanche, month 16 with snowball",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Car loan cleared",
+      "text": "Month 23 with avalanche, month 24 with snowball",
+      "value": "Month 23 with avalanche, month 24 with snowball",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Student loan cleared",
+      "text": "Month 34 with avalanche, month 35 with snowball",
+      "value": "Month 34 with avalanche, month 35 with snowball",
+    },
+  ],
+}
+`;
+
 exports[`registry > discount-calculator > default output is stable 1`] = `
 {
   "band": "excellent",
@@ -690,6 +1064,75 @@ exports[`registry > discount-calculator > default output is stable 1`] = `
       "label": "Share of ticket price paid",
       "text": "75.0%",
       "value": 75,
+    },
+  ],
+}
+`;
+
+exports[`registry > down-payment-calculator > default output is stable 1`] = `
+{
+  "band": "neutral",
+  "primary": {
+    "format": {
+      "decimals": 0,
+      "style": "currency",
+    },
+    "label": "Cash needed up front",
+    "text": "$75,000",
+    "value": 75000,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Down payment",
+      "text": "$60,000",
+      "value": 60000,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Cash still to save",
+      "text": "$55,000",
+      "value": 55000,
+    },
+    {
+      "format": {
+        "from": "months",
+        "style": "duration",
+      },
+      "label": "Time to save it",
+      "text": "3 years 10 months",
+      "value": 46,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Loan amount",
+      "text": "$340,000",
+      "value": 340000,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Monthly payment (P&I + PMI)",
+      "text": "$2,375.70",
+      "value": 2375.6979465427485,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Monthly PMI",
+      "text": "$226.67",
+      "value": 226.66666666666666,
     },
   ],
 }
@@ -950,6 +1393,117 @@ exports[`registry > gcd-lcm-calculator > default output is stable 1`] = `
       "label": "GCD in prime form",
       "text": "2^2 × 3",
       "value": "2^2 × 3",
+    },
+  ],
+}
+`;
+
+exports[`registry > gpa-calculator > default output is stable 1`] = `
+{
+  "band": "good",
+  "primary": {
+    "format": {
+      "decimals": 2,
+      "style": "decimal",
+    },
+    "label": "Cumulative GPA",
+    "text": "3.48",
+    "value": 3.480851063829787,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 2,
+        "style": "decimal",
+      },
+      "label": "GPA for these courses",
+      "text": "3.59",
+      "value": 3.588235294117647,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "decimal",
+      },
+      "label": "Credits in these courses",
+      "text": "17.0",
+      "value": 17,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "decimal",
+      },
+      "label": "Quality points from these courses",
+      "text": "61.00",
+      "value": 61,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "decimal",
+      },
+      "label": "Total credits",
+      "text": "47.0",
+      "value": 47,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "decimal",
+      },
+      "label": "Total quality points",
+      "text": "163.60",
+      "value": 163.6,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+      },
+      "label": "Courses entered",
+      "text": "5",
+      "value": 5,
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Organic Chemistry",
+      "text": "A- = 3.70 x 4 credits = 14.80 quality points",
+      "value": "A- = 3.70 x 4 credits = 14.80 quality points",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Honors Calculus II",
+      "text": "B+ = 3.30 x 4 credits = 13.20 quality points",
+      "value": "B+ = 3.30 x 4 credits = 13.20 quality points",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "English Composition",
+      "text": "A = 4.00 x 3 credits = 12.00 quality points",
+      "value": "A = 4.00 x 3 credits = 12.00 quality points",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Intro Psychology",
+      "text": "B = 3.00 x 3 credits = 9.00 quality points",
+      "value": "B = 3.00 x 3 credits = 9.00 quality points",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Spanish II",
+      "text": "A = 4.00 x 3 credits = 12.00 quality points",
+      "value": "A = 4.00 x 3 credits = 12.00 quality points",
     },
   ],
 }
@@ -1567,6 +2121,82 @@ exports[`registry > one-rep-max-calculator > default output is stable 1`] = `
 }
 `;
 
+exports[`registry > paint-calculator > default output is stable 1`] = `
+{
+  "band": "good",
+  "primary": {
+    "format": {
+      "decimals": 2,
+      "style": "decimal",
+      "unit": "L",
+    },
+    "label": "Paint needed",
+    "text": "7.71 L",
+    "value": 7.7109695999999985,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+        "unit": "tins",
+      },
+      "label": "Tins to buy",
+      "text": "4 tins",
+      "value": 4,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Total paint cost",
+      "text": "$120.00",
+      "value": 120,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "decimal",
+        "unit": "m²",
+      },
+      "label": "Wall area to paint",
+      "text": "38.6 m²",
+      "value": 38.55484799999999,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "decimal",
+        "unit": "m²",
+      },
+      "label": "Area over all coats",
+      "text": "77.1 m²",
+      "value": 77.10969599999999,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "decimal",
+        "unit": "L",
+      },
+      "label": "Paint purchased",
+      "text": "10.00 L",
+      "value": 10,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "decimal",
+        "unit": "L",
+      },
+      "label": "Paint left over",
+      "text": "2.29 L",
+      "value": 2.2890304000000015,
+    },
+  ],
+}
+`;
+
 exports[`registry > percentage-calculator > default output is stable 1`] = `
 {
   "band": undefined,
@@ -1801,6 +2431,76 @@ exports[`registry > ratio-calculator > default output is stable 1`] = `
       "label": "Scale factor (C ÷ A)",
       "text": "3.0000",
       "value": 3,
+    },
+  ],
+}
+`;
+
+exports[`registry > rent-vs-buy-calculator > default output is stable 1`] = `
+{
+  "band": "good",
+  "primary": {
+    "format": {
+      "decimals": 1,
+      "style": "decimal",
+      "unit": "years",
+    },
+    "label": "Years until buying costs less",
+    "text": "6.8 years",
+    "value": 6.819602303626767,
+  },
+  "stats": [
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Monthly mortgage payment",
+      "text": "$2,022.62",
+      "value": 2022.6176751774892,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Year-1 monthly cost of owning",
+      "text": "$2,855.95",
+      "value": 2855.9510085108227,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Upfront cash to buy",
+      "text": "$88,000",
+      "value": 88000,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Cost of renting for 30 years",
+      "text": "$1,141,810",
+      "value": 1141809.9769517293,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Cost of buying for 30 years",
+      "text": "$569,346",
+      "value": 569345.6318811453,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Buying saves you over 30 years",
+      "text": "$572,464",
+      "value": 572464.345070584,
     },
   ],
 }
@@ -2289,6 +2989,67 @@ exports[`registry > savings-goal-calculator > default output is stable 1`] = `
 }
 `;
 
+exports[`registry > simple-interest-calculator > default output is stable 1`] = `
+{
+  "band": "neutral",
+  "primary": {
+    "format": {
+      "style": "currency",
+    },
+    "label": "Total interest",
+    "text": "$3,000.00",
+    "value": 3000,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Total amount",
+      "text": "$13,000",
+      "value": 13000,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Interest per year",
+      "text": "$600",
+      "value": 600,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Compound interest, same terms",
+      "text": "$3,489",
+      "value": 3488.501525493075,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Extra from compounding",
+      "text": "$489",
+      "value": 488.50152549307495,
+    },
+    {
+      "format": {
+        "from": "months",
+        "style": "duration",
+      },
+      "label": "Term",
+      "text": "5 years",
+      "value": 60,
+    },
+  ],
+}
+`;
+
 exports[`registry > tdee-calculator > default output is stable 1`] = `
 {
   "band": undefined,
@@ -2445,6 +3206,64 @@ exports[`registry > unit-converter-calculator > default output is stable 1`] = `
       "label": "Value in m",
       "text": "100,000.0000 m",
       "value": 100000,
+    },
+  ],
+}
+`;
+
+exports[`registry > volume-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "decimals": 1,
+      "style": "decimal",
+      "unit": "L",
+    },
+    "label": "Volume in litres",
+    "text": "1,696.5 L",
+    "value": 1696.4600329384884,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+        "unit": "m³",
+      },
+      "label": "Cubic metres",
+      "text": "1.6965 m³",
+      "value": 1.6964600329384885,
+    },
+    {
+      "format": {
+        "decimals": 3,
+        "style": "decimal",
+        "unit": "ft³",
+      },
+      "label": "Cubic feet",
+      "text": "59.910 ft³",
+      "value": 59.909920669548264,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "decimal",
+        "unit": "US gal",
+      },
+      "label": "US gallons",
+      "text": "448.16 US gal",
+      "value": 448.1573286449326,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "decimal",
+        "unit": "imp gal",
+      },
+      "label": "Imperial gallons",
+      "text": "373.17 imp gal",
+      "value": 373.169038214925,
     },
   ],
 }
