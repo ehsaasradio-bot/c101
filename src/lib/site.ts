@@ -29,11 +29,12 @@ export const CURRENCY = 'USD'
 /**
  * Set to false to ship a noindex build (staging, pre-launch).
  *
- * Currently false: the site is not launched. Flipping this to true is the
- * single switch that opens it to search engines — it drives both the per-page
- * robots meta and robots.txt, so the two can never disagree.
+ * Now true: the site is launched. This drives both the per-page robots meta and
+ * robots.txt, so the two can never disagree, and it is what adds the Sitemap
+ * line to robots.txt. A page that must stay out of the index regardless — the
+ * 404 — passes `noindex` to `Seo` rather than relying on this.
  */
-export const ALLOW_INDEXING = false
+export const ALLOW_INDEXING = true
 
 /**
  * Cloudflare Pages serves at trailing-slash URLs and 308-redirects non-slash → slash.

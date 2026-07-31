@@ -30,9 +30,10 @@ const description = 'That page does not exist. Browse every calculator by catego
 ---
 
 <BaseLayout title="Page not found" description={description}>
-  {/* No `noindex` prop exists — robots is site-wide in Seo.astro. That is fine:
-      the real 404 status this page now returns is the signal crawlers act on. */}
-  <Seo slot="head" title="Page Not Found" description={description} />
+  {/* Never indexable, whatever the site-wide switch says. The 404 status is the
+      signal crawlers actually act on, but a page that returns 404 should not
+      also be advertising itself as indexable. */}
+  <Seo slot="head" title="Page Not Found" description={description} noindex />
 
   {/* Shell wraps its breadcrumb but not its <slot />, so a plain page has to
       carry its own container or it renders edge to edge. */}

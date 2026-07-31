@@ -8,9 +8,22 @@ interface Props {
   /** Extra JSON-LD documents for this page type. */
   schemas?: ReadonlyArray<Record<string, unknown>>
   ogType?: 'website' | 'article'
+  /**
+   * Keep this page out of the index on its own terms, independent of the
+   * site-wide switch. Until launch `ALLOW_INDEXING` was false and every page
+   * carried noindex, which hid the fact that some pages must NEVER be indexed
+   * whatever that switch says — the 404 above all.
+   */
+  noindex?: boolean
 }
 
-const { title, description = SITE_DESCRIPTION, schemas = [], ogType = 'website' } = Astro.props
+const {
+  title,
+  description = SITE_DESCRIPTION,
+  schemas = [],
+  ogType = 'website',
+  noindex = false,
+} = Astro.props
 
 // Cloudflare 308-redirects non-slash → slash, so a canonical without the slash
 // would point at a redirect rather than the served URL.
@@ -21,7 +34,7 @@ const documents = [organization(), ...schemas]
 
 <title>{fullTitle}</title>
 <meta name="description" content={description} />
-<meta name="robots" content={ALLOW_INDEXING ? 'index, follow' : 'noindex, nofollow'} />
+<meta name="robots" content={ALLOW_INDEXING && !noindex ? 'index, follow' : 'noindex, nofollow'} />
 <link rel="canonical" href={canonical} />
 
 <meta property="og:title" content={fullTitle} />
