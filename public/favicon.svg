@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" shape-rendering="crispEdges">
+  <!--
+    The pixel calculator, redrawn on a 32x32 grid.
+
+    BaseLayout has always linked /favicon.svg; the file was never there, so every
+    page 404'd on it.
+
+    Drawn as rects rather than shipped as a bitmap so the art stays on a pixel
+    grid. 32 units, not 16: at 16 the keys were 4x4, and a stroke thick enough to
+    survive (2 units) swallowed most of the key, so the glyphs inverted - the red
+    Clear key read as a light key with red corners. 8x8 keys leave room for a 6x6
+    glyph with a margin, and 32 halves cleanly to the browser's 16px request. It
+    also fits a real obelus: a bar with a separated dot above and below needs the
+    blank rows a 4x4 cell had no room for.
+  -->
+  <rect width="32" height="32" fill="#141414"/>
+
+  <!-- Display -->
+  <rect x="2" y="2" width="28" height="8" fill="#473d55"/>
+  <rect x="25" y="2" width="3" height="1" fill="#ffffff"/>
+  <rect x="24" y="3" width="1" height="1" fill="#ffffff"/>
+  <rect x="28" y="3" width="1" height="1" fill="#ffffff"/>
+  <rect x="24" y="4" width="1" height="1" fill="#ffffff"/>
+  <rect x="28" y="4" width="1" height="1" fill="#ffffff"/>
+  <rect x="24" y="5" width="1" height="1" fill="#ffffff"/>
+  <rect x="28" y="5" width="1" height="1" fill="#ffffff"/>
+  <rect x="24" y="6" width="1" height="1" fill="#ffffff"/>
+  <rect x="28" y="6" width="1" height="1" fill="#ffffff"/>
+  <rect x="24" y="7" width="1" height="1" fill="#ffffff"/>
+  <rect x="28" y="7" width="1" height="1" fill="#ffffff"/>
+  <rect x="25" y="8" width="3" height="1" fill="#ffffff"/>
+
+  <!-- Keys: 8x8 faces, 2-unit gutters. Clear is red. -->
+  <rect x="2" y="12" width="8" height="8" fill="#d3d7dd"/>
+  <rect x="12" y="12" width="8" height="8" fill="#d3d7dd"/>
+  <rect x="22" y="12" width="8" height="8" fill="#b4525d"/>
+  <rect x="2" y="22" width="8" height="8" fill="#d3d7dd"/>
+  <rect x="12" y="22" width="8" height="8" fill="#d3d7dd"/>
+  <rect x="22" y="22" width="8" height="8" fill="#d3d7dd"/>
+
+  <rect x="5" y="13" width="2" height="1" fill="#473d55"/>
+  <rect x="5" y="14" width="2" height="1" fill="#473d55"/>
+  <rect x="3" y="15" width="6" height="1" fill="#473d55"/>
+  <rect x="3" y="16" width="6" height="1" fill="#473d55"/>
+  <rect x="5" y="17" width="2" height="1" fill="#473d55"/>
+  <rect x="5" y="18" width="2" height="1" fill="#473d55"/>
+  <rect x="13" y="13" width="2" height="1" fill="#473d55"/>
+  <rect x="17" y="13" width="2" height="1" fill="#473d55"/>
+  <rect x="14" y="14" width="4" height="1" fill="#473d55"/>
+  <rect x="15" y="15" width="2" height="1" fill="#473d55"/>
+  <rect x="15" y="16" width="2" height="1" fill="#473d55"/>
+  <rect x="14" y="17" width="4" height="1" fill="#473d55"/>
+  <rect x="13" y="18" width="2" height="1" fill="#473d55"/>
+  <rect x="17" y="18" width="2" height="1" fill="#473d55"/>
+  <rect x="24" y="13" width="4" height="1" fill="#f5eef2"/>
+  <rect x="23" y="14" width="2" height="1" fill="#f5eef2"/>
+  <rect x="27" y="14" width="2" height="1" fill="#f5eef2"/>
+  <rect x="23" y="15" width="2" height="1" fill="#f5eef2"/>
+  <rect x="23" y="16" width="2" height="1" fill="#f5eef2"/>
+  <rect x="23" y="17" width="2" height="1" fill="#f5eef2"/>
+  <rect x="27" y="17" width="2" height="1" fill="#f5eef2"/>
+  <rect x="24" y="18" width="4" height="1" fill="#f5eef2"/>
+  <rect x="3" y="25" width="6" height="1" fill="#473d55"/>
+  <rect x="3" y="26" width="6" height="1" fill="#473d55"/>
+  <rect x="15" y="23" width="2" height="1" fill="#473d55"/>
+  <rect x="13" y="25" width="6" height="1" fill="#473d55"/>
+  <rect x="13" y="26" width="6" height="1" fill="#473d55"/>
+  <rect x="15" y="28" width="2" height="1" fill="#473d55"/>
+  <rect x="23" y="24" width="6" height="1" fill="#473d55"/>
+  <rect x="23" y="25" width="6" height="1" fill="#473d55"/>
+  <rect x="23" y="27" width="6" height="1" fill="#473d55"/>
+  <rect x="23" y="28" width="6" height="1" fill="#473d55"/>
+</svg>

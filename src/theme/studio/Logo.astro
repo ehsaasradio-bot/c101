@@ -1,0 +1,96 @@
+---
+/*
+ * The C4129 wordmark: five pixel keycaps, drawn rather than shipped as an image.
+ *
+ * Inline SVG because the mark has to invert with the theme. A PNG or a flat .svg
+ * file would need a second asset for dark mode and a `<picture>` around it; here
+ * the face is `--c-surface` and the glyph is `--c-ink`, so it follows the tokens
+ * the rest of the theme already moves — a palette change in tokens.css carries
+ * the logo with it, which is the whole point of the seam.
+ *
+ * Colours live here and not in any calculator, which is what the architecture
+ * test enforces: presentation belongs to the theme layer.
+ */
+interface Props {
+  /** Rendered height in px. Width follows from the aspect ratio. */
+  height?: number
+  class?: string
+  title?: string
+}
+const { height = 22, class: className, title } = Astro.props
+
+// A 5x7 bitmap per character — the classic pixel-font cell. Legible down to
+// favicon size, which a smoother typeface at this scale is not.
+const GLYPHS: Record<string, readonly string[]> = {
+  C: ['01110', '10001', '10000', '10000', '10000', '10001', '01110'],
+  '4': ['00010', '00110', '01010', '10010', '11111', '00010', '00010'],
+  '1': ['00100', '01100', '00100', '00100', '00100', '00100', '01110'],
+  '2': ['01110', '10001', '00001', '00010', '00100', '01000', '11111'],
+  '9': ['01110', '10001', '10001', '01111', '00001', '00001', '01110'],
+}
+
+const WORD = ['C', '4', '1', '2', '9'] as const
+
+const TILE = 11 // a keycap is 11x11 units
+const GAP = 2.4
+const GX = 3 // glyph inset: (11 - 5) / 2 = 3
+const GY = 2 // (11 - 7) / 2 = 2
+
+/*
+ * A notched square, not a rounded one. Rounding a corner with an arc would make
+ * it the only curve in a mark built entirely from squares; stepping it by one
+ * unit keeps the pixel grid honest at every size.
+ */
+const TILE_PATH = `M2,0 H${TILE - 2} V2 H${TILE} V${TILE - 2} H${TILE - 2} V${TILE} H2 V${TILE - 2} H0 V2 H2 Z`
+
+const pixels = (char: string) => {
+  const rows = GLYPHS[char]!
+  const out: { x: number; y: number }[] = []
+  rows.forEach((row, y) =>
+    row.split('').forEach((bit, x) => {
+      if (bit === '1') out.push({ x: GX + x, y: GY + y })
+    }),
+  )
+  return out
+}
+
+const W = WORD.length * TILE + (WORD.length - 1) * GAP
+// One unit of slack around the art for the offset highlight and shadow.
+const VB = { x: -1, y: -1.4, w: W + 2, h: TILE + 3 }
+const width = Math.round((VB.w / VB.h) * height)
+---
+
+<svg
+  viewBox={`${VB.x} ${VB.y} ${VB.w} ${VB.h}`}
+  width={width}
+  height={height}
+  class={className}
+  role={title ? 'img' : 'presentation'}
+  aria-label={title}
+  aria-hidden={title ? undefined : 'true'}
+  shape-rendering="crispEdges"
+>
+  {
+    WORD.map((char, i) => {
+      const dx = i * (TILE + GAP)
+      return (
+        <g transform={`translate(${dx} 0)`}>
+          {/*
+            A dropped shadow and a drawn edge, and deliberately no second offset
+            highlight layer. The first version stacked a light tile up-left and a
+            dark tile down-right behind the face; at a 22px header height those
+            two offsets resolved into a pair of vertical ticks either side of
+            every character, so the mark read as [C][4][1][2][9] in brackets
+            rather than as five keys. One shadow plus a stroked edge gives the
+            same raised feel with nothing left over.
+          */}
+          <path d={TILE_PATH} transform="translate(0.7 0.9)" fill="var(--c-ink-muted)" opacity="0.35" />
+          <path d={TILE_PATH} fill="var(--c-surface)" stroke="var(--c-border)" stroke-width="0.7" />
+          {pixels(char).map((p) => (
+            <rect x={p.x} y={p.y} width="1" height="1" fill="var(--c-ink)" />
+          ))}
+        </g>
+      )
+    })
+  }
+</svg>

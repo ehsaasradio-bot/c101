@@ -1,6 +1,7 @@
 ---
 import type { ShellProps } from '../contract'
 import Breadcrumbs from './Breadcrumbs.astro'
+import Logo from './Logo.astro'
 import { SITE_NAME } from '../../lib/site'
 import { categories } from '../../lib/categories'
 
@@ -11,12 +12,11 @@ const { breadcrumbs } = Astro.props
 <div class="min-h-screen flex flex-col">
   <header class="sticky top-0 z-30 bg-surface/90 backdrop-blur border-b border-border-subtle">
     <div class="mx-auto max-w-6xl px-4 h-16 flex items-center gap-8">
-      <a href="/" class="flex items-center gap-2 shrink-0">
-        <span
-          class="grid size-8 place-items-center rounded-lg bg-accent text-accent-ink font-semibold"
-          >C</span
-        >
-        <span class="font-semibold tracking-tight text-ink">{SITE_NAME}</span>
+      {/* The mark is a wordmark — it spells the name, so a text label beside it
+          would say the same thing twice. The accessible name comes from the
+          link, which is what a screen reader announces either way. */}
+      <a href="/" class="flex items-center shrink-0" aria-label={`${SITE_NAME} — home`}>
+        <Logo height={26} />
       </a>
 
       <nav aria-label="Categories" class="hidden md:flex items-center gap-6 text-sm">
