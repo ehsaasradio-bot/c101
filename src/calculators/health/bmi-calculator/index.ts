@@ -44,7 +44,7 @@ const def = {
       a: 'Waist circumference is the most useful companion measure, because abdominal fat carries the clearest health risk. A waist over 94cm (37in) for men or 80cm (31.5in) for women suggests increased risk regardless of BMI.',
     },
   ],
-  related: ['body-fat-calculator', 'ideal-weight-calculator', 'tdee-calculator'],
+  related: ['body-fat-calculator', 'ideal-weight-calculator', 'tdee-calculator', 'body-surface-area-calculator'],
   disclaimer: 'health',
   lastReviewed: '2026-07-27',
   priority: 0.9,

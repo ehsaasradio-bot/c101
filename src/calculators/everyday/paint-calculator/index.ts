@@ -56,7 +56,7 @@ const def = {
       a: 'Usually the big tin, per litre — but not always once rounding is counted. A job needing 7.7 litres takes four 2.5 L tins (10 L) or two 5 L tins (10 L), the same volume; a job needing 5.2 litres takes three 2.5 L tins (7.5 L) but two 5 L tins (10 L). The leftover percentage shown here is the number to compare.',
     },
   ],
-  related: ['unit-converter-calculator', 'electricity-cost-calculator', 'discount-calculator'],
+  related: ['unit-converter-calculator', 'electricity-cost-calculator', 'discount-calculator', 'concrete-calculator', 'tile-calculator'],
   lastReviewed: '2026-07-30',
   priority: 0.7,
 } satisfies CalculatorDef<typeof fields>

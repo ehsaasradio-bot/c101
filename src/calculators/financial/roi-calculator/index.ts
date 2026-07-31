@@ -44,7 +44,7 @@ const def = {
       a: 'It depends entirely on the risk taken and how long the money was tied up. A broad stock index has historically returned roughly 7–10% a year before inflation, so compare your annualized figure — not the total ROI — against a benchmark of that kind.',
     },
   ],
-  related: ['compound-interest-calculator', 'break-even-calculator', 'inflation-calculator'],
+  related: ['compound-interest-calculator', 'break-even-calculator', 'inflation-calculator', 'npv-calculator'],
   disclaimer: 'financial',
   lastReviewed: '2026-07-27',
   priority: 0.8,

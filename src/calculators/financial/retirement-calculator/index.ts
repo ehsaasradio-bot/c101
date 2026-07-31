@@ -35,7 +35,7 @@ const def = {
       a: 'Retiring early cuts both ways: fewer years of contributions and compounding, and more years the portfolio has to last. Lowering the withdrawal rate to 3 or 3.5% is the usual adjustment for a retirement expected to run well past 30 years.',
     },
   ],
-  related: ['compound-interest-calculator', 'savings-goal-calculator', 'net-worth-calculator', '401k-calculator'],
+  related: ['compound-interest-calculator', 'savings-goal-calculator', 'net-worth-calculator', '401k-calculator', 'roth-ira-calculator'],
   disclaimer: 'financial',
   lastReviewed: '2026-07-27',
   priority: 0.9,

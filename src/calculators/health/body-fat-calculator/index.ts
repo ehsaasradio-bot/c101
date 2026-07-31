@@ -55,7 +55,7 @@ const def = {
       a: 'For an individual, usually yes, because it separates fat from muscle where BMI cannot — a muscular athlete can read obese on BMI and athletic here. BMI remains useful as a fast population-level screen and needs only a scale and a wall.',
     },
   ],
-  related: ['bmi-calculator', 'ideal-weight-calculator', 'tdee-calculator', 'waist-hip-calculator'],
+  related: ['bmi-calculator', 'ideal-weight-calculator', 'tdee-calculator', 'waist-hip-calculator', 'lean-body-mass-calculator'],
   disclaimer: 'health',
   lastReviewed: '2026-07-27',
   priority: 0.8,

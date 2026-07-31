@@ -40,6 +40,10 @@ for (const calc of calculators) {
         if (numberField.min !== undefined) bumped = Math.max(bumped, numberField.min)
         if (bumped === numberField.default) bumped = numberField.default + step
 
+        // toFixed(4) is load-bearing, not cosmetic. 360 * 1.1 is
+        // 396.00000000000006, and an integer-only calculator such as
+        // prime-calculator rejects a non-integer outright — so without this
+        // rounding the nudge would error rather than recompute. Do not remove.
         await input.fill(String(Number(bumped.toFixed(4))))
         await expect(primary).not.toHaveText(serverRendered)
         await expect(primary).not.toContainText('NaN')

@@ -34,6 +34,8 @@ import paycheck from './financial/paycheck-calculator'
 import plan401k from './financial/401k-calculator'
 import budget from './financial/budget-calculator'
 import presentValue from './financial/present-value-calculator'
+import npv from './financial/npv-calculator'
+import rothIra from './financial/roth-ira-calculator'
 
 // health
 import bmi from './health/bmi-calculator'
@@ -49,6 +51,8 @@ import runningPace from './health/running-pace-calculator'
 import dueDate from './health/due-date-calculator'
 import vo2max from './health/vo2max-calculator'
 import waistHip from './health/waist-hip-calculator'
+import bodySurfaceArea from './health/body-surface-area-calculator'
+import leanBodyMass from './health/lean-body-mass-calculator'
 
 // math
 import percentage from './math/percentage-calculator'
@@ -65,6 +69,9 @@ import volume from './math/volume-calculator'
 import probability from './math/probability-calculator'
 import zScore from './math/z-score-calculator'
 import slope from './math/slope-calculator'
+import logarithm from './math/logarithm-calculator'
+import combination from './math/combination-calculator'
+import prime from './math/prime-calculator'
 
 // everyday
 import tip from './everyday/tip-calculator'
@@ -78,6 +85,8 @@ import cookingConverter from './everyday/cooking-converter-calculator'
 import gpa from './everyday/gpa-calculator'
 import paint from './everyday/paint-calculator'
 import businessDays from './everyday/business-days-calculator'
+import concrete from './everyday/concrete-calculator'
+import tile from './everyday/tile-calculator'
 export const calculators: readonly CalculatorDef[] = [
   mortgage,
   amortization,
@@ -105,6 +114,8 @@ export const calculators: readonly CalculatorDef[] = [
   plan401k,
   budget,
   presentValue,
+  npv,
+  rothIra,
   bmi,
   bmr,
   tdee,
@@ -118,6 +129,8 @@ export const calculators: readonly CalculatorDef[] = [
   dueDate,
   vo2max,
   waistHip,
+  bodySurfaceArea,
+  leanBodyMass,
   percentage,
   percentageChange,
   fraction,
@@ -132,6 +145,9 @@ export const calculators: readonly CalculatorDef[] = [
   probability,
   zScore,
   slope,
+  logarithm,
+  combination,
+  prime,
   tip,
   age,
   dateDifference,
@@ -143,6 +159,8 @@ export const calculators: readonly CalculatorDef[] = [
   gpa,
   paint,
   businessDays,
+  concrete,
+  tile,
 ]
 
 export const bySlug: ReadonlyMap<string, CalculatorDef> = new Map(

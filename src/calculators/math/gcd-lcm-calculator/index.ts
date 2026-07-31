@@ -35,7 +35,7 @@ const def = {
       a: 'Divisibility is only defined for whole numbers: every non-zero decimal divides every other one evenly, so the greatest common divisor would be meaningless. Any value you type is rounded to the nearest integer before the algorithm runs.',
     },
   ],
-  related: ['fraction-calculator', 'ratio-calculator', 'percentage-calculator'],
+  related: ['fraction-calculator', 'ratio-calculator', 'percentage-calculator', 'prime-calculator'],
   compute,
   lastReviewed: '2026-07-27',
   priority: 0.7,

@@ -36,7 +36,7 @@ const def = {
       a: 'Then P(A and B) cannot be derived from P(A) and P(B) at all — it has to be measured, or supplied as a conditional probability, since P(A and B) = P(A) × P(B given A). Rain today and rain tomorrow is the classic case: the two are correlated, so multiplying the individual chances understates the true joint probability. Use the independent setting only when you genuinely believe one event has no bearing on the other.',
     },
   ],
-  related: ['percentage-calculator', 'ratio-calculator', 'average-calculator'],
+  related: ['percentage-calculator', 'ratio-calculator', 'average-calculator', 'combination-calculator'],
   lastReviewed: '2026-07-30',
   priority: 0.7,
 } satisfies CalculatorDef<typeof fields>

@@ -654,6 +654,83 @@ exports[`registry > body-fat-calculator > default output is stable 1`] = `
 }
 `;
 
+exports[`registry > body-surface-area-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "decimals": 2,
+      "style": "decimal",
+      "unit": "m²",
+    },
+    "label": "Body surface area (Mosteller)",
+    "text": "1.99 m²",
+    "value": 1.9888578520235065,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 2,
+        "style": "decimal",
+        "unit": "m²",
+      },
+      "label": "Du Bois & Du Bois (1916)",
+      "text": "1.98 m²",
+      "value": 1.9803140549028222,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "decimal",
+        "unit": "m²",
+      },
+      "label": "Haycock (1978)",
+      "text": "2.00 m²",
+      "value": 1.9976922260372711,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "decimal",
+        "unit": "m²",
+      },
+      "label": "Gehan & George (1970)",
+      "text": "2.00 m²",
+      "value": 2.0000197309017618,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "decimal",
+        "unit": "m²",
+      },
+      "label": "Boyd (1935)",
+      "text": "2.00 m²",
+      "value": 2.000638110224392,
+    },
+    {
+      "format": {
+        "decimals": 3,
+        "style": "decimal",
+        "unit": "m²",
+      },
+      "label": "Lowest to highest",
+      "text": "0.020 m²",
+      "value": 0.02032405532157,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "percent",
+      },
+      "label": "Disagreement between formulas",
+      "text": "1.0%",
+      "value": 1.0210650356267483,
+    },
+  ],
+}
+`;
+
 exports[`registry > break-even-calculator > default output is stable 1`] = `
 {
   "band": "neutral",
@@ -837,6 +914,76 @@ exports[`registry > circle-calculator > default output is stable 1`] = `
 }
 `;
 
+exports[`registry > combination-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "decimals": 0,
+      "style": "decimal",
+    },
+    "label": "Combinations — C(10, 3)",
+    "text": "120",
+    "value": 120,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+      },
+      "label": "Combinations — order ignored, no repeats",
+      "text": "120",
+      "value": 120,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+      },
+      "label": "Permutations — order matters, no repeats",
+      "text": "720",
+      "value": 720,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+      },
+      "label": "Combinations with repetition",
+      "text": "220",
+      "value": 220,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+      },
+      "label": "Permutations with repetition",
+      "text": "1,000",
+      "value": 1000,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+      },
+      "label": "Orderings of one selection (3!)",
+      "text": "6",
+      "value": 6,
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Formula used",
+      "text": "C(n, r) = n! / (r! × (n − r)!)  →  10! / (3! × 7!)",
+      "value": "C(n, r) = n! / (r! × (n − r)!)  →  10! / (3! × 7!)",
+    },
+  ],
+}
+`;
+
 exports[`registry > compound-interest-calculator > default output is stable 1`] = `
 {
   "band": "excellent",
@@ -893,6 +1040,104 @@ exports[`registry > compound-interest-calculator > default output is stable 1`] 
       "label": "Time horizon",
       "text": "20 years",
       "value": 240,
+    },
+  ],
+}
+`;
+
+exports[`registry > concrete-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "decimals": 2,
+      "style": "decimal",
+      "unit": "yd³",
+    },
+    "label": "Concrete needed",
+    "text": "1.36 yd³",
+    "value": 1.358024691358025,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 2,
+        "style": "decimal",
+        "unit": "yd³",
+      },
+      "label": "Cubic yards",
+      "text": "1.36 yd³",
+      "value": 1.358024691358025,
+    },
+    {
+      "format": {
+        "decimals": 3,
+        "style": "decimal",
+        "unit": "m³",
+      },
+      "label": "Cubic metres",
+      "text": "1.038 m³",
+      "value": 1.0382843750400002,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "decimal",
+        "unit": "ft³",
+      },
+      "label": "Cubic feet",
+      "text": "36.7 ft³",
+      "value": 36.666666666666664,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+        "unit": "bags",
+      },
+      "label": "40 lb bags",
+      "text": "123 bags",
+      "value": 123,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+        "unit": "bags",
+      },
+      "label": "60 lb bags",
+      "text": "82 bags",
+      "value": 82,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+        "unit": "bags",
+      },
+      "label": "80 lb bags",
+      "text": "62 bags",
+      "value": 62,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+        "unit": "bags",
+      },
+      "label": "20 kg bags",
+      "text": "104 bags",
+      "value": 104,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+        "unit": "bags",
+      },
+      "label": "25 kg bags",
+      "text": "84 bags",
+      "value": 84,
     },
   ],
 }
@@ -2049,6 +2294,84 @@ exports[`registry > inflation-calculator > default output is stable 1`] = `
 }
 `;
 
+exports[`registry > lean-body-mass-calculator > default output is stable 1`] = `
+{
+  "band": "neutral",
+  "primary": {
+    "format": {
+      "decimals": 1,
+      "style": "decimal",
+      "unit": "kg",
+    },
+    "label": "Lean body mass (Boer)",
+    "text": "60.9 kg",
+    "value": 60.885999999999996,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 1,
+        "style": "decimal",
+        "unit": "kg",
+      },
+      "label": "James (1976) estimate",
+      "text": "62.1 kg",
+      "value": 62.144678702184066,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "decimal",
+        "unit": "kg",
+      },
+      "label": "Hume (1966) estimate",
+      "text": "57.1 kg",
+      "value": 57.10802,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "decimal",
+        "unit": "kg",
+      },
+      "label": "From your body fat",
+      "text": "63.2 kg",
+      "value": 63.2,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "decimal",
+        "unit": "kg",
+      },
+      "label": "Spread across the three formulas",
+      "text": "5.0 kg",
+      "value": 5.036658702184063,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "decimal",
+        "unit": "kg",
+      },
+      "label": "Fat mass",
+      "text": "19.1 kg",
+      "value": 19.114000000000004,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "decimal",
+        "unit": "kg/m²",
+      },
+      "label": "Fat-free mass index",
+      "text": "19.2 kg/m²",
+      "value": 19.216639313218025,
+    },
+  ],
+}
+`;
+
 exports[`registry > loan-calculator > default output is stable 1`] = `
 {
   "band": "good",
@@ -2105,6 +2428,85 @@ exports[`registry > loan-calculator > default output is stable 1`] = `
       "label": "Time saved",
       "text": "0 months",
       "value": 0,
+    },
+  ],
+}
+`;
+
+exports[`registry > logarithm-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "decimals": 0,
+      "style": "decimal",
+    },
+    "label": "Logarithm of 1000 to base 10",
+    "text": "3",
+    "value": 3,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+      },
+      "label": "Common logarithm log₁₀(x)",
+      "text": "3",
+      "value": 3,
+    },
+    {
+      "format": {
+        "decimals": 6,
+        "style": "decimal",
+      },
+      "label": "Natural logarithm ln(x)",
+      "text": "6.907755",
+      "value": 6.907755278982137,
+    },
+    {
+      "format": {
+        "decimals": 6,
+        "style": "decimal",
+      },
+      "label": "Binary logarithm log₂(x)",
+      "text": "9.965784",
+      "value": 9.965784284662087,
+    },
+    {
+      "format": {
+        "decimals": 6,
+        "style": "decimal",
+      },
+      "label": "Change of base: ln(x) ÷ ln(b)",
+      "text": "3.000000",
+      "value": 2.9999999999999996,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+      },
+      "label": "Inverse: x when the logarithm is y",
+      "text": "1,000",
+      "value": 1000,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+      },
+      "label": "Check: b raised to the answer",
+      "text": "1,000",
+      "value": 1000,
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Is x an exact power of b?",
+      "text": "Yes — b^3 = 1000",
+      "value": "Yes — b^3 = 1000",
     },
   ],
 }
@@ -2312,6 +2714,106 @@ exports[`registry > net-worth-calculator > default output is stable 1`] = `
       "label": "Home equity",
       "text": "$140,000",
       "value": 140000,
+    },
+  ],
+}
+`;
+
+exports[`registry > npv-calculator > default output is stable 1`] = `
+{
+  "band": "good",
+  "primary": {
+    "format": {
+      "decimals": 0,
+      "style": "currency",
+    },
+    "label": "Net present value",
+    "text": "$29,079",
+    "value": 29078.676940844787,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 2,
+        "style": "percent",
+      },
+      "label": "Internal rate of return",
+      "text": "19.71%",
+      "value": 19.711108390008214,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "decimal",
+        "unit": "years",
+      },
+      "label": "Discounted payback",
+      "text": "3.96 years",
+      "value": 3.958375000000001,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "decimal",
+        "unit": "years",
+      },
+      "label": "Simple payback (undiscounted)",
+      "text": "3.25 years",
+      "value": 3.25,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Present value of the returns",
+      "text": "$129,079",
+      "value": 129078.67694084479,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Present value of the costs",
+      "text": "$100,000",
+      "value": 100000,
+    },
+    {
+      "format": {
+        "decimals": 3,
+        "style": "decimal",
+      },
+      "label": "Profitability index",
+      "text": "1.291",
+      "value": 1.2907867694084478,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Undiscounted net cash flow",
+      "text": "$75,000",
+      "value": 75000,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Value lost to discounting",
+      "text": "$45,921",
+      "value": 45921.32305915521,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+      },
+      "label": "Years of cash flow",
+      "text": "5",
+      "value": 5,
     },
   ],
 }
@@ -2686,6 +3188,81 @@ exports[`registry > present-value-calculator > default output is stable 1`] = `
       "label": "Rate per period",
       "text": "0.4167%",
       "value": 0.4166666666666667,
+    },
+  ],
+}
+`;
+
+exports[`registry > prime-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "style": "raw",
+    },
+    "label": "Is it prime?",
+    "text": "No — 360 is composite",
+    "value": "No — 360 is composite",
+  },
+  "stats": [
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Prime factorisation",
+      "text": "2³ × 3² × 5",
+      "value": "2³ × 3² × 5",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Written out in full",
+      "text": "2 × 2 × 2 × 3 × 3 × 5",
+      "value": "2 × 2 × 2 × 3 × 3 × 5",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Distinct prime factors",
+      "text": "3 (6 counting repeats)",
+      "value": "3 (6 counting repeats)",
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+      },
+      "label": "Number of divisors",
+      "text": "24",
+      "value": 24,
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Divisors",
+      "text": "1, 2, 3, 4, 5, 6, 8, 9, 10, 12, 15, 18, 20, 24, 30, 36, 40, 45, 60, 72, 90, 120, 180, 360",
+      "value": "1, 2, 3, 4, 5, 6, 8, 9, 10, 12, 15, 18, 20, 24, 30, 36, 40, 45, 60, 72, 90, 120, 180, 360",
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+      },
+      "label": "Previous prime",
+      "text": "359",
+      "value": 359,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+      },
+      "label": "Next prime",
+      "text": "367",
+      "value": 367,
     },
   ],
 }
@@ -3305,6 +3882,104 @@ exports[`registry > roi-calculator > default output is stable 1`] = `
 }
 `;
 
+exports[`registry > roth-ira-calculator > default output is stable 1`] = `
+{
+  "band": "warn",
+  "primary": {
+    "format": {
+      "decimals": 0,
+      "style": "currency",
+    },
+    "label": "Tax-free Roth balance at retirement",
+    "text": "$1,036,777",
+    "value": 1036776.5876373698,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Traditional IRA, same cost, after tax",
+      "text": "$1,129,821",
+      "value": 1129820.6403740568,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "percent",
+      },
+      "label": "Break-even retirement tax rate",
+      "text": "22.0%",
+      "value": 22,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Roth advantage",
+      "text": "-$93,044",
+      "value": -93044.05273668701,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "percent",
+      },
+      "label": "Roth advantage, as a percentage",
+      "text": "-8.24%",
+      "value": -8.23529411764705,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Gross pay each contribution costs",
+      "text": "$9,615",
+      "value": 9615.384615384615,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Tax paid up front, in total",
+      "text": "$74,038",
+      "value": 74038.46153846156,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Tax deferred on the traditional",
+      "text": "$199,380",
+      "value": 199380.11300718645,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Traditional at the same deposit, after tax",
+      "text": "$881,260",
+      "value": 881260.0994917643,
+    },
+    {
+      "format": {
+        "from": "months",
+        "style": "duration",
+      },
+      "label": "Years of contributions",
+      "text": "35 years",
+      "value": 420,
+    },
+  ],
+}
+`;
+
 exports[`registry > running-pace-calculator > default output is stable 1`] = `
 {
   "band": undefined,
@@ -3762,6 +4437,82 @@ exports[`registry > tdee-calculator > default output is stable 1`] = `
       "label": "Activity multiplier",
       "text": "1.550",
       "value": 1.55,
+    },
+  ],
+}
+`;
+
+exports[`registry > tile-calculator > default output is stable 1`] = `
+{
+  "band": "neutral",
+  "primary": {
+    "format": {
+      "decimals": 0,
+      "style": "decimal",
+      "unit": "tiles",
+    },
+    "label": "Tiles needed",
+    "text": "53 tiles",
+    "value": 53,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+        "unit": "boxes",
+      },
+      "label": "Boxes to buy",
+      "text": "14 boxes",
+      "value": 14,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Total tile cost",
+      "text": "$630.00",
+      "value": 630,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+        "unit": "tiles",
+      },
+      "label": "Tiles by layout (rows × columns)",
+      "text": "48 tiles",
+      "value": 48,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+        "unit": "tiles",
+      },
+      "label": "Tiles by area (the naive figure)",
+      "text": "44 tiles",
+      "value": 44,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+        "unit": "tiles",
+      },
+      "label": "Tiles the area method misses",
+      "text": "4 tiles",
+      "value": 4,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "decimal",
+        "unit": "m²",
+      },
+      "label": "Floor area",
+      "text": "15.75 m²",
+      "value": 15.75,
     },
   ],
 }

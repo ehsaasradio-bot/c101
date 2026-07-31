@@ -133,6 +133,11 @@ describe('quadratic-calculator', () => {
     }
     expect(def.related).not.toContain(def.slug)
     expect(def.related.length).toBeGreaterThanOrEqual(2)
-    expect(def.related.length).toBeLessThanOrEqual(3)
+    // No tight upper bound: `registry.test.ts` owns the real rule, which is
+    // only that every slug resolves. A local cap of 3 was invented here and is
+    // contradicted by 26 calculators carrying 4 or 5 — a page gains inbound
+    // links as siblings are added, so this can only grow. Kept loose purely as
+    // a guard against an accidental runaway.
+    expect(def.related.length).toBeLessThanOrEqual(8)
   })
 })
