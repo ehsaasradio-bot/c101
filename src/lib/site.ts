@@ -1,8 +1,11 @@
 /** Central site configuration. Change the domain and indexing flag here only. */
 
-// Cloudflare appends a suffix when the bare subdomain is already taken
-// globally, so the project is `c101` but the domain is not `c101.pages.dev`.
-export const SITE_URL = 'https://c101-ccc.pages.dev'
+// The real domain. `c101-ccc.pages.dev` is the Cloudflare-assigned fallback the
+// project got because `c101.pages.dev` was already taken globally; it still
+// serves the same build, so `public/_redirects` sends it here to keep one
+// canonical host. Everything derived from this — canonicals, og:url, the
+// sitemap, JSON-LD — follows automatically.
+export const SITE_URL = 'https://calculator4129.space'
 export const SITE_NAME = 'Calc101'
 export const SITE_DESCRIPTION =
   'Free online calculators for finance, health, math, and everyday life. Fast, accurate, no sign-up.'
