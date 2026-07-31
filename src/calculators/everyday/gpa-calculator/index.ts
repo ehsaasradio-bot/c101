@@ -47,7 +47,7 @@ const def = {
       a: 'Pass/fail and withdrawn courses normally earn credit without grade points, so they sit outside the GPA entirely — leave them off the list. A repeated course depends on your school: some replace the old grade, in which case list only the new one, while others average both attempts, in which case list both.',
     },
   ],
-  related: ['average-calculator', 'percentage-calculator', 'ratio-calculator'],
+  related: ['average-calculator', 'percentage-calculator', 'ratio-calculator', 'grade-calculator'],
   lastReviewed: '2026-07-30',
   priority: 0.7,
 } satisfies CalculatorDef<typeof fields>

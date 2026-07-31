@@ -72,6 +72,10 @@ import slope from './math/slope-calculator'
 import logarithm from './math/logarithm-calculator'
 import combination from './math/combination-calculator'
 import prime from './math/prime-calculator'
+import squareRoot from './math/square-root-calculator'
+import exponent from './math/exponent-calculator'
+import factorial from './math/factorial-calculator'
+import distance from './math/distance-calculator'
 
 // everyday
 import tip from './everyday/tip-calculator'
@@ -87,6 +91,8 @@ import paint from './everyday/paint-calculator'
 import businessDays from './everyday/business-days-calculator'
 import concrete from './everyday/concrete-calculator'
 import tile from './everyday/tile-calculator'
+import grade from './everyday/grade-calculator'
+import timeZoneConverter from './everyday/time-zone-converter-calculator'
 export const calculators: readonly CalculatorDef[] = [
   mortgage,
   amortization,
@@ -148,6 +154,10 @@ export const calculators: readonly CalculatorDef[] = [
   logarithm,
   combination,
   prime,
+  squareRoot,
+  exponent,
+  factorial,
+  distance,
   tip,
   age,
   dateDifference,
@@ -161,6 +171,8 @@ export const calculators: readonly CalculatorDef[] = [
   businessDays,
   concrete,
   tile,
+  grade,
+  timeZoneConverter,
 ]
 
 export const bySlug: ReadonlyMap<string, CalculatorDef> = new Map(

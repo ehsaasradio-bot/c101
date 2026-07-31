@@ -33,7 +33,7 @@ const isRule = (step: (typeof result.steps)[number]): step is { rule: true } => 
     <p
       data-calc-out="primary"
       data-animate="count"
-      class="mt-1 text-4xl font-semibold tracking-tight tabular-nums text-ink"
+      class="mt-1 text-4xl font-semibold tracking-tight tabular-nums text-ink [overflow-wrap:anywhere]"
     >
       {result.primary.text}
     </p>
@@ -57,7 +57,7 @@ const isRule = (step: (typeof result.steps)[number]): step is { rule: true } => 
             <dt data-slot="label" class="text-xs text-ink-muted">
               {stat.label}
             </dt>
-            <dd data-slot="value" class="mt-0.5 text-sm font-semibold tabular-nums text-ink">
+            <dd data-slot="value" class="mt-0.5 text-sm font-semibold tabular-nums text-ink [overflow-wrap:anywhere]">
               {stat.text}
             </dd>
           </div>
@@ -100,7 +100,7 @@ const isRule = (step: (typeof result.steps)[number]): step is { rule: true } => 
                 <dt data-slot="label" class="text-ink-muted">
                   {step.label}
                 </dt>
-                <dd data-slot="value" class="tabular-nums text-ink">
+                <dd data-slot="value" class="tabular-nums text-ink [overflow-wrap:anywhere]">
                   {step.text}
                 </dd>
               </div>
@@ -116,14 +116,17 @@ const isRule = (step: (typeof result.steps)[number]): step is { rule: true } => 
 <template data-calc-row="stat">
   <div class="rounded-control border border-border-subtle bg-surface-sunken px-3 py-2.5">
     <dt data-slot="label" class="text-xs text-ink-muted"></dt>
-    <dd data-slot="value" class="mt-0.5 text-sm font-semibold tabular-nums text-ink"></dd>
+    <dd
+      data-slot="value"
+      class="mt-0.5 text-sm font-semibold tabular-nums text-ink [overflow-wrap:anywhere]"
+    ></dd>
   </div>
 </template>
 
 <template data-calc-row="step">
   <div class="flex justify-between gap-4 py-1">
     <dt data-slot="label" class="text-ink-muted"></dt>
-    <dd data-slot="value" class="tabular-nums text-ink"></dd>
+    <dd data-slot="value" class="tabular-nums text-ink [overflow-wrap:anywhere]"></dd>
   </div>
 </template>
 

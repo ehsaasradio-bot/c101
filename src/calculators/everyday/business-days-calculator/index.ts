@@ -43,7 +43,7 @@ const def = {
     },
   ],
   // Slugs, never hrefs. Every one must resolve or the conformance suite fails.
-  related: ['date-difference-calculator', 'age-calculator'],
+  related: ['date-difference-calculator', 'age-calculator', 'time-zone-converter-calculator'],
   lastReviewed: '2026-07-30',
   priority: 0.7,
 } satisfies CalculatorDef<typeof fields>

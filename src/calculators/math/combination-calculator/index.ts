@@ -40,7 +40,7 @@ const def = {
       a: 'There are C(49, 6) = 13,983,816 possible draws, so a single ticket has a 1 in 13,983,816 chance of matching all six. Order is ignored because the ticket wins on the set of numbers, and repetition is off because each ball is drawn once. If order did matter the count would be P(49, 6) = 10,068,347,520, which is 6! = 720 times larger.',
     },
   ],
-  related: ['probability-calculator', 'gcd-lcm-calculator', 'percentage-calculator'],
+  related: ['probability-calculator', 'gcd-lcm-calculator', 'percentage-calculator', 'factorial-calculator'],
   lastReviewed: '2026-07-31',
   priority: 0.7,
 } satisfies CalculatorDef<typeof fields>

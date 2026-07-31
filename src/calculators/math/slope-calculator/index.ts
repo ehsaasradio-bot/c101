@@ -39,7 +39,7 @@ const def = {
       a: 'You get an error, because two copies of one point do not pick out a line at all — infinitely many lines pass through a single point, and none of them is more correct than another. Move one of the coordinates and the calculator will answer.',
     },
   ],
-  related: ['right-triangle-calculator', 'quadratic-calculator', 'ratio-calculator'],
+  related: ['right-triangle-calculator', 'quadratic-calculator', 'ratio-calculator', 'distance-calculator'],
   compute,
   lastReviewed: '2026-07-30',
   priority: 0.7,

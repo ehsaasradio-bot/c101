@@ -36,7 +36,7 @@ const def = {
       a: 'They are written in the form p + qi, where i is the square root of −1. The two roots always come as a matching pair such as −1 + 2i and −1 − 2i, sharing the same real part −b ÷ (2a) and equal but opposite imaginary parts.',
     },
   ],
-  related: ['right-triangle-calculator', 'percentage-calculator', 'gcd-lcm-calculator', 'logarithm-calculator'],
+  related: ['right-triangle-calculator', 'percentage-calculator', 'gcd-lcm-calculator', 'logarithm-calculator', 'square-root-calculator'],
   lastReviewed: '2026-07-27',
   priority: 0.6,
 } satisfies CalculatorDef<typeof fields>

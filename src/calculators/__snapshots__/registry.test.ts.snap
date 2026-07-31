@@ -1480,6 +1480,84 @@ exports[`registry > discount-calculator > default output is stable 1`] = `
 }
 `;
 
+exports[`registry > distance-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "decimals": 2,
+      "style": "decimal",
+      "unit": "km",
+    },
+    "label": "Great-circle distance",
+    "text": "5,570.23 km",
+    "value": 5570.229873656522,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 2,
+        "style": "decimal",
+        "unit": "mi",
+      },
+      "label": "Distance in miles",
+      "text": "3,461.18 mi",
+      "value": 3461.1803776299666,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "decimal",
+        "unit": "nmi",
+      },
+      "label": "Distance in nautical miles",
+      "text": "3,007.68 nmi",
+      "value": 3007.683517093154,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+        "unit": "°",
+      },
+      "label": "Central angle",
+      "text": "50.0942 °",
+      "value": 50.09421156006071,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+        "unit": "°",
+      },
+      "label": "Initial bearing from A",
+      "text": "51.2126 °",
+      "value": 51.2126168241972,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+        "unit": "°",
+      },
+      "label": "Final bearing at B",
+      "text": "108.3297 °",
+      "value": 108.32970159360485,
+    },
+    {
+      "format": {
+        "decimals": 3,
+        "style": "decimal",
+        "unit": "km",
+      },
+      "label": "Straight chord through the Earth",
+      "text": "5,394.502 km",
+      "value": 5394.501863449597,
+    },
+  ],
+}
+`;
+
 exports[`registry > down-payment-calculator > default output is stable 1`] = `
 {
   "band": "neutral",
@@ -1605,6 +1683,149 @@ exports[`registry > electricity-cost-calculator > default output is stable 1`] =
       "label": "Cost per running hour",
       "text": "$0.17",
       "value": 0.17,
+    },
+  ],
+}
+`;
+
+exports[`registry > exponent-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "decimals": 0,
+      "style": "decimal",
+    },
+    "label": "2^10",
+    "text": "1,024",
+    "value": 1024,
+  },
+  "stats": [
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Scientific notation",
+      "text": "1.024 x 10^3",
+      "value": "1.024 x 10^3",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Order of magnitude — log₁₀ of the size",
+      "text": "3.01029995664",
+      "value": "3.01029995664",
+    },
+    {
+      "format": {
+        "decimals": 10,
+        "style": "decimal",
+      },
+      "label": "Reciprocal — 2^(-10)",
+      "text": "0.0009765625",
+      "value": 0.0009765625,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+      },
+      "label": "Product law — b^n x b^3 = 2^13",
+      "text": "8,192",
+      "value": 8192,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+      },
+      "label": "Power law — (b^n)^2 = 2^20",
+      "text": "1,048,576",
+      "value": 1048576,
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Sign of the result",
+      "text": "Positive — a positive base is positive at every power",
+      "value": "Positive — a positive base is positive at every power",
+    },
+  ],
+}
+`;
+
+exports[`registry > factorial-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "style": "raw",
+    },
+    "label": "100!",
+    "text": "9332621544394415 … 0000000000000000",
+    "value": "9332621544394415 … 0000000000000000",
+  },
+  "stats": [
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Exact value",
+      "text": "93326215443944152681699238856266700490715968264381621468592963895217599993229915608941463976156518286253697920827223758251185210916864000000000000000000000000",
+      "value": "93326215443944152681699238856266700490715968264381621468592963895217599993229915608941463976156518286253697920827223758251185210916864000000000000000000000000",
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+      },
+      "label": "Number of digits",
+      "text": "158",
+      "value": 158,
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Scientific notation",
+      "text": "9.33262 × 10^157",
+      "value": "9.33262 × 10^157",
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+      },
+      "label": "Trailing zeros",
+      "text": "24",
+      "value": 24,
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "As a JavaScript number",
+      "text": "Wrong — right to about 15 significant figures, invented after that",
+      "value": "Wrong — right to about 15 significant figures, invented after that",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Nearest double",
+      "text": "9.332622e+157",
+      "value": "9.332622e+157",
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+      },
+      "label": "Factors of 2 in n!",
+      "text": "97",
+      "value": 97,
     },
   ],
 }
@@ -1915,6 +2136,118 @@ exports[`registry > gpa-calculator > default output is stable 1`] = `
       "label": "Spanish II",
       "text": "A = 4.00 x 3 credits = 12.00 quality points",
       "value": "A = 4.00 x 3 credits = 12.00 quality points",
+    },
+  ],
+}
+`;
+
+exports[`registry > grade-calculator > default output is stable 1`] = `
+{
+  "band": "warn",
+  "primary": {
+    "format": {
+      "decimals": 1,
+      "style": "percent",
+    },
+    "label": "Score needed on the final",
+    "text": "93.2%",
+    "value": 93.16666666666669,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 1,
+        "style": "percent",
+      },
+      "label": "Grade so far (graded work only)",
+      "text": "81.5%",
+      "value": 81.5,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "percent",
+      },
+      "label": "Best possible grade (100% on the final)",
+      "text": "87.0%",
+      "value": 87.05,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "percent",
+      },
+      "label": "Worst possible grade (0% on the final)",
+      "text": "57.0%",
+      "value": 57.05,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "percent",
+      },
+      "label": "Weight already graded",
+      "text": "70.0%",
+      "value": 70,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "percent",
+      },
+      "label": "Weight of the final",
+      "text": "30.0%",
+      "value": 30,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "percent",
+      },
+      "label": "Total weight entered",
+      "text": "100.0%",
+      "value": 100,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+      },
+      "label": "Marks entered",
+      "text": "4",
+      "value": 4,
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Homework",
+      "text": "88% at a weight of 15 = 13.20 of the 100 course points",
+      "value": "88% at a weight of 15 = 13.20 of the 100 course points",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Quizzes",
+      "text": "79% at a weight of 15 = 11.85 of the 100 course points",
+      "value": "79% at a weight of 15 = 11.85 of the 100 course points",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Midterm 1",
+      "text": "84% at a weight of 20 = 16.80 of the 100 course points",
+      "value": "84% at a weight of 20 = 16.80 of the 100 course points",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Midterm 2",
+      "text": "76% at a weight of 20 = 15.20 of the 100 course points",
+      "value": "76% at a weight of 20 = 15.20 of the 100 course points",
     },
   ],
 }
@@ -4380,6 +4713,79 @@ exports[`registry > slope-calculator > default output is stable 1`] = `
       "label": "Rise : run ratio",
       "text": "3 : 4",
       "value": "3 : 4",
+    },
+  ],
+}
+`;
+
+exports[`registry > square-root-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "decimals": 6,
+      "style": "decimal",
+    },
+    "label": "Square root of 72",
+    "text": "8.485281",
+    "value": 8.48528137423857,
+  },
+  "stats": [
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Simplified radical form",
+      "text": "6√2",
+      "value": "6√2",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Is 72 a perfect square?",
+      "text": "No — the root is irrational, so the radical form above is the only exact one",
+      "value": "No — the root is irrational, so the radical form above is the only exact one",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Both roots",
+      "text": "+8.485281374 and -8.485281374 — the principal root is the positive one",
+      "value": "+8.485281374 and -8.485281374 — the principal root is the positive one",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Check: root raised to the power 2",
+      "text": "8.485281374² = 72",
+      "value": "8.485281374² = 72",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Square root √x",
+      "text": "8.485281374",
+      "value": "8.485281374",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Cube root ∛x",
+      "text": "4.160167646",
+      "value": "4.160167646",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Between the perfect powers",
+      "text": "64 = 8² and 81 = 9²",
+      "value": "64 = 8² and 81 = 9²",
     },
   ],
 }

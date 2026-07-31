@@ -40,7 +40,7 @@ const def = {
       a: 'They are the three bases that come up constantly. The common logarithm uses base 10 and counts digits, so log10 of a million is 6. The natural logarithm uses base e, roughly 2.718281828, and is the one that appears in growth and decay. The binary logarithm uses base 2 and counts doublings, so log2 of 1024 is 10. All three are shown for whatever value you enter.',
     },
   ],
-  related: ['quadratic-calculator', 'compound-interest-calculator', 'percentage-change-calculator'],
+  related: ['quadratic-calculator', 'compound-interest-calculator', 'percentage-change-calculator', 'exponent-calculator'],
   lastReviewed: '2026-07-31',
   priority: 0.6,
 } satisfies CalculatorDef<typeof fields>

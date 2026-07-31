@@ -3,9 +3,7 @@ import compute, { binomial, falling, powerCount, factorialCount } from './comput
 import type { Count } from './compute'
 import { fields } from './fields'
 import def from './index'
-import probability from '../probability-calculator'
-import gcdLcm from '../gcd-lcm-calculator'
-import percentage from '../percentage-calculator'
+import { bySlug } from '../../index'
 import { toResultView } from '../../../lib/view'
 import { CalcError } from '../../../lib/types'
 import type { Quantity } from '../../../lib/types'
@@ -473,9 +471,12 @@ describe('definition', () => {
   })
 
   test('every related slug resolves to a calculator that already exists', () => {
-    const existing = [probability.slug, gcdLcm.slug, percentage.slug]
+    // The real registry, not a hardcoded trio. The list here was a stand-in
+    // from when this calculator was unregistered and could not import the
+    // barrel; keeping it would fail the moment a sibling legitimately links
+    // here, which is exactly what happened when factorial-calculator landed.
     for (const slug of def.related) {
-      expect(existing, `${def.slug} → ${slug}`).toContain(slug)
+      expect([...bySlug.keys()], `${def.slug} → ${slug}`).toContain(slug)
       expect(slug).not.toBe(def.slug)
     }
     expect(new Set(def.related).size).toBe(def.related.length)
