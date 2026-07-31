@@ -33,6 +33,7 @@ import incomeTax from './financial/income-tax-calculator'
 import paycheck from './financial/paycheck-calculator'
 import plan401k from './financial/401k-calculator'
 import budget from './financial/budget-calculator'
+import presentValue from './financial/present-value-calculator'
 
 // health
 import bmi from './health/bmi-calculator'
@@ -47,6 +48,7 @@ import oneRepMax from './health/one-rep-max-calculator'
 import runningPace from './health/running-pace-calculator'
 import dueDate from './health/due-date-calculator'
 import vo2max from './health/vo2max-calculator'
+import waistHip from './health/waist-hip-calculator'
 
 // math
 import percentage from './math/percentage-calculator'
@@ -102,6 +104,7 @@ export const calculators: readonly CalculatorDef[] = [
   paycheck,
   plan401k,
   budget,
+  presentValue,
   bmi,
   bmr,
   tdee,
@@ -114,6 +117,7 @@ export const calculators: readonly CalculatorDef[] = [
   runningPace,
   dueDate,
   vo2max,
+  waistHip,
   percentage,
   percentageChange,
   fraction,

@@ -44,6 +44,14 @@ own arithmetic will happily confirm — HMRC's VAT fraction of 7/47 at a 17.5%
 rate exposes a fraction wrongly built as `rate/100`, which every self-consistent
 check would pass.
 
+**Go to the primary source, not a summary of it.** Secondary tables are wrong
+more often than you would expect, and confidently so. Tax Foundation publishes
+the 2026 head-of-household 24% bracket ceiling as $201,775; IRS Rev. Proc.
+2025-32 Table 2 says $201,750, and the IRS is the law. Two calculators here were
+built from the two sources and disagreed by $25 — no test could catch it,
+because each was internally consistent. If a figure comes from a published
+table, read the publisher's own document and cite it by number.
+
 **Name the standard when there is one.** Mifflin-St Jeor, US Navy
 circumference, Epley, Karvonen, the 28/36 rule. Put it in a comment with the
 actual coefficients so the next reader can check it against a source rather than
@@ -140,6 +148,12 @@ homepage samples, and what the tests assert. A default sitting exactly on a band
 boundary looks broken the moment the band label disagrees with the result.
 
 ## Verifying
+
+A wide input sweep is worth writing, but watch its runtime: vitest's default
+timeout is 5 seconds and the whole suite runs in parallel, so a sweep that takes
+two seconds alone can take seven under load and fail only in a full run. Pass an
+explicit timeout — `test(name, fn, 30_000)` — rather than thinning the coverage.
+A test that passes alone and fails in CI teaches people to ignore red.
 
 `npm run verify` is the gate, but the fast loop is
 `npx vitest run src/calculators/<category>/<slug>/` while you work. The
