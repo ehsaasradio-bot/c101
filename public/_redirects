@@ -1,7 +1,0 @@
-# One canonical host. The pages.dev name serves the identical build, so without
-# this both are independently reachable and every page exists at two addresses —
-# canonicals alone would declare a preference while leaving the duplicate live.
-#
-# Only the exact project host is matched. Preview deployments get hashed
-# subdomains (a50e3d92.c101-ccc.pages.dev), which do not match and stay usable.
-https://c101-ccc.pages.dev/* https://calculator4129.space/:splat 301

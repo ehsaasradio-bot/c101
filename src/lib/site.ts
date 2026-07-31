@@ -1,10 +1,24 @@
 /** Central site configuration. Change the domain and indexing flag here only. */
 
 // The real domain. `c101-ccc.pages.dev` is the Cloudflare-assigned fallback the
-// project got because `c101.pages.dev` was already taken globally; it still
-// serves the same build, so `public/_redirects` sends it here to keep one
-// canonical host. Everything derived from this — canonicals, og:url, the
-// sitemap, JSON-LD — follows automatically.
+// project got because `c101.pages.dev` was already taken globally. Everything
+// derived from this — canonicals, og:url, the sitemap, JSON-LD — follows.
+//
+// The fallback host still serves the identical build, and it CANNOT be
+// redirected away from a static Pages deploy: `_redirects` matches on path
+// only, and Cloudflare's own documentation lists "domain-level redirects" as
+// unsupported. A rule with a hostname on the left is silently ignored — it was
+// tried, it deployed, and the old host kept returning 200.
+//
+// Bulk Redirects do not help either, since they operate on zones in the
+// account and `pages.dev` is not one. The only mechanism that would actually
+// 301 is a Pages Function running on every request, which trades the site's
+// entirely-static serving for a Worker invocation per hit.
+//
+// So the duplicate host is handled by the canonical tag alone, which is the
+// standard signal and is emitted correctly from BOTH hosts — a page served
+// from the fallback declares this domain as authoritative. If the old host
+// ever needs to genuinely disappear, the Function is the lever.
 export const SITE_URL = 'https://calculator4129.space'
 export const SITE_NAME = 'Calc101'
 export const SITE_DESCRIPTION =
