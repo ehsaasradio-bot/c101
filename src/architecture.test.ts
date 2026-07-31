@@ -30,9 +30,68 @@ const stripComments = (source: string) =>
     .replace(/\/\*[\s\S]*?\*\//g, ' ')
     .replace(/(^|[^:])\/\/.*$/gm, '$1')
 
+/**
+ * String contents are prose too. capital-gains-calculator ends a citation with
+ * "...sections 4.01 and 4.14 of the same document." — and `document.` is
+ * indistinguishable from DOM access to a regex that only sees characters.
+ *
+ * Interpolations are deliberately kept: `${document.title}` inside a template
+ * literal is real DOM access, and blanking whole templates would hide it. So
+ * this walks the source and blanks only the literal text, leaving every `${...}`
+ * expression in place to be scanned like any other code.
+ */
+const stripStringText = (source: string) => {
+  let out = ''
+  let i = 0
+  // Depth of `${}` nesting, so a `}` knows whether it resumes literal text.
+  const stack: string[] = []
+  while (i < source.length) {
+    const ch = source[i]!
+    if (ch === "'" || ch === '"' || ch === '`') {
+      const quote = ch
+      out += quote
+      i++
+      while (i < source.length) {
+        const c = source[i]!
+        if (c === '\\') { i += 2; continue }
+        if (c === quote) break
+        if (quote === '`' && c === '$' && source[i + 1] === '{') {
+          // Hand control back to the code scanner for the interpolation.
+          out += '${'
+          stack.push('`')
+          i += 2
+          break
+        }
+        if (c === '\n') out += '\n' // keep line numbers honest
+        i++
+      }
+      if (i < source.length && source[i] === quote) { out += quote; i++ }
+      continue
+    }
+    if (ch === '}' && stack.length > 0) {
+      stack.pop()
+      out += '}'
+      i++
+      // Resume the enclosing template literal's text.
+      while (i < source.length) {
+        const c = source[i]!
+        if (c === '\\') { i += 2; continue }
+        if (c === '`') { out += '`'; i++; break }
+        if (c === '$' && source[i + 1] === '{') { out += '${'; stack.push('`'); i += 2; break }
+        if (c === '\n') out += '\n'
+        i++
+      }
+      continue
+    }
+    out += ch
+    i++
+  }
+  return out
+}
+
 const files = walk(SRC).map((path) => {
   const source = readFileSync(path, 'utf8')
-  return { path: relative(SRC, path), source, code: stripComments(source) }
+  return { path: relative(SRC, path), source, code: stripStringText(stripComments(source)) }
 })
 
 const find = (predicate: (path: string) => boolean) => files.filter((f) => predicate(f.path))

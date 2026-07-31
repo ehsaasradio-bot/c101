@@ -54,7 +54,7 @@ const def = {
       a: 'A z-score divides the distance from the mean by the standard deviation. If the spread were zero, every observation would equal the mean, and there would be no unit left to measure distance in — the division is undefined rather than infinite. The calculator refuses the input instead of returning a meaningless number.',
     },
   ],
-  related: ['average-calculator', 'percentage-calculator', 'percentage-change-calculator'],
+  related: ['average-calculator', 'percentage-calculator', 'percentage-change-calculator', 'confidence-interval-calculator'],
   lastReviewed: '2026-07-30',
   priority: 0.7,
 } satisfies CalculatorDef<typeof fields>

@@ -58,6 +58,28 @@ const CROSS_FIELD_EXCEPTIONS = new Set([
   // would lie in the other direction, and the refusal names the fix.
   'probability-calculator:probA:relationship=exclusive:max',
   'probability-calculator:probB:relationship=exclusive:max',
+  // A lease only makes sense while the residual sits below the capitalized cost
+  // — the payment is largely the difference between them. Both ends of that
+  // comparison are reachable on their own; each is refused here only because the
+  // probe holds the other field at its default. Widening a slider cannot help,
+  // and narrowing one would forbid legitimate leases.
+  'car-lease-calculator:capCost:min',
+  'car-lease-calculator:residualValue:max',
+  // $100k of cash down is a real number to be able to type — it just exceeds the
+  // entire cost of the default $35k car, and the refusal says exactly that.
+  'car-lease-calculator:downPayment:max',
+  // What is left cannot exceed what you started with. Either end of that
+  // comparison is fine on its own; the probe pins the other one at its default.
+  'half-life-calculator:initialAmount:mode=halfLife:min',
+  'half-life-calculator:initialAmount:mode=time:min',
+  'half-life-calculator:remainingAmount:mode=halfLife:max',
+  'half-life-calculator:remainingAmount:mode=time:max',
+  // 100000 time units is only unreachable *against the default 5-unit half-life*
+  // — 20000 halvings, and 2^-20000 is exactly zero in a double, so there is no
+  // initial amount to report. With a longer half-life the same elapsed time is
+  // ordinary. Keys are mode-qualified rather than a bare base key so the same
+  // bound failing in another mode would still surface.
+  'half-life-calculator:elapsedTime:mode=initial:max',
 ])
 
 /**

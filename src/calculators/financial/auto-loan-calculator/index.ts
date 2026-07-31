@@ -47,7 +47,7 @@ const def = {
       a: 'Dealer documentation fees, title and registration, extended warranties, gap insurance, and any lender origination fee are excluded. Add them to the vehicle price if you plan to roll them into the loan rather than pay them separately.',
     },
   ],
-  related: ['loan-calculator', 'credit-card-payoff-calculator', 'fuel-cost-calculator'],
+  related: ['loan-calculator', 'credit-card-payoff-calculator', 'fuel-cost-calculator', 'car-lease-calculator'],
   disclaimer: 'financial',
   lastReviewed: '2026-07-27',
   priority: 0.8,

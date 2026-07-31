@@ -36,7 +36,7 @@ const def = {
       a: 'No, not if you picked an activity level that already reflects your training. The multiplier is designed to include exercise, so logging workouts separately and eating those calories back would double-count them.',
     },
   ],
-  related: ['bmr-calculator', 'macro-calculator', 'bmi-calculator', 'one-rep-max-calculator'],
+  related: ['bmr-calculator', 'macro-calculator', 'bmi-calculator', 'one-rep-max-calculator', 'calories-burned-calculator', 'caloric-deficit-calculator'],
   disclaimer: 'health',
   lastReviewed: '2026-07-27',
   priority: 0.9,

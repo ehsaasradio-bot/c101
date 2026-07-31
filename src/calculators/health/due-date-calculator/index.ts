@@ -76,7 +76,7 @@ const def = {
       a: 'Usually, yes. A first-trimester scan measures the pregnancy itself and is accurate to within about five days, while last-period dating depends on remembering the date and on ovulation happening when the rule assumes. Where the two disagree by more than roughly a week, clinicians normally redate the pregnancy to the scan.',
     },
   ],
-  related: ['date-difference-calculator', 'age-calculator', 'water-intake-calculator'],
+  related: ['date-difference-calculator', 'age-calculator', 'water-intake-calculator', 'ovulation-calculator'],
   disclaimer: 'health',
   lastReviewed: '2026-07-30',
   priority: 0.7,

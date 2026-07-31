@@ -49,7 +49,7 @@ const def = {
       a: 'On conventional loans, PMI can usually be cancelled once you reach 20% equity, and it terminates automatically at 22% equity based on the original schedule. FHA loans often carry mortgage insurance for the life of the loan.',
     },
   ],
-  related: ['house-affordability-calculator', 'amortization-calculator', 'loan-calculator', 'refinance-calculator'],
+  related: ['house-affordability-calculator', 'amortization-calculator', 'loan-calculator', 'refinance-calculator', 'mortgage-points-calculator'],
   disclaimer: 'financial',
   lastReviewed: '2026-07-27',
   priority: 0.9,

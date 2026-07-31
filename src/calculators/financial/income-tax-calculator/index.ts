@@ -46,7 +46,7 @@ const def = {
       a: 'Two subtractions happen first. Pre-tax deductions come off your gross pay to give adjusted gross income, and then the standard deduction comes off that. A single filer earning $85,000 with no pre-tax deductions has $68,900 of taxable income in 2026, because the first $16,100 is shielded by the standard deduction and taxed at nothing at all.',
     },
   ],
-  related: ['salary-calculator', 'sales-tax-calculator', 'net-worth-calculator'],
+  related: ['salary-calculator', 'sales-tax-calculator', 'net-worth-calculator', 'capital-gains-calculator'],
   disclaimer: 'financial',
   lastReviewed: '2026-07-30',
   priority: 0.8,

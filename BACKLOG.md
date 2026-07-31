@@ -1,5 +1,37 @@
 # Backlog
 
+## Status — tier one is complete (2026-07-31)
+
+All 39 below are shipped. 38 are their own pages; `future-value` is a mode
+inside `present-value-calculator` rather than a page of its own, which is what
+the note under Financial recommended. The registry holds **89** calculators.
+
+Ten more shipped past tier one, in the batch that closed it out:
+
+| | |
+|---|---|
+| Financial | `car-lease` · `mortgage-points` · `capital-gains` |
+| Health | `ovulation` · `calories-burned` · `caloric-deficit` |
+| Math | `confidence-interval` · `half-life` |
+| Everyday | `ohms-law` · `time-card` |
+
+Each was linked in from an existing neighbour rather than left orphaned —
+`auto-loan`→`car-lease`, `mortgage`→`mortgage-points`, `income-tax`→
+`capital-gains`, `due-date`→`ovulation`, `tdee`→both calorie pages,
+`z-score`→`confidence-interval`, `logarithm`→`half-life`,
+`electricity-cost`→`ohms-law`, `salary`→`time-card`.
+
+**Known gap, not yet fixed:** `body-surface-area` refuses newborn heights while
+listing Haycock — the formula whose whole point is paediatric dosing — and an FAQ
+on that page still quotes 0.25 m² for a newborn. The fix is a separate length
+input, not a lower floor on the existing one.
+
+What is left is the ~80 long-tail slugs described under *Deliberately excluded*,
+so the next batch is a judgement call about which search terms to chase rather
+than a queue to work through.
+
+---
+
 39 calculators worth building, derived from a gap analysis against
 [aifi2k02/calculators101](https://github.com/aifi2k02/calculators101) on
 2026-07-30. We had 41; their registry listed 191; 160 slugs were missing.

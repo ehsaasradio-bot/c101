@@ -870,6 +870,276 @@ exports[`registry > budget-calculator > default output is stable 1`] = `
 }
 `;
 
+exports[`registry > calories-burned-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "decimals": 1,
+      "style": "decimal",
+      "unit": "kcal",
+    },
+    "label": "Calories burned (gross)",
+    "text": "237.0 kcal",
+    "value": 237.0375,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 1,
+        "style": "decimal",
+        "unit": "kcal",
+      },
+      "label": "Net — attributable to the activity",
+      "text": "181.9 kcal",
+      "value": 181.9125,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "decimal",
+        "unit": "kcal",
+      },
+      "label": "Resting share, burned anyway",
+      "text": "55.1 kcal",
+      "value": 55.12500000000001,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "decimal",
+        "unit": "METs",
+      },
+      "label": "MET value used",
+      "text": "4.3 METs",
+      "value": 4.3,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "decimal",
+        "unit": "kcal/min",
+      },
+      "label": "Burn rate",
+      "text": "5.27 kcal/min",
+      "value": 5.2675,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+        "unit": "kcal",
+      },
+      "label": "One hour at this rate",
+      "text": "316 kcal",
+      "value": 316.05,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "decimal",
+        "unit": "g",
+      },
+      "label": "Net expressed as body fat",
+      "text": "23.6 g",
+      "value": 23.625,
+    },
+  ],
+}
+`;
+
+exports[`registry > capital-gains-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "decimals": 0,
+      "style": "currency",
+    },
+    "label": "Federal capital gains tax",
+    "text": "$2,925",
+    "value": 2925,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Tax if short-term (held 1 year or less)",
+      "text": "$4,290",
+      "value": 4290,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Tax if long-term (held more than 1 year)",
+      "text": "$2,925",
+      "value": 2925,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Saved by holding past one year",
+      "text": "$1,365",
+      "value": 1365,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Net capital gain",
+      "text": "$19,500",
+      "value": 19500,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "percent",
+      },
+      "label": "Effective rate on the gain",
+      "text": "15.00%",
+      "value": 15,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Profit kept after tax",
+      "text": "$16,575",
+      "value": 16575,
+    },
+    {
+      "format": {
+        "from": "days",
+        "style": "duration",
+      },
+      "label": "Holding period",
+      "text": "1 year 6 months",
+      "value": 548,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Taxable income including this sale",
+      "text": "$88,400",
+      "value": 88400,
+    },
+  ],
+}
+`;
+
+exports[`registry > car-lease-calculator > default output is stable 1`] = `
+{
+  "band": "good",
+  "primary": {
+    "format": {
+      "style": "currency",
+    },
+    "label": "Monthly payment",
+    "text": "$395.07",
+    "value": 395.06944444444446,
+  },
+  "stats": [
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Monthly depreciation",
+      "text": "$319.44",
+      "value": 319.44444444444446,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Monthly rent charge",
+      "text": "$75.63",
+      "value": 75.625,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "percent",
+      },
+      "label": "Equivalent APR",
+      "text": "3.00%",
+      "value": 3,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Total of payments",
+      "text": "$14,223",
+      "value": 14222.5,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Total depreciation",
+      "text": "$11,500",
+      "value": 11500,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Total rent charge",
+      "text": "$2,723",
+      "value": 2722.5,
+    },
+    {
+      "format": {
+        "style": "percent",
+      },
+      "label": "Residual as a share of MSRP",
+      "text": "58.3%",
+      "value": 58.333333333333336,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Adjusted capitalized cost",
+      "text": "$36,000",
+      "value": 36000,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Total out of pocket",
+      "text": "$16,223",
+      "value": 16222.5,
+    },
+    {
+      "format": {
+        "from": "months",
+        "style": "duration",
+      },
+      "label": "Lease term",
+      "text": "3 years",
+      "value": 36,
+    },
+  ],
+}
+`;
+
 exports[`registry > circle-calculator > default output is stable 1`] = `
 {
   "band": undefined,
@@ -1138,6 +1408,94 @@ exports[`registry > concrete-calculator > default output is stable 1`] = `
       "label": "25 kg bags",
       "text": "84 bags",
       "value": 84,
+    },
+  ],
+}
+`;
+
+exports[`registry > confidence-interval-calculator > default output is stable 1`] = `
+{
+  "band": "neutral",
+  "primary": {
+    "format": {
+      "style": "raw",
+    },
+    "label": "95% confidence interval",
+    "text": "94.40 to 105.60",
+    "value": "94.40 to 105.60",
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 2,
+        "style": "decimal",
+      },
+      "label": "Lower bound",
+      "text": "94.40",
+      "value": 94.39890794862843,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "decimal",
+      },
+      "label": "Upper bound",
+      "text": "105.60",
+      "value": 105.60109205137157,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "decimal",
+      },
+      "label": "Margin of error (±)",
+      "text": "5.60",
+      "value": 5.601092051371565,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+      },
+      "label": "Critical value t*(29 df)",
+      "text": "2.0452",
+      "value": 2.0452296421327274,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+      },
+      "label": "Standard error of the mean",
+      "text": "2.7386",
+      "value": 2.7386127875258306,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "decimal",
+      },
+      "label": "Interval width",
+      "text": "11.20",
+      "value": 11.20218410274313,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "decimal",
+      },
+      "label": "Margin if z were used (too narrow)",
+      "text": "5.37",
+      "value": 5.367579151530151,
+    },
+    {
+      "format": {
+        "decimals": 1,
+        "style": "percent",
+      },
+      "label": "How much wider t makes it",
+      "text": "4.4%",
+      "value": 4.3504323503985365,
     },
   ],
 }
@@ -2253,6 +2611,117 @@ exports[`registry > grade-calculator > default output is stable 1`] = `
 }
 `;
 
+exports[`registry > half-life-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "decimals": 0,
+      "style": "decimal",
+    },
+    "label": "Remaining after 10 hours",
+    "text": "25",
+    "value": 25,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+      },
+      "label": "Initial amount",
+      "text": "100",
+      "value": 100,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+      },
+      "label": "Remaining amount",
+      "text": "25",
+      "value": 25,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+      },
+      "label": "Amount decayed",
+      "text": "75",
+      "value": 75,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "percent",
+      },
+      "label": "Fraction remaining",
+      "text": "25%",
+      "value": 25,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+      },
+      "label": "Half-lives elapsed",
+      "text": "2",
+      "value": 2,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+        "unit": "hours",
+      },
+      "label": "Half-life",
+      "text": "5 hours",
+      "value": 5,
+    },
+    {
+      "format": {
+        "decimals": 8,
+        "style": "decimal",
+        "unit": "per hour",
+      },
+      "label": "Decay constant lambda = ln 2 / T",
+      "text": "0.13862944 per hour",
+      "value": 0.13862943611198905,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+        "unit": "hours",
+      },
+      "label": "Mean lifetime 1 / lambda",
+      "text": "7.2135 hours",
+      "value": 7.213475204444817,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+        "unit": "hours",
+      },
+      "label": "Time until 96.875% has gone (5 half-lives)",
+      "text": "25 hours",
+      "value": 25,
+    },
+    {
+      "format": {
+        "decimals": 8,
+        "style": "decimal",
+      },
+      "label": "Check: lambda x half-life = ln 2",
+      "text": "0.69314718",
+      "value": 0.6931471805599453,
+    },
+  ],
+}
+`;
+
 exports[`registry > heart-rate-zone-calculator > default output is stable 1`] = `
 {
   "band": "good",
@@ -2991,6 +3460,101 @@ exports[`registry > mortgage-calculator > default output is stable 1`] = `
 }
 `;
 
+exports[`registry > mortgage-points-calculator > default output is stable 1`] = `
+{
+  "band": "good",
+  "primary": {
+    "format": {
+      "from": "months",
+      "style": "duration",
+    },
+    "label": "Time to break even",
+    "text": "5 years 2 months",
+    "value": 62,
+  },
+  "stats": [
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Monthly saving",
+      "text": "$65.40",
+      "value": 65.40329226628319,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Cost of the points, paid at closing",
+      "text": "$4,000",
+      "value": 4000,
+    },
+    {
+      "format": {
+        "decimals": 3,
+        "style": "percent",
+      },
+      "label": "Rate you actually pay",
+      "text": "6.250%",
+      "value": 6.25,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Payment with no points",
+      "text": "$2,528.27",
+      "value": 2528.272093971861,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Payment with points",
+      "text": "$2,462.87",
+      "value": 2462.868801705578,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Lifetime interest with no points",
+      "text": "$510,178",
+      "value": 510177.95382987,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Lifetime interest with points",
+      "text": "$486,633",
+      "value": 486632.7686140081,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Lifetime interest saved",
+      "text": "$23,545",
+      "value": 23545.185215861886,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "currency",
+      },
+      "label": "Net position if you leave after 9 years",
+      "text": "$5,016",
+      "value": 5015.516720311351,
+    },
+  ],
+}
+`;
+
 exports[`registry > net-worth-calculator > default output is stable 1`] = `
 {
   "band": "neutral",
@@ -3147,6 +3711,64 @@ exports[`registry > npv-calculator > default output is stable 1`] = `
       "label": "Years of cash flow",
       "text": "5",
       "value": 5,
+    },
+  ],
+}
+`;
+
+exports[`registry > ohms-law-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "decimals": 3,
+      "style": "decimal",
+      "unit": "A",
+    },
+    "label": "Current",
+    "text": "3.000 A",
+    "value": 3,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 3,
+        "style": "decimal",
+        "unit": "V",
+      },
+      "label": "Voltage",
+      "text": "12.000 V",
+      "value": 12,
+    },
+    {
+      "format": {
+        "decimals": 3,
+        "style": "decimal",
+        "unit": "A",
+      },
+      "label": "Current",
+      "text": "3.000 A",
+      "value": 3,
+    },
+    {
+      "format": {
+        "decimals": 3,
+        "style": "decimal",
+        "unit": "Ω",
+      },
+      "label": "Resistance",
+      "text": "4.000 Ω",
+      "value": 4,
+    },
+    {
+      "format": {
+        "decimals": 3,
+        "style": "decimal",
+        "unit": "W",
+      },
+      "label": "Power",
+      "text": "36.000 W",
+      "value": 36,
     },
   ],
 }
@@ -4919,6 +5541,149 @@ exports[`registry > tile-calculator > default output is stable 1`] = `
       "label": "Floor area",
       "text": "15.75 m²",
       "value": 15.75,
+    },
+  ],
+}
+`;
+
+exports[`registry > time-card-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "style": "currency",
+    },
+    "label": "Gross pay for the period",
+    "text": "$904.75",
+    "value": 904.75,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 2,
+        "style": "decimal",
+        "unit": "h",
+      },
+      "label": "Total hours worked",
+      "text": "40.75 h",
+      "value": 40.75,
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Total, hours and minutes",
+      "text": "40h 45m",
+      "value": "40h 45m",
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "decimal",
+        "unit": "h",
+      },
+      "label": "Regular hours",
+      "text": "40.00 h",
+      "value": 40,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "decimal",
+        "unit": "h",
+      },
+      "label": "Overtime hours",
+      "text": "0.75 h",
+      "value": 0.75,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Regular pay",
+      "text": "$880.00",
+      "value": 880,
+    },
+    {
+      "format": {
+        "style": "currency",
+      },
+      "label": "Overtime pay",
+      "text": "$24.75",
+      "value": 24.75,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+      },
+      "label": "Days worked",
+      "text": "5",
+      "value": 5,
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Unpaid breaks deducted",
+      "text": "2h 45m",
+      "value": "2h 45m",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Average day",
+      "text": "8h 09m",
+      "value": "8h 09m",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Overtime rule applied",
+      "text": "Over 40 hours in the week (US federal, FLSA)",
+      "value": "Over 40 hours in the week (US federal, FLSA)",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Mon",
+      "text": "8h 00m (8.00 h)",
+      "value": "8h 00m (8.00 h)",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Tue",
+      "text": "8h 30m (8.50 h)",
+      "value": "8h 30m (8.50 h)",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Wed",
+      "text": "8h 00m (8.00 h)",
+      "value": "8h 00m (8.00 h)",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Thu",
+      "text": "8h 45m (8.75 h)",
+      "value": "8h 45m (8.75 h)",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Fri",
+      "text": "7h 30m (7.50 h)",
+      "value": "7h 30m (7.50 h)",
     },
   ],
 }

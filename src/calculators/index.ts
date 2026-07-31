@@ -35,6 +35,9 @@ import plan401k from './financial/401k-calculator'
 import budget from './financial/budget-calculator'
 import presentValue from './financial/present-value-calculator'
 import npv from './financial/npv-calculator'
+import carLease from './financial/car-lease-calculator'
+import mortgagePoints from './financial/mortgage-points-calculator'
+import capitalGains from './financial/capital-gains-calculator'
 import rothIra from './financial/roth-ira-calculator'
 
 // health
@@ -53,6 +56,9 @@ import vo2max from './health/vo2max-calculator'
 import waistHip from './health/waist-hip-calculator'
 import bodySurfaceArea from './health/body-surface-area-calculator'
 import leanBodyMass from './health/lean-body-mass-calculator'
+import ovulation from './health/ovulation-calculator'
+import caloriesBurned from './health/calories-burned-calculator'
+import caloricDeficit from './health/caloric-deficit-calculator'
 
 // math
 import percentage from './math/percentage-calculator'
@@ -76,6 +82,8 @@ import squareRoot from './math/square-root-calculator'
 import exponent from './math/exponent-calculator'
 import factorial from './math/factorial-calculator'
 import distance from './math/distance-calculator'
+import confidenceInterval from './math/confidence-interval-calculator'
+import halfLife from './math/half-life-calculator'
 
 // everyday
 import tip from './everyday/tip-calculator'
@@ -93,6 +101,8 @@ import concrete from './everyday/concrete-calculator'
 import tile from './everyday/tile-calculator'
 import grade from './everyday/grade-calculator'
 import timeZoneConverter from './everyday/time-zone-converter-calculator'
+import ohmsLaw from './everyday/ohms-law-calculator'
+import timeCard from './everyday/time-card-calculator'
 export const calculators: readonly CalculatorDef[] = [
   mortgage,
   amortization,
@@ -121,6 +131,9 @@ export const calculators: readonly CalculatorDef[] = [
   budget,
   presentValue,
   npv,
+  carLease,
+  mortgagePoints,
+  capitalGains,
   rothIra,
   bmi,
   bmr,
@@ -137,6 +150,9 @@ export const calculators: readonly CalculatorDef[] = [
   waistHip,
   bodySurfaceArea,
   leanBodyMass,
+  ovulation,
+  caloriesBurned,
+  caloricDeficit,
   percentage,
   percentageChange,
   fraction,
@@ -158,6 +174,8 @@ export const calculators: readonly CalculatorDef[] = [
   exponent,
   factorial,
   distance,
+  confidenceInterval,
+  halfLife,
   tip,
   age,
   dateDifference,
@@ -173,6 +191,8 @@ export const calculators: readonly CalculatorDef[] = [
   tile,
   grade,
   timeZoneConverter,
+  ohmsLaw,
+  timeCard,
 ]
 
 export const bySlug: ReadonlyMap<string, CalculatorDef> = new Map(

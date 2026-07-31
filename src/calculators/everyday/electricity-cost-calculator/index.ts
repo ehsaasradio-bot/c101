@@ -36,7 +36,7 @@ const def = {
       a: 'It adds up. A device idling at 3 watts costs little on its own, but a household with twenty such devices carries roughly 525 kWh of phantom load a year, which is a real line on the bill for electricity that does no work at all.',
     },
   ],
-  related: ['fuel-cost-calculator', 'unit-converter-calculator'],
+  related: ['fuel-cost-calculator', 'unit-converter-calculator', 'ohms-law-calculator'],
   lastReviewed: '2026-07-27',
   priority: 0.7,
 } satisfies CalculatorDef<typeof fields>
