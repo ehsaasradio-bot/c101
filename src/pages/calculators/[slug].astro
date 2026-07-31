@@ -4,7 +4,7 @@ import Seo from '../../seo/Seo.astro'
 import { CalculatorPage } from '../../theme'
 import { calculators, bySlug } from '../../calculators'
 import { categoryById, disclaimers } from '../../lib/categories'
-import { defaultValues, toCalculatorView, toResultView } from '../../lib/view'
+import { defaultValues, toCalculatorView, toResultView, heroCurve} from '../../lib/view'
 import { breadcrumbList, faqPage, softwareApplication } from '../../seo/jsonld'
 import { absolute } from '../../lib/site'
 
@@ -24,6 +24,9 @@ const view = toCalculatorView(calc, bySlug)
 // computed here at build time. The page is correct and useful before any
 // JavaScript loads, and with JavaScript disabled entirely.
 const initial = toResultView(calc.compute(defaultValues(calc) as never), calc.scale)
+// Built here for the same reason as the scenarios below: this is where
+// `compute` still exists. The theme receives plain points.
+const hero = heroCurve(calc, initial)
 
 const breadcrumbs = [
   { name: 'Home', href: '/' },
@@ -121,6 +124,7 @@ const scenarios = [
       set:html={JSON.stringify({ fields: view.fields, scale: view.scale })}
     />
     <CalculatorPage
+  heroCurve={hero}
       calc={view}
       initial={initial}
       scenarios={scenarios}

@@ -39,6 +39,12 @@ export interface CalculatorPageProps {
   disclaimer?: string
   /** Optional. A theme that does not compare scenarios simply ignores it. */
   scenarios?: ReadonlyArray<Scenario>
+  /**
+   * Points for a hero illustration, or null when the calculator has no numeric
+   * curve to show. Built in the page because that is where `compute` exists.
+   * A theme that draws no hero art simply ignores it.
+   */
+  heroCurve?: { points: ReadonlyArray<readonly [number, number]>; label: string } | null
 }
 
 export interface FieldGroupProps {

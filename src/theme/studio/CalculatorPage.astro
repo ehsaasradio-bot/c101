@@ -8,13 +8,48 @@ import RelatedGrid from './RelatedGrid.astro'
 import { defaultValues } from '../../lib/view'
 
 type Props = CalculatorPageProps
-const { calc, initial, disclaimer, scenarios = [] } = Astro.props
+const { calc, initial, disclaimer, scenarios = [], heroCurve = null } = Astro.props
 
 const values = defaultValues(calc)
 const badges = ['Accurate', 'Real-time', 'Easy to use', '100% free']
 
 // The two figures floated over the hero art. Taken from whatever the calculator
 // already returns, so this works for every calculator, not just this one.
+const heroPoints = heroCurve?.points ?? null
+
+// Scale into the 320x170 viewBox. The y range is padded so a flat line sits in
+// the middle rather than along the floor, and a constant result does not divide
+// by zero.
+const HERO = { w: 320, h: 170, pad: { x: 8, top: 14, bottom: 12 } }
+const heroPath = (() => {
+  if (!heroPoints) return null
+  const xs = heroPoints.map((p) => p[0])
+  const ys = heroPoints.map((p) => p[1])
+  const xMin = Math.min(...xs)
+  const xMax = Math.max(...xs)
+  const yMin = Math.min(...ys)
+  const yMax = Math.max(...ys)
+  const ySpan = yMax - yMin || Math.abs(yMax) || 1
+  const sx = (x: number) =>
+    HERO.pad.x + ((x - xMin) / (xMax - xMin || 1)) * (HERO.w - HERO.pad.x * 2)
+  const sy = (y: number) =>
+    HERO.h - HERO.pad.bottom - ((y - yMin) / ySpan) * (HERO.h - HERO.pad.top - HERO.pad.bottom)
+
+  const d = heroPoints
+    .map((p, i) => `${i === 0 ? 'M' : 'L'}${sx(p[0]).toFixed(1)} ${sy(p[1]).toFixed(1)}`)
+    .join(' ')
+  const first = heroPoints[0]!
+  const last = heroPoints[heroPoints.length - 1]!
+  const area = `${d} L${sx(last[0]).toFixed(1)} ${HERO.h - HERO.pad.bottom} L${sx(first[0]).toFixed(1)} ${HERO.h - HERO.pad.bottom} Z`
+
+  // Five markers, evenly spaced along the real points.
+  const dots = Array.from({ length: 5 }, (_, i) => {
+    const point = heroPoints[Math.round((i * (heroPoints.length - 1)) / 4)]!
+    return { cx: sx(point[0]).toFixed(1), cy: sy(point[1]).toFixed(1) }
+  })
+  return { d, area, dots }
+})()
+
 const highlights = [
   { label: initial.primary.label, text: initial.primary.text },
   initial.stats[1] ?? initial.stats[0],
@@ -50,45 +85,61 @@ const highlights = [
         </ul>
       </div>
 
-      {/* Hero art. An abstract rendering of the calculator's own first series,
-          so it means something rather than being decoration. */}
+      {/* Hero art: the calculator's own numbers, or nothing. Where there is no
+          numeric curve the panel keeps its height so the value cards still have
+          corners to sit in — an empty panel is honest, a fake curve is not. */}
       <div class="relative">
         <div class="rounded-card border border-border-subtle bg-surface p-6">
-          <svg viewBox="0 0 320 170" class="w-full" role="img" aria-label="Illustrative growth curve">
-            <defs>
-              <linearGradient id="heroFade" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="var(--c-cat-1)" stop-opacity="0.28"></stop>
-                <stop offset="100%" stop-color="var(--c-cat-1)" stop-opacity="0"></stop>
-              </linearGradient>
-            </defs>
-            <path
-              d="M8 158 C 70 150, 120 132, 160 100 S 250 34, 312 14 L312 162 L8 162 Z"
-              fill="url(#heroFade)"></path>
-            <path
-              d="M8 158 C 70 150, 120 132, 160 100 S 250 34, 312 14"
-              fill="none"
-              stroke="var(--c-cat-1)"
-              stroke-width="3"
-              stroke-linecap="round"></path>
-            {
-              [
-                [8, 158],
-                [96, 141],
-                [160, 100],
-                [232, 56],
-                [312, 14],
-              ].map(([cx, cy]) => (
-                <circle cx={cx} cy={cy} r="4" fill="var(--c-surface)" stroke="var(--c-cat-1)" stroke-width="2.5" />
-              ))
-            }
-          </svg>
+          {
+            heroPath ? (
+              <svg
+                viewBox={`0 0 ${HERO.w} ${HERO.h}`}
+                class="w-full"
+                role="img"
+                aria-label={heroCurve?.label ?? ''}
+              >
+                <defs>
+                  <linearGradient id="heroFade" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="var(--c-cat-1)" stop-opacity="0.28" />
+                    <stop offset="100%" stop-color="var(--c-cat-1)" stop-opacity="0" />
+                  </linearGradient>
+                </defs>
+                <path d={heroPath.area} fill="url(#heroFade)" />
+                <path
+                  d={heroPath.d}
+                  fill="none"
+                  stroke="var(--c-cat-1)"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                {heroPath.dots.map((dot) => (
+                  <circle
+                    cx={dot.cx}
+                    cy={dot.cy}
+                    r="4"
+                    fill="var(--c-surface)"
+                    stroke="var(--c-cat-1)"
+                    stroke-width="2.5"
+                  />
+                ))}
+              </svg>
+            ) : (
+              <div class="h-[170px]" aria-hidden="true" />
+            )
+          }
         </div>
 
         {
           highlights.map((h, i) => (
             <div
               class:list={[
-                'absolute w-44 rounded-card border border-border-subtle bg-surface p-3 shadow-sm',
+                // Translucent, because the curve is now real data rather than ornament.
+                // The old decorative path always rose, so cards in the top-left and
+                // bottom-right corners sat in empty space; a real curve often falls —
+                // a loan balance, a remaining term — straight along that diagonal, and
+                // an opaque card would hide the endpoints it is labelling.
+                'absolute w-44 rounded-card border border-border-subtle bg-surface/80 p-3 shadow-sm backdrop-blur-sm',
                 i === 0 ? '-left-2 top-4 sm:-left-6' : '-right-2 bottom-4 sm:-right-6',
               ]}
             >
