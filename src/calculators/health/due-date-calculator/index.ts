@@ -22,10 +22,31 @@ const def = {
     max: 294,
     clampMax: 294,
     unit: ' days',
+    /*
+     * Colour tracks TERM STATUS, not trimester.
+     *
+     * The bands used to ramp neutral -> good -> excellent across the three
+     * trimesters, which reads as a grade: it says a third trimester is better
+     * than a first. It is not better, it is later, and a reader whose pregnancy
+     * ends early should not meet a meter implying they scored badly.
+     *
+     * Term status is a different axis and a genuinely ranked one, on evidence
+     * rather than on sentiment: ACOG defines 39w0d-40w6d as full term precisely
+     * because outcomes are best there, early term (37w-38w6d) carries slightly
+     * more risk, and post-term is monitored. So the stages stay unranked and the
+     * clinical window carries the valence. The trimester a reader is in is still
+     * named — by the band label here and by its own stat.
+     *
+     * The boundaries are the same constants compute uses (EARLY_TERM_DAY 259,
+     * FULL_TERM_DAY 273, POST_TERM_DAY 294), so the meter and the working cannot
+     * disagree about where term begins.
+     */
     bands: [
       { id: 'neutral', label: 'First trimester — up to 13 weeks 6 days', from: 0, to: 98 },
-      { id: 'good', label: 'Second trimester — 14 to 27 weeks', from: 98, to: 196 },
-      { id: 'excellent', label: 'Third trimester — 28 to 41 weeks', from: 196, to: 294 },
+      { id: 'neutral', label: 'Second trimester — 14 to 27 weeks', from: 98, to: 196 },
+      { id: 'neutral', label: 'Third trimester — 28 to 36 weeks', from: 196, to: 259 },
+      { id: 'good', label: 'Early term — 37 to 38 weeks', from: 259, to: 273 },
+      { id: 'excellent', label: 'Full term — 39 to 41 weeks', from: 273, to: 294 },
       { id: 'warn', label: 'Post-term — 42 weeks or more', from: 294, to: 999 },
     ],
   },
