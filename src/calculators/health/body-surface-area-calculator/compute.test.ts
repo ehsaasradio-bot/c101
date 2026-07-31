@@ -3,8 +3,10 @@ import compute from './compute'
 import { fields } from './fields'
 import { CalcError } from '../../../lib/types'
 
-const base = { units: 'metric', height: 178, weight: 80 } as const
-type Input = { units: string; height: number; weight: number }
+const base = { mode: 'adult-metric', height: 178, weight: 80 } as const
+type Input = { mode: string; height: number; weight: number }
+
+const MODES = ['adult-metric', 'adult-imperial', 'infant-metric', 'infant-imperial'] as const
 
 const bsa = (r: ReturnType<typeof compute>) => Number(r.primary.value)
 const stat = (r: ReturnType<typeof compute>, label: string) =>
@@ -205,7 +207,7 @@ describe('body surface area', () => {
     test('imperial and metric describe the same body', () => {
       const metric = compute(base)
       const imperial = compute({
-        units: 'imperial',
+        mode: 'adult-imperial',
         height: 178 / 2.54,
         weight: 80 * 2.2046226218487757,
       })
@@ -215,10 +217,74 @@ describe('body surface area', () => {
     })
 
     test('the worked steps restate the input in centimetres and kilograms', () => {
-      const r = compute({ units: 'imperial', height: 70, weight: 176 })
+      const r = compute({ mode: 'adult-imperial', height: 70, weight: 176 })
       const steps = r.steps!.filter((s): s is Exclude<typeof s, { rule: true }> => !('rule' in s))
       expect(Number(steps.find((s) => s.label === 'Height')!.value)).toBeCloseTo(177.8, 6)
       expect(Number(steps.find((s) => s.label === 'Weight')!.value)).toBeCloseTo(79.8322, 3)
+    })
+  })
+
+  describe('infants', () => {
+    // The reason this mode exists. Before it, the form floored height at 105 cm
+    // and compute refused anything under a metre, while the page advertised
+    // Haycock — a formula fitted from neonates upward — and quoted a newborn
+    // figure in its own FAQ. It described a calculation it would not perform.
+    const newborn = { mode: 'infant-metric', height: 50, weight: 3.5 } as const
+
+    test('accepts a term newborn and puts it where the literature does', () => {
+      const r = compute(newborn)
+      // 50 cm and 3.5 kg: sqrt(50 x 3.5 / 3600) = 0.2205 by Mosteller, and all
+      // five land in 0.209-0.234. Checked against the published forms in
+      // FORMULAS above, not against a reference site.
+      expect(bsa(r)).toBeCloseTo(0.2205, 4)
+      for (const value of allFive(r)) {
+        expect(value).toBeGreaterThan(0.2)
+        expect(value).toBeLessThan(0.24)
+      }
+    })
+
+    test('the FAQ figure for a newborn agrees with what this computes', () => {
+      // The FAQ says 0.21-0.23 and calls the commonly quoted 0.25 high. That
+      // claim is only safe while the numbers below hold.
+      const five = allFive(compute(newborn))
+      // Rounded the way the page prints them, to two decimals. Du Bois is
+      // 0.2086, which reads as 0.21 but fails a raw `>= 0.21` — the claim is
+      // about what a visitor sees, so the test rounds the same way.
+      const round2 = (x: number) => Number(x.toFixed(2))
+      expect(round2(Math.min(...five))).toBe(0.21)
+      expect(round2(Math.max(...five))).toBe(0.23)
+      // And the round 0.25 the FAQ calls high really is above all five.
+      expect(Math.max(...five)).toBeLessThan(0.25)
+    })
+
+    test('imperial infants describe the same baby', () => {
+      const metric = compute(newborn)
+      const imperial = compute({
+        mode: 'infant-imperial',
+        height: 50 / 2.54,
+        weight: 3.5 * 2.2046226218487757,
+      })
+      allFive(imperial).forEach((value, i) => {
+        expect(value).toBeCloseTo(allFive(metric)[i]!, 10)
+      })
+    })
+
+    test('names Haycock in the notes, since that is the one to read here', () => {
+      const notes = compute(newborn).notes!.join(' ')
+      expect(notes).toContain('Haycock')
+      // And the adult wording does not, beyond the passing mention.
+      expect(compute(base).notes!.join(' ')).toContain('Mosteller is the headline')
+    })
+
+    test('an adult height in infant mode is refused rather than answered', () => {
+      // The whole point of asking: 178 cm is not a baby, and silently returning
+      // 1.98 m2 for one would be worse than an error.
+      expect(() => compute({ mode: 'infant-metric', height: 178, weight: 3.5 })).toThrow(CalcError)
+      expect(() => compute({ mode: 'infant-metric', height: 50, weight: 80 })).toThrow(CalcError)
+    })
+
+    test('a newborn is still refused in adult mode, so the guard did not just move', () => {
+      expect(() => compute({ mode: 'adult-metric', height: 50, weight: 3.5 })).toThrow(CalcError)
     })
   })
 
@@ -229,7 +295,7 @@ describe('body surface area', () => {
       ['a zero height', { height: 0 }, 'height'],
       ['a zero weight', { weight: 0 }, 'weight'],
       ['a negative height', { height: -178 }, 'height'],
-      ['centimetres entered while imperial is selected', { units: 'imperial' }, 'height'],
+      ['centimetres entered while imperial is selected', { mode: 'adult-imperial' }, 'height'],
       ['inches entered while metric is selected', { height: 70 }, 'height'],
       ['a weight no body has ever reached', { weight: 900 }, 'weight'],
     ])('rejects %s against its own field', (_label, patch, fieldId) => {
@@ -259,7 +325,7 @@ describe('body surface area', () => {
         base,
         { ...base, height: 105, weight: 20 },
         { ...base, height: 250, weight: 300 },
-        { units: 'imperial', height: 70, weight: 176 },
+        { mode: 'adult-imperial', height: 70, weight: 176 },
       ].map((v) => {
         const r = compute(v as Input)
         return [r.stats!.length, r.steps!.length, r.notes!.length]
@@ -284,12 +350,12 @@ describe('body surface area', () => {
     test('every bound each variant offers is a value compute accepts', () => {
       const height = numberField('height').variants!.cases
       const weight = numberField('weight').variants!.cases
-      for (const units of ['metric', 'imperial'] as const) {
-        const h = height[units]!
-        const w = weight[units]!
+      for (const mode of MODES) {
+        const h = height[mode]!
+        const w = weight[mode]!
         for (const hv of [h.min!, h.max!]) {
           for (const wv of [w.min!, w.max!]) {
-            expect(() => compute({ units, height: hv, weight: wv })).not.toThrow()
+            expect(() => compute({ mode, height: hv, weight: wv })).not.toThrow()
           }
         }
       }
@@ -297,23 +363,27 @@ describe('body surface area', () => {
 
     test('the two unit systems describe the same real body', () => {
       // 98 in is 248.9 cm and 660 lb is 299.4 kg — each imperial cap is the
-      // metric cap in other clothes, not a wider or narrower range.
+      // metric cap in other clothes, not a wider or narrower range. Same for
+      // the infant pair: 43 in is 109.2 cm and 66 lb is 29.9 kg.
       expect(Math.abs(98 * 2.54 - 250)).toBeLessThan(2)
       expect(Math.abs(660 / 2.2046226218487757 - 300)).toBeLessThan(1)
-      // And the top-level pair stays the union of the two.
+      expect(Math.abs(43 * 2.54 - 110)).toBeLessThan(1)
+      expect(Math.abs(66 / 2.2046226218487757 - 30)).toBeLessThan(1)
+      // And the top-level pair stays the union of all four.
       expect(numberField('height').max).toBe(250)
       expect(numberField('weight').max).toBe(660)
-      expect(numberField('height').min).toBe(42)
-      expect(numberField('weight').min).toBe(20)
+      expect(numberField('height').min).toBe(14)
+      expect(numberField('weight').min).toBe(0.5)
     })
 
     test('defaults land on the slider grid in the base variant', () => {
       for (const id of ['height', 'weight']) {
         const f = numberField(id)
-        const metric = f.variants!.cases.metric!
+        // Every case, not just the base: an HTML range snaps to min + n x step,
+        // so a default off any offered grid shifts on first interaction.
         for (const [min, step] of [
           [f.min!, f.step!],
-          [metric.min!, metric.step!],
+          ...MODES.map((m) => [f.variants!.cases[m]!.min!, f.variants!.cases[m]!.step!]),
         ]) {
           const n = (f.default - min!) / step!
           expect(Math.abs(n - Math.round(n))).toBeLessThan(1e-9)
@@ -325,7 +395,9 @@ describe('body surface area', () => {
       // tests/calculators.spec.ts sets the first number field to 1.1x its default.
       const nudged = compute({ ...base, height: 178 * 1.1 })
       expect(bsa(nudged)).toBeGreaterThan(bsa(compute(base)) + 0.05)
-      expect(178 * 1.1).toBeLessThanOrEqual(numberField('height').variants!.cases.metric!.max!)
+      expect(178 * 1.1).toBeLessThanOrEqual(
+        numberField('height').variants!.cases['adult-metric']!.max!,
+      )
     })
   })
 })

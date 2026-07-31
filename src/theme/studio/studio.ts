@@ -163,6 +163,19 @@ if (form) {
     numberEl.max = String(max)
     if (step !== undefined) numberEl.step = String(step)
 
+    // Clamp into the new bounds. For a pure unit switch this never fires — cm
+    // and in describe the same range, so a converted value is already inside it.
+    // It matters when a variant genuinely narrows the range, as body-surface-area
+    // does when it moves from an adult to an infant: 178 cm is not a length a
+    // baby has, and leaving it put would show the form in a state its own
+    // compute rejects. The slider below already clamps itself; without this the
+    // two controls disagree and the number input is the one that is wrong.
+    const held = Number(numberEl.value)
+    if (Number.isFinite(held)) {
+      const bounded = Math.min(Math.max(held, min), max)
+      if (bounded !== held) numberEl.value = String(bounded)
+    }
+
     const unitLabel = row.querySelector('[data-unit-label]')
     if (unitLabel && variant.unit) unitLabel.textContent = variant.unit
 

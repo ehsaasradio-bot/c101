@@ -644,3 +644,39 @@ test('ships no executable inline script, so the CSP can forbid eval', async ({ p
   )
   expect(inline).toEqual([])
 })
+
+/*
+ * A variant that narrows the range, rather than restating the same range in
+ * another unit. body-surface-area is the only calculator that does this today:
+ * its infant modes cap at 110 cm and 30 kg where the adult modes reach 250 and
+ * 300, so the values already in the form cannot survive the switch unchanged.
+ *
+ * This lives here because it is browser behaviour. `field-bounds.test.ts` models
+ * the clamp when it builds each case's state, so removing the clamp from
+ * studio.ts would leave that suite green while every visitor who picked an
+ * infant saw an error — the test would be describing a browser that no longer
+ * exists. This is what notices.
+ */
+test('a narrowing variant clamps what is already typed, and still computes', async ({ page }) => {
+  await page.goto('/calculators/body-surface-area-calculator/')
+  const height = page.locator('input[data-calc-field="height"]')
+  const weight = page.locator('input[data-calc-field="weight"]')
+  const error = page.locator('[data-calc-error]')
+
+  expect(await height.inputValue()).toBe('178')
+
+  await page.locator('[data-calc-field="mode"]').selectOption('infant-metric')
+  await expect(height).toHaveJSProperty('max', '110')
+  expect(Number(await height.inputValue())).toBeLessThanOrEqual(110)
+  expect(Number(await weight.inputValue())).toBeLessThanOrEqual(30)
+  await expect(error).toBeHidden()
+
+  // And the newborn this page refused outright before infant modes existed.
+  await height.fill('50')
+  await height.dispatchEvent('input')
+  await weight.fill('3.5')
+  await weight.dispatchEvent('input')
+  await expect(error).toBeHidden()
+  // The headline counts up to its new value, so settle before reading it.
+  await expect(page.locator('[data-calc-out="primary"]')).toHaveText('0.22 m²', { timeout: 5000 })
+})

@@ -88,7 +88,9 @@ const FINE_AREA = { style: 'decimal', decimals: 3, unit: 'm²' } as const
 export default function compute(v: Values<typeof fields>): CalcResult {
   const { height, weight } = v
   // The select arrives as a string; the derived Values type makes that explicit.
-  const imperial = v.units === 'imperial'
+  // One control carries two facts, so it is read as two here.
+  const imperial = v.mode.endsWith('imperial')
+  const infant = v.mode.startsWith('infant')
 
   // Finiteness first: coerceValues emits NaN for unparseable input, and a
   // magnitude test like `height < 0` is false for NaN, so it would slip through.
@@ -107,15 +109,30 @@ export default function compute(v: Values<typeof fields>): CalcResult {
   // 177.8 cm the person meant. Without these the five formulas return a
   // confident, wholly wrong area instead of an error.
   //
-  // The window is 100-272 cm. The upper end is above the tallest person
-  // recorded (272 cm) and the lower end is below the shortest height either
-  // variant offers — metric 105 cm, imperial 42 in, i.e. 106.7 cm — so every
-  // bound the form can present is a value this accepts, while the 55-78 that
-  // someone means as inches is refused.
-  if (cm > 272) throw new CalcError('That height looks too large — check the units.', 'height')
-  if (cm < 100) throw new CalcError('That height looks too small — check the units.', 'height')
-  // Above the heaviest human ever recorded. 300 kg and 660 lb (299.4 kg) both clear it.
-  if (kg > 650) throw new CalcError('That weight looks too large — check the units.', 'weight')
+  // These windows are per mode, which is the point of asking. A single window
+  // wide enough for both a newborn and an adult could not tell a 70 cm baby
+  // from an adult's 70 inches typed with centimetres selected — the two are the
+  // same number, and the calculator would answer the wrong one confidently.
+  // Naming the subject separates them, and it is what lets this page accept the
+  // infants that Haycock, in its own lineup, was fitted for.
+  //
+  // Every bound the form can present sits inside its mode's window: adult
+  // 105 cm and 42 in (106.7 cm) against 100-272 cm, infant 35 cm and 14 in
+  // (35.6 cm) against 30-120 cm.
+  const limits = infant
+    ? // 30 cm is under the smallest recorded live birth; 120 cm is well past a
+      // two-year-old, so an adult height entered here is caught rather than
+      // answered as an enormous baby.
+      { lo: 30, hi: 120, kgMax: 40, small: 'That length looks too small — check the units.', large: 'That length is too long for an infant — switch to "Adult or child".', heavy: 'That weight is too heavy for an infant — switch to "Adult or child".' }
+    : // The upper end is above the tallest person recorded (272 cm); the lower
+      // end refuses the 55-78 that someone means as inches.
+      { lo: 100, hi: 272, kgMax: 650, small: 'That height looks too small — check the units, or pick an infant option if this is a baby.', large: 'That height looks too large — check the units.', heavy: 'That weight looks too large — check the units.' }
+
+  if (cm > limits.hi) throw new CalcError(limits.large, 'height')
+  if (cm < limits.lo) throw new CalcError(limits.small, 'height')
+  // Adult: above the heaviest human ever recorded, so 300 kg and 660 lb
+  // (299.4 kg) both clear it. Infant: 40 kg is far past a two-year-old.
+  if (kg > limits.kgMax) throw new CalcError(limits.heavy, 'weight')
 
   const values = FORMULAS.map((f) => ({ ...f, value: f.bsa(cm, kg) }))
   const byId = (id: string) => values.find((f) => f.id === id)!.value
@@ -160,7 +177,13 @@ export default function compute(v: Values<typeof fields>): CalcResult {
     ],
     notes: [
       `For these measurements the five formulas span ${lowest.toFixed(3)} to ${highest.toFixed(3)} m² — a range of ${spread.toFixed(3)} m², or ${spreadPercent.toFixed(1)}% of the middle of that band. There is no consensus on which is correct, so the honest reading is the range rather than any single figure.`,
-      'Mosteller is the headline here because it is the one most clinicians use: the square root of height in centimetres times weight in kilograms over 3600 is short enough to do in your head. Haycock is the usual choice in paediatric protocols, and Du Bois, the oldest, was fitted to only nine people.',
+      // Mode-dependent wording rather than an extra note, so the note count
+      // stays fixed. The choice of formula barely matters across ordinary
+      // adults, where the five agree to about a percent, and matters most at
+      // the small end — so the guidance is worth saying differently there.
+      infant
+        ? 'Read the Haycock figure for an infant. It was fitted across 81 subjects from neonates upward, which is why paediatric protocols usually name it, while Du Bois came from nine adults in 1916 and drifts furthest at this size. Mosteller stays the headline above for consistency with the rest of the page, not because it is the better choice here.'
+        : 'Mosteller is the headline here because it is the one most clinicians use: the square root of height in centimetres times weight in kilograms over 3600 is short enough to do in your head. Haycock is the usual choice in paediatric protocols, and Du Bois, the oldest, was fitted to only nine people.',
       'Body surface area is a reference calculation, not a dosing instrument. Chemotherapy and other BSA-scaled doses are set by a clinician from verified measurements and then adjusted by capping, rounding and protocol-specific rules that this page does not apply. Do not use this number to prepare or check a dose.',
     ],
   }

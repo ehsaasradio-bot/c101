@@ -137,7 +137,20 @@ function stateFor(calc: (typeof calculators)[number], on: string, caseKey: strin
     const cases = field.variants.cases
     // Defaults are expressed in the first case listed — the base variant.
     const base = cases[Object.keys(cases)[0]!]
-    values[field.id] = convertBetween(field.default, base, cases[caseKey])
+    const converted = convertBetween(field.default, base, cases[caseKey])
+
+    // Then clamp, because that is what the browser does. studio.ts bounds the
+    // input after re-pointing min/max, so a case that genuinely NARROWS the
+    // range cannot leave a stale value behind. For a plain unit switch this is
+    // a no-op — cm and in describe the same window, so a converted value is
+    // already inside it. It bites where a variant changes the subject rather
+    // than the unit: body-surface-area's infant modes top out at 110 cm and
+    // 30 kg, and without clamping this state would carry a 178 cm, 80 kg adult
+    // into them and then blame compute for refusing it.
+    const variant = cases[caseKey]!
+    const min = variant.min ?? field.min ?? -Infinity
+    const max = variant.max ?? field.max ?? Infinity
+    values[field.id] = Math.min(Math.max(converted, min), max)
   }
   return values
 }

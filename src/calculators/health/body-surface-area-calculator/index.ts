@@ -16,7 +16,7 @@ const def = {
   description:
     'Calculate body surface area in m² from height and weight using the Mosteller, Du Bois, Haycock, Gehan & George and Boyd formulas side by side.',
   intro:
-    'Body surface area is the area of the outside of your body in square metres, and it is used to scale drug doses, cardiac output and kidney function to body size. There is no single agreed formula, so this page runs five published ones at once: Mosteller — the square root most clinicians use — is the headline, and the disagreement between all five is shown as a plain range.',
+    'Body surface area is the area of the outside of your body in square metres, and it is used to scale drug doses, cardiac output and kidney function to body size. There is no single agreed formula, so this page runs five published ones at once: Mosteller — the square root most clinicians use — is the headline, and the disagreement between all five is shown as a plain range. Adults, children and infants are all covered; say which above, since a newborn and a mistyped adult are otherwise the same number.',
   fields,
   resultLabel: 'Body surface area',
   compute,
@@ -31,7 +31,7 @@ const def = {
     },
     {
       q: 'What is a normal body surface area?',
-      a: 'Roughly 1.9 m² for an average adult man and 1.6 m² for an average adult woman. A ten-year-old is near 1.1 m² and a newborn near 0.25 m². The figure 1.73 m² appears constantly in clinical work because it was taken as the average adult surface area, and kidney function is still reported normalised to it as mL/min/1.73m².',
+      a: 'Roughly 1.9 m² for an average adult man and 1.6 m² for an average adult woman. A ten-year-old is near 1.1 m², and a term newborn of about 50 cm and 3.5 kg lands between 0.21 and 0.23 m² depending on which of the five you read — pick an infant option above and you can check that here. The round 0.25 m² often quoted for a newborn sits a little above every formula on this page. The figure 1.73 m² appears constantly in clinical work because it was taken as the average adult surface area, and kidney function is still reported normalised to it as mL/min/1.73m².',
     },
     {
       q: 'Can I use this to work out a chemotherapy dose?',
@@ -43,7 +43,11 @@ const def = {
     },
     {
       q: 'Does the calculator handle feet and inches?',
-      a: 'Enter your height in inches after switching the units selector to imperial — 5 ft 10 in is 70 inches. Switching the selector converts what you have already typed rather than reinterpreting it, so the body you described stays the same body. All five formulas are defined in centimetres and kilograms, so imperial input is converted before any of them run.',
+      a: 'Enter the height in inches after picking one of the "in, lb" options — 5 ft 10 in is 70 inches. Changing that selector converts what you have already typed rather than reinterpreting it, so the body you described stays the same body. All five formulas are defined in centimetres and kilograms, so imperial input is converted before any of them run.',
+    },
+    {
+      q: 'Can I work out the surface area of a baby?',
+      a: 'Yes — choose one of the infant options and enter the recumbent length rather than a standing height. It is a separate choice rather than simply a lower limit on the same box because a newborn measures about 50 cm, and 50 to 78 is also the range someone types when they mean inches but leave centimetres selected. Without knowing which you meant, the page would have to either refuse real babies or answer a mistyped adult as one. Read the Haycock figure for an infant: it was fitted from neonates upward, while Du Bois came from nine adults and drifts furthest at this size.',
     },
   ],
   related: ['bmi-calculator', 'body-fat-calculator', 'ideal-weight-calculator'],
