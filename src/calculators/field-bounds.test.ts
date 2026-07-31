@@ -52,6 +52,12 @@ const CROSS_FIELD_EXCEPTIONS = new Set([
   // A finishing time of zero is only meaningful against the other time fields,
   // which are at their defaults; the calculator wants a positive total.
   'running-pace-calculator:minutes:min',
+  // Mutually exclusive events cannot overlap, so P(A) + P(B) <= 100. P(A) = 100
+  // is a perfectly good value — when P(B) is 0 — and is only refused here
+  // because the probe leaves P(B) at its 20 default. Narrowing the slider to 80
+  // would lie in the other direction, and the refusal names the fix.
+  'probability-calculator:probA:relationship=exclusive:max',
+  'probability-calculator:probB:relationship=exclusive:max',
 ])
 
 /**
@@ -123,12 +129,41 @@ describe('field bounds', () => {
       // resolved bounds are what a user can actually land on, so those are what
       // must compute. The top-level pair is the union of them and is only the
       // outer limit on what will be accepted at all.
-      const states = field.variants
+      const variantStates = field.variants
         ? Object.keys(field.variants.cases).map((caseKey) => ({
             suffix: `:${field.variants!.on}=${caseKey}`,
             values: stateFor(calc, field.variants!.on, caseKey),
           }))
         : [{ suffix: '', values: defaultValues(calc) }]
+
+      // Every OTHER select, at every option — not just its default.
+      //
+      // Holding the rest of the form at its defaults meant a select was always
+      // pinned to its first option, so whole code paths never had their bounds
+      // probed: vo2max's four test methods, income-tax's filing statuses, the
+      // shape selects in area/volume/concrete, and every `sex` field in the
+      // health calculators, whose formulas carry different coefficients per sex.
+      // A bound valid for one branch can be rejected outright by another.
+      //
+      // One select is varied at a time rather than every combination: the full
+      // cartesian product is exponential in the select count and buys little,
+      // since a bound that fails usually fails on the branch alone. `stateFor`
+      // is reused unchanged — for a select no number field varies on, its
+      // conversion pass is simply a no-op, while `backfillControllers` still
+      // makes a dependent select's option legal.
+      const branchStates = calc.fields.flatMap((other) => {
+        if (other.kind !== 'select') return []
+        if (other.id === field.variants?.on) return [] // already covered above
+        return other.options
+          .map((option) => option.value)
+          .filter((value) => value !== other.default)
+          .map((value) => ({
+            suffix: `:${other.id}=${value}`,
+            values: stateFor(calc, other.id, value),
+          }))
+      })
+
+      const states = [...variantStates, ...branchStates]
 
       return states.flatMap((state) => {
         const active = resolveBounds(field, state.values)
@@ -149,7 +184,7 @@ describe('field bounds', () => {
     cases.map((c) => [`${c.calc.slug}:${c.fieldId}${c.suffix}:${c.bound}`, c] as const),
   )(
     '%s is a value compute accepts',
-    (key, { calc, fieldId, value, state }) => {
+    (key, { calc, fieldId, bound, value, state }) => {
       const values = { ...state, [fieldId]: value }
       let error: unknown
       try {
@@ -158,7 +193,18 @@ describe('field bounds', () => {
         error = e
       }
 
-      if (CROSS_FIELD_EXCEPTIONS.has(key)) {
+      // An allowlisted cross-field constraint holds on every branch, not just
+      // the default one: a down payment capped by the home price is still
+      // capped by it when the term changes from 30 years to 15. So a suffixed
+      // key falls back to its unsuffixed base rather than needing one entry per
+      // select option, which would be dozens of lines saying the same thing.
+      //
+      // The cost is that a branch failing for a DIFFERENT reason would be
+      // covered by the base entry. That is why the allowlist is documented as
+      // meaning "cross-field, not a bad bound", and why it stays pinned both
+      // ways below — an entry that stops failing has to be removed.
+      const baseKey = `${calc.slug}:${fieldId}:${bound}`
+      if (CROSS_FIELD_EXCEPTIONS.has(key) || CROSS_FIELD_EXCEPTIONS.has(baseKey)) {
         // Pin the exceptions too, so one that quietly starts passing gets
         // pruned from the allowlist rather than lingering as dead cover.
         expect(error, `${key} is allowlisted but no longer fails`).toBeDefined()
