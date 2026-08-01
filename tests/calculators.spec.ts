@@ -409,6 +409,38 @@ test.describe('scenarios', () => {
   })
 })
 
+test.describe('hero cards', () => {
+  // A hero card names its own figure, and both halves move with the input — a
+  // converter relabels its result. Updating only the number leaves a correct
+  // figure under a wrong name, which reads as right and so survives longer
+  // than a stale value would.
+  test('the label moves with the value it describes', async ({ page }) => {
+    await page.goto('/calculators/fuel-cost-calculator/')
+    await expect(page.locator('calc-form')).toHaveAttribute('data-ready', 'true')
+
+    const card = page.locator('[data-hero-highlight]').nth(1)
+    await expect(card.locator('[data-slot="label"]')).toHaveText('Cost per km')
+    const before = await card.locator('[data-slot="value"]').textContent()
+
+    await page.locator('[data-calc-field="distanceUnit"]').selectOption('mi')
+
+    // The figure is now per mile; the words beside it must say so.
+    await expect(card.locator('[data-slot="label"]')).toHaveText('Cost per mile')
+    expect(await card.locator('[data-slot="value"]').textContent()).not.toBe(before)
+  })
+
+  test('a calculator that renames its own result relabels both cards', async ({ page }) => {
+    await page.goto('/calculators/ohms-law-calculator/')
+    await expect(page.locator('calc-form')).toHaveAttribute('data-ready', 'true')
+
+    const first = page.locator('[data-hero-highlight]').first()
+    await expect(first.locator('[data-slot="label"]')).toHaveText('Current')
+
+    await page.locator('[data-calc-field="mode"]').selectOption('vi')
+    await expect(first.locator('[data-slot="label"]')).toHaveText('Resistance')
+  })
+})
+
 test.describe('chart axis', () => {
   // The numbers beside a curve are drawn at build time from the DEFAULT result.
   // If they are not redrawn, the curve rescales and the axis does not — which

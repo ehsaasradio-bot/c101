@@ -460,9 +460,16 @@ if (form) {
   const liveScenario = document.querySelector<HTMLElement>('[data-scenario-live]')
   const heroCells = document.querySelectorAll<HTMLElement>('[data-hero-highlight]')
   const drawHero = (view: ResultView) => {
-    const texts = [view.primary.text, (view.stats[1] ?? view.stats[0])?.text]
+    // Label and value are rewritten together. Both halves of a hero card can
+    // change with input — a converter renames its own result — and a figure
+    // under the wrong name reads as correct, so it survives longer than a
+    // stale one would. The two entries mirror `highlights` in CalculatorPage.
+    const cells = [view.primary, view.stats[1] ?? view.stats[0]]
     heroCells.forEach((cell, i) => {
-      if (texts[i]) cell.textContent = texts[i]!
+      const quantity = cells[i]
+      if (!quantity) return
+      slot(cell, 'label', quantity.label)
+      slot(cell, 'value', quantity.text)
     })
   }
 

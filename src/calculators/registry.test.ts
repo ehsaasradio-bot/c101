@@ -212,18 +212,45 @@ describe('registry', () => {
      */
     test('anything drawable off-default is already drawable at the defaults', () => {
       const atDefault = calc.compute(defaultValues(calc) as never)
-      const hasParts = (atDefault.parts?.length ?? 0) > 0
-      const hasSeries = (atDefault.series?.length ?? 0) > 0
+      const defaultView = toResultView(atDefault, calc.scale)
+
+      // Each entry is a block the studio theme renders only when the DEFAULT
+      // result calls for it. Miss one and it can never appear, however the
+      // visitor edits the form.
+      const gated = [
+        {
+          block: 'parts (the donut)',
+          present: (r: CalcResult) => (r.parts?.length ?? 0) > 0,
+        },
+        {
+          block: 'series (the chart)',
+          present: (r: CalcResult) => (r.series?.length ?? 0) > 0,
+        },
+        {
+          block: 'steps (the "how this is calculated" panel)',
+          present: (r: CalcResult) => (r.steps?.length ?? 0) > 0,
+        },
+        {
+          block: 'stats (the second hero card)',
+          present: (r: CalcResult) => (r.stats?.length ?? 0) > 0,
+        },
+        {
+          block: 'a band (the summary pill)',
+          present: (r: CalcResult) => Boolean(toResultView(r, calc.scale).bandLabel),
+        },
+      ]
+
+      const atDefaults = gated.map((g) => g.present(atDefault))
+      expect(defaultView).toBeDefined()
 
       for (const [how, result] of reachable(calc)) {
-        if (result.parts?.length) {
-          expect(hasParts, `${calc.slug}: parts appear at ${how} but not at the defaults`).toBe(true)
-        }
-        if (result.series?.length) {
-          expect(hasSeries, `${calc.slug}: series appear at ${how} but not at the defaults`).toBe(
-            true,
-          )
-        }
+        gated.forEach((g, i) => {
+          if (!g.present(result)) return
+          expect(
+            atDefaults[i],
+            `${calc.slug}: ${g.block} appears at ${how} but not at the defaults, so the theme never renders it`,
+          ).toBe(true)
+        })
       }
     })
 

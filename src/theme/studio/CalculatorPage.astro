@@ -133,6 +133,7 @@ const highlights = [
         {
           highlights.map((h, i) => (
             <div
+              data-hero-highlight={i}
               class:list={[
                 // Translucent, because the curve is now real data rather than ornament.
                 // The old decorative path always rose, so cards in the top-left and
@@ -143,11 +144,13 @@ const highlights = [
                 i === 0 ? '-left-2 top-4 sm:-left-6' : '-right-2 bottom-4 sm:-right-6',
               ]}
             >
-              <p class="truncate text-[11px] text-ink-muted">{h!.label}</p>
-              <p
-                data-hero-highlight={i}
-                class="mt-0.5 text-lg font-semibold tabular-nums text-ink"
-              >
+              {/* The marker is on the card, not the number, so the script can
+                  rewrite both halves. A converter's card reads "Cost per km" one
+                  keystroke and "Cost per mile" the next; updating only the figure
+                  leaves a correct number under a wrong name, which is a harder
+                  error to notice than a stale one. */}
+              <p data-slot="label" class="truncate text-[11px] text-ink-muted">{h!.label}</p>
+              <p data-slot="value" class="mt-0.5 text-lg font-semibold tabular-nums text-ink">
                 {h!.text}
               </p>
             </div>
