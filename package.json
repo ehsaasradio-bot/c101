@@ -14,7 +14,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
-    "verify": "npm run check && npm run test && npm run build"
+    "verify": "npm run check && npm run test && npm run build",
+    "deploy": "npm run verify && npx wrangler pages deploy dist --project-name c101 --branch main"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
