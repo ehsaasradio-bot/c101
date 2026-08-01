@@ -1,5 +1,7 @@
 import type { NumberField, ResultView } from '../../lib/types'
 import { convertBetween } from '../../lib/view'
+import type { Geometry } from './axis'
+import { chartScale, compactTick, projector, xTickValues, yTickValues } from './axis'
 import { decoratedTicks, softRange } from './range'
 
 /**
@@ -385,21 +387,37 @@ if (form) {
     chart.hidden = view.series.length === 0
     if (view.series.length === 0) return
 
-    const geo = JSON.parse(chart.dataset.chartGeometry ?? '{}') as {
-      W: number
-      H: number
-      PAD: { top: number; right: number; bottom: number; left: number }
+    const geo = JSON.parse(chart.dataset.chartGeometry ?? '{}') as Geometry
+    const { H, PAD } = geo
+
+    // Same module the server rendered through, so the curve and the numbers
+    // beside it are guaranteed to describe the same scale.
+    const scale = chartScale(view.series)
+    const { x: sx, y: sy } = projector(geo, scale)
+
+    // The gridlines are left alone on purpose: their positions are fixed
+    // fractions of the plot height and do not depend on the data. See ./axis.ts.
+    const yticks = chart.querySelector('[data-chart-yticks]')
+    if (yticks) {
+      const proto = () => prototype(chart, 'template[data-chart-row="ytick"]')
+      const values = yTickValues(scale.yMax)
+      reconcile(yticks, values.length, proto, (el, i) => {
+        el.setAttribute('x', String(PAD.left - 8))
+        el.setAttribute('y', (sy(values[i]!) + 4).toFixed(1))
+        el.textContent = compactTick(values[i]!)
+      })
     }
-    const { W, H, PAD } = geo
 
-    const xs = view.series.flatMap((s) => s.points.map((p) => p[0]))
-    const ys = view.series.flatMap((s) => s.points.map((p) => p[1]))
-    const xMin = Math.min(...xs)
-    const xMax = Math.max(...xs)
-    const yMax = Math.max(...ys) * 1.05 || 1
-
-    const sx = (x: number) => PAD.left + ((x - xMin) / (xMax - xMin || 1)) * (W - PAD.left - PAD.right)
-    const sy = (y: number) => H - PAD.bottom - (y / yMax) * (H - PAD.top - PAD.bottom)
+    const xticks = chart.querySelector('[data-chart-xticks]')
+    if (xticks) {
+      const proto = () => prototype(chart, 'template[data-chart-row="xtick"]')
+      const values = xTickValues(scale.xMin, scale.xMax)
+      reconcile(xticks, values.length, proto, (el, i) => {
+        el.setAttribute('x', sx(values[i]!).toFixed(1))
+        el.setAttribute('y', String(H - 8))
+        el.textContent = String(Math.round(values[i]!))
+      })
+    }
 
     const legend = chart.querySelector('[data-chart-legend]')
     if (legend) {

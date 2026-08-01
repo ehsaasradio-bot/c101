@@ -1,6 +1,6 @@
 ---
 import type { Series } from '../../lib/types'
-import { formatValue } from '../../lib/format'
+import { chartScale, compactTick, projector, xTickValues, yTickValues } from './axis'
 
 interface Props {
   series: ReadonlyArray<Series>
@@ -10,20 +10,15 @@ interface Props {
 const { series, xLabel = 'Years' } = Astro.props
 
 // Geometry is computed here and recomputed by studio.ts on every recompute.
-// Keeping both in the theme is the point: the island never learns what a chart is.
+// Keeping both in the theme is the point: the island never learns what a chart
+// is. The maths itself lives in ./axis.ts so the two passes cannot diverge.
 const W = 720
 const H = 260
 const PAD = { top: 16, right: 16, bottom: 28, left: 56 }
 
-const xs = series.flatMap((s) => s.points.map((p) => p[0]))
-const ys = series.flatMap((s) => s.points.map((p) => p[1]))
-const xMin = Math.min(...xs)
-const xMax = Math.max(...xs)
-const yMax = Math.max(...ys) * 1.05
-
-const sx = (x: number) =>
-  PAD.left + ((x - xMin) / (xMax - xMin || 1)) * (W - PAD.left - PAD.right)
-const sy = (y: number) => H - PAD.bottom - (y / (yMax || 1)) * (H - PAD.top - PAD.bottom)
+const scale = chartScale(series)
+const { xMin, xMax, yMax } = scale
+const { x: sx, y: sy } = projector({ W, H, PAD }, scale)
 
 const path = (s: Series) =>
   s.points.map((p, i) => `${i === 0 ? 'M' : 'L'}${sx(p[0]).toFixed(1)} ${sy(p[1]).toFixed(1)}`).join(' ')
@@ -31,18 +26,8 @@ const path = (s: Series) =>
 const area = (s: Series) =>
   `${path(s)} L${sx(s.points[s.points.length - 1]![0]).toFixed(1)} ${H - PAD.bottom} L${sx(s.points[0]![0]).toFixed(1)} ${H - PAD.bottom} Z`
 
-const yTicks = Array.from({ length: 5 }, (_, i) => (yMax / 4) * i)
-const xTickCount = Math.min(6, xMax - xMin + 1)
-const xTicks = Array.from(
-  { length: xTickCount },
-  (_, i) => xMin + ((xMax - xMin) * i) / (xTickCount - 1 || 1),
-)
-const compact = (v: number) =>
-  Math.abs(v) >= 1_000_000
-    ? `${Math.round(v / 100_000) / 10}M`
-    : Math.abs(v) >= 1000
-      ? `${Math.round(v / 100) / 10}k`
-      : formatValue(v, { style: 'decimal', decimals: 0 })
+const yTicks = yTickValues(yMax)
+const xTicks = xTickValues(xMin, xMax)
 ---
 
 <figure
@@ -65,30 +50,43 @@ const compact = (v: number) =>
   </figcaption>
 
   <svg viewBox={`0 0 ${W} ${H}`} class="mt-4 w-full" role="img" aria-label="Balance over time">
+    {/* Gridlines never move — a tick's y is a fixed fraction of the plot height,
+        because the yMax in the tick value cancels against the yMax in the
+        projection — so they are drawn once and left alone. The labels beside
+        them are a different matter: those scale with the data. */}
     {
       yTicks.map((t) => (
-        <>
-          <line
-            x1={PAD.left}
-            x2={W - PAD.right}
-            y1={sy(t)}
-            y2={sy(t)}
-            stroke="var(--c-border)"
-            stroke-width="1"
-          />
+        <line
+          x1={PAD.left}
+          x2={W - PAD.right}
+          y1={sy(t)}
+          y2={sy(t)}
+          stroke="var(--c-border)"
+          stroke-width="1"
+        />
+      ))
+    }
+    <g data-chart-yticks>
+      {
+        yTicks.map((t) => (
           <text x={PAD.left - 8} y={sy(t) + 4} text-anchor="end" font-size="11" fill="var(--c-ink-muted)">
-            {compact(t)}
+            {compactTick(t)}
           </text>
-        </>
-      ))
-    }
-    {
-      xTicks.map((t) => (
-        <text x={sx(t)} y={H - 8} text-anchor="middle" font-size="11" fill="var(--c-ink-muted)">
-          {Math.round(t)}
-        </text>
-      ))
-    }
+        ))
+      }
+    </g>
+    {/* The x labels are a varying-count set: a three-year horizon wants four
+        ticks and a hundred-year one six, so studio.ts reconciles them against a
+        template rather than assuming the build-time arity. */}
+    <g data-chart-xticks>
+      {
+        xTicks.map((t) => (
+          <text x={sx(t)} y={H - 8} text-anchor="middle" font-size="11" fill="var(--c-ink-muted)">
+            {Math.round(t)}
+          </text>
+        ))
+      }
+    </g>
 
     {/* Series live in their own <g> so studio.ts can reconcile the whole set
         against a count that changed: an inflation chart has two lines, and none
@@ -172,5 +170,19 @@ const compact = (v: number) =>
       <span class="h-0.5 w-4 rounded-full" style="background: var(--cat)"></span>
       <span data-slot="label"></span>
     </span>
+  </template>
+
+  {/* Axis labels. Position is set by the script because it depends on the scale;
+      everything about how they look stays here. */}
+  <template data-chart-row="ytick">
+    <svg>
+      <text text-anchor="end" font-size="11" fill="var(--c-ink-muted)"></text>
+    </svg>
+  </template>
+
+  <template data-chart-row="xtick">
+    <svg>
+      <text text-anchor="middle" font-size="11" fill="var(--c-ink-muted)"></text>
+    </svg>
   </template>
 </figure>

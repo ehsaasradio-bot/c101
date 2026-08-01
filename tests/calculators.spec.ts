@@ -409,6 +409,43 @@ test.describe('scenarios', () => {
   })
 })
 
+test.describe('chart axis', () => {
+  // The numbers beside a curve are drawn at build time from the DEFAULT result.
+  // If they are not redrawn, the curve rescales and the axis does not — which
+  // reads as precision rather than as a bug, and is the worse failure.
+  const axis = (page: import('@playwright/test').Page, which: 'x' | 'y') =>
+    page.locator(`[data-chart-${which}ticks] text`)
+
+  test('the axis follows the data, not the build-time defaults', async ({ page }) => {
+    await page.goto('/calculators/inflation-calculator/')
+    await expect(page.locator('calc-form')).toHaveAttribute('data-ready', 'true')
+
+    const yBefore = await axis(page, 'y').allTextContents()
+    expect((await axis(page, 'x').allTextContents()).at(-1)).toBe('20')
+
+    await page.locator('[data-calc-field="years"]').fill('100')
+
+    // A five-fold horizon: the last x label must reach it, and the y axis must
+    // climb with the values rather than staying at the twenty-year scale.
+    await expect
+      .poll(async () => (await axis(page, 'x').allTextContents()).at(-1))
+      .toBe('100')
+    expect(await axis(page, 'y').allTextContents()).not.toEqual(yBefore)
+  })
+
+  test('the x axis sheds labels when the horizon shrinks', async ({ page }) => {
+    await page.goto('/calculators/inflation-calculator/')
+    await expect(page.locator('calc-form')).toHaveAttribute('data-ready', 'true')
+    await expect(axis(page, 'x')).toHaveCount(6)
+
+    // Six ticks across three years would label the same point twice, so the
+    // count itself is input-dependent — surplus labels must actually go.
+    await page.locator('[data-calc-field="years"]').fill('3')
+    await expect(axis(page, 'x')).toHaveCount(4)
+    expect(await axis(page, 'x').allTextContents()).toEqual(['0', '1', '2', '3'])
+  })
+})
+
 test.describe('home hero', () => {
   test('shows real computed figures, not hand-written ones', async ({ page }) => {
     await page.goto('/')
