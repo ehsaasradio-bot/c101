@@ -2849,6 +2849,74 @@ exports[`registry > house-affordability-calculator > default output is stable 1`
 }
 `;
 
+exports[`registry > ideal-gas-law-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "decimals": 4,
+      "style": "decimal",
+      "unit": "mol",
+    },
+    "label": "Amount of gas",
+    "text": "1.0000 mol",
+    "value": 1.0000013587686423,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+        "unit": "atm",
+      },
+      "label": "Pressure",
+      "text": "1.0000 atm",
+      "value": 1,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+        "unit": "L",
+      },
+      "label": "Volume",
+      "text": "22.4140 L",
+      "value": 22.414,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+        "unit": "mol",
+      },
+      "label": "Amount of gas",
+      "text": "1.0000 mol",
+      "value": 1.0000013587686423,
+    },
+    {
+      "format": {
+        "decimals": 2,
+        "style": "decimal",
+        "unit": "K",
+      },
+      "label": "Temperature",
+      "text": "273.15 K",
+      "value": 273.15,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+        "unit": "L/mol",
+      },
+      "label": "Molar volume",
+      "text": "22.4140 L/mol",
+      "value": 22.413969544601034,
+    },
+  ],
+}
+`;
+
 exports[`registry > ideal-weight-calculator > default output is stable 1`] = `
 {
   "band": undefined,
@@ -3096,6 +3164,84 @@ exports[`registry > inflation-calculator > default output is stable 1`] = `
 }
 `;
 
+exports[`registry > kinematics-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "decimals": 4,
+      "style": "decimal",
+      "unit": "m",
+    },
+    "label": "Displacement",
+    "text": "150.0000 m",
+    "value": 150,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+        "unit": "m/s",
+      },
+      "label": "Initial velocity (u)",
+      "text": "5.0000 m/s",
+      "value": 5,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+        "unit": "m/s",
+      },
+      "label": "Final velocity (v)",
+      "text": "25.0000 m/s",
+      "value": 25,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+        "unit": "m/s²",
+      },
+      "label": "Acceleration (a)",
+      "text": "2.0000 m/s²",
+      "value": 2,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+        "unit": "s",
+      },
+      "label": "Time (t)",
+      "text": "10.0000 s",
+      "value": 10,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+        "unit": "m",
+      },
+      "label": "Displacement (s)",
+      "text": "150.0000 m",
+      "value": 150,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+        "unit": "m/s",
+      },
+      "label": "Average velocity",
+      "text": "15.0000 m/s",
+      "value": 15,
+    },
+  ],
+}
+`;
+
 exports[`registry > lean-body-mass-calculator > default output is stable 1`] = `
 {
   "band": "neutral",
@@ -3169,6 +3315,94 @@ exports[`registry > lean-body-mass-calculator > default output is stable 1`] = `
       "label": "Fat-free mass index",
       "text": "19.2 kg/m²",
       "value": 19.216639313218025,
+    },
+  ],
+}
+`;
+
+exports[`registry > linear-regression-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "decimals": 4,
+      "style": "decimal",
+    },
+    "label": "Predicted y at x = 10",
+    "text": "19.6900",
+    "value": 19.69,
+  },
+  "stats": [
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Equation of the line",
+      "text": "ŷ = 0.19 + 1.95x",
+      "value": "ŷ = 0.19 + 1.95x",
+    },
+    {
+      "format": {
+        "decimals": 6,
+        "style": "decimal",
+      },
+      "label": "Slope b",
+      "text": "1.950000",
+      "value": 1.95,
+    },
+    {
+      "format": {
+        "decimals": 6,
+        "style": "decimal",
+      },
+      "label": "Intercept a",
+      "text": "0.190000",
+      "value": 0.19000000000000128,
+    },
+    {
+      "format": {
+        "decimals": 6,
+        "style": "decimal",
+      },
+      "label": "Correlation r",
+      "text": "0.999383",
+      "value": 0.999382557859172,
+    },
+    {
+      "format": {
+        "decimals": 6,
+        "style": "decimal",
+      },
+      "label": "R² (variation explained)",
+      "text": "0.998765",
+      "value": 0.9987654969531413,
+    },
+    {
+      "format": {
+        "decimals": 6,
+        "style": "decimal",
+      },
+      "label": "Standard error of the estimate",
+      "text": "0.125167",
+      "value": 0.12516655570346277,
+    },
+    {
+      "format": {
+        "decimals": 6,
+        "style": "decimal",
+      },
+      "label": "Standard error of the slope",
+      "text": "0.039581",
+      "value": 0.03958114029012814,
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+      },
+      "label": "Points used",
+      "text": "5",
+      "value": 5,
     },
   ],
 }
@@ -3387,6 +3621,123 @@ exports[`registry > macro-calculator > default output is stable 1`] = `
       "label": "Protein per meal (3 meals)",
       "text": "50 g",
       "value": 50,
+    },
+  ],
+}
+`;
+
+exports[`registry > matrix-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "decimals": 4,
+      "style": "decimal",
+    },
+    "label": "Determinant of A",
+    "text": "10.0000",
+    "value": 10,
+  },
+  "stats": [
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Matrix A",
+      "text": "[4, 7; 2, 6]",
+      "value": "[4, 7; 2, 6]",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Order",
+      "text": "2 × 2",
+      "value": "2 × 2",
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+      },
+      "label": "Trace (sum of the diagonal)",
+      "text": "10.0000",
+      "value": 10,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+      },
+      "label": "Determinant of Aᵀ (always equal to det A)",
+      "text": "10.0000",
+      "value": 10,
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Invertible",
+      "text": "Yes — the determinant is not zero",
+      "value": "Yes — the determinant is not zero",
+    },
+  ],
+}
+`;
+
+exports[`registry > molarity-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "decimals": 4,
+      "style": "decimal",
+      "unit": "mol/L",
+    },
+    "label": "Molarity",
+    "text": "1.0000 mol/L",
+    "value": 1,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+        "unit": "mol/L",
+      },
+      "label": "Molarity",
+      "text": "1.0000 mol/L",
+      "value": 1,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+        "unit": "mol",
+      },
+      "label": "Moles of solute",
+      "text": "1.0000 mol",
+      "value": 1,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+        "unit": "g",
+      },
+      "label": "Mass of solute",
+      "text": "58.4400 g",
+      "value": 58.44,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+        "unit": "L",
+      },
+      "label": "Solution volume",
+      "text": "1.0000 L",
+      "value": 1,
     },
   ],
 }
@@ -5201,6 +5552,203 @@ exports[`registry > savings-goal-calculator > default output is stable 1`] = `
 }
 `;
 
+exports[`registry > scientific-notation-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "style": "raw",
+    },
+    "label": "Standard form",
+    "text": "6.02 × 10^23",
+    "value": "6.02 × 10^23",
+  },
+  "stats": [
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Written out in full",
+      "text": "602000000000000000000000",
+      "value": "602000000000000000000000",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Engineering notation",
+      "text": "602 × 10^21",
+      "value": "602 × 10^21",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Significant figures in the answer",
+      "text": "3, carried straight over from the number you entered",
+      "value": "3, carried straight over from the number you entered",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "SI prefix for this power of ten",
+      "text": "zetta (Z)",
+      "value": "zetta (Z)",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Coefficient",
+      "text": "6.02",
+      "value": "6.02",
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+      },
+      "label": "Exponent (power of ten)",
+      "text": "23",
+      "value": 23,
+    },
+  ],
+}
+`;
+
+exports[`registry > section-properties-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "style": "raw",
+    },
+    "label": "Second moment of area, Ix",
+    "text": "49.280 × 10^6 mm⁴",
+    "value": "49.280 × 10^6 mm⁴",
+  },
+  "stats": [
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Area, A",
+      "text": "9.600 × 10^3 mm²",
+      "value": "9.600 × 10^3 mm²",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Elastic modulus, Sx",
+      "text": "492.800 × 10^3 mm³",
+      "value": "492.800 × 10^3 mm³",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Plastic modulus, Zx",
+      "text": "624.000 × 10^3 mm³",
+      "value": "624.000 × 10^3 mm³",
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+        "unit": "mm",
+      },
+      "label": "Radius of gyration, Kx",
+      "text": "71.6473 mm",
+      "value": 71.6473,
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Second moment, Iy",
+      "text": "19.080 × 10^6 mm⁴",
+      "value": "19.080 × 10^6 mm⁴",
+    },
+    {
+      "format": {
+        "decimals": 3,
+        "style": "decimal",
+      },
+      "label": "Shape factor, Zx / Sx",
+      "text": "1.266",
+      "value": 1.2662,
+    },
+  ],
+}
+`;
+
+exports[`registry > significant-figures-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "style": "raw",
+    },
+    "label": "Rounded to 10 figures",
+    "text": "0.004500000000",
+    "value": "0.004500000000",
+  },
+  "stats": [
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Significant figures the input states",
+      "text": "4",
+      "value": "4",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Scientific notation",
+      "text": "4.500000000 × 10^-3",
+      "value": "4.500000000 × 10^-3",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Place of the last digit kept",
+      "text": "10^-12",
+      "value": "10^-12",
+    },
+    {
+      "format": {
+        "decimals": 0,
+        "style": "decimal",
+      },
+      "label": "Decimal places in the answer",
+      "text": "12",
+      "value": 12,
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Digits dropped",
+      "text": "none",
+      "value": "none",
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Rounded up or down?",
+      "text": "Neither — nothing was dropped",
+      "value": "Neither — nothing was dropped",
+    },
+  ],
+}
+`;
+
 exports[`registry > simple-interest-calculator > default output is stable 1`] = `
 {
   "band": "neutral",
@@ -5745,6 +6293,182 @@ exports[`registry > tip-calculator > default output is stable 1`] = `
 }
 `;
 
+exports[`registry > triangle-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "decimals": 6,
+      "style": "decimal",
+      "unit": "units",
+    },
+    "label": "Side c",
+    "text": "4.950003 units",
+    "value": 4.950002557266175,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 6,
+        "style": "decimal",
+        "unit": "units",
+      },
+      "label": "Side a",
+      "text": "5.000000 units",
+      "value": 5,
+    },
+    {
+      "format": {
+        "decimals": 6,
+        "style": "decimal",
+        "unit": "units",
+      },
+      "label": "Side b",
+      "text": "7.000000 units",
+      "value": 7,
+    },
+    {
+      "format": {
+        "decimals": 6,
+        "style": "decimal",
+        "unit": "units",
+      },
+      "label": "Side c",
+      "text": "4.950003 units",
+      "value": 4.950002557266175,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+        "unit": "°",
+      },
+      "label": "Angle A",
+      "text": "45.5817 °",
+      "value": 45.58167796938664,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+        "unit": "°",
+      },
+      "label": "Angle B",
+      "text": "89.4183 °",
+      "value": 89.41832203061335,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+        "unit": "°",
+      },
+      "label": "Angle C",
+      "text": "45.0000 °",
+      "value": 45,
+    },
+    {
+      "format": {
+        "decimals": 6,
+        "style": "decimal",
+      },
+      "label": "Area",
+      "text": "12.374369",
+      "value": 12.37436867076458,
+    },
+    {
+      "format": {
+        "decimals": 6,
+        "style": "decimal",
+        "unit": "units",
+      },
+      "label": "Perimeter",
+      "text": "16.950003 units",
+      "value": 16.950002557266174,
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Triangle type",
+      "text": "Acute scalene",
+      "value": "Acute scalene",
+    },
+  ],
+}
+`;
+
+exports[`registry > trigonometry-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "decimals": 6,
+      "style": "decimal",
+    },
+    "label": "sin θ",
+    "text": "0.500000",
+    "value": 0.5,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 6,
+        "style": "decimal",
+      },
+      "label": "sin θ",
+      "text": "0.500000",
+      "value": 0.5,
+    },
+    {
+      "format": {
+        "decimals": 6,
+        "style": "decimal",
+      },
+      "label": "cos θ",
+      "text": "0.866025",
+      "value": 0.8660254037844387,
+    },
+    {
+      "format": {
+        "decimals": 6,
+        "style": "decimal",
+      },
+      "label": "tan θ",
+      "text": "0.577350",
+      "value": 0.5773502691896257,
+    },
+    {
+      "format": {
+        "decimals": 6,
+        "style": "decimal",
+      },
+      "label": "csc θ",
+      "text": "2.000000",
+      "value": 2,
+    },
+    {
+      "format": {
+        "decimals": 6,
+        "style": "decimal",
+      },
+      "label": "sec θ",
+      "text": "1.154701",
+      "value": 1.1547005383792515,
+    },
+    {
+      "format": {
+        "decimals": 6,
+        "style": "decimal",
+      },
+      "label": "cot θ",
+      "text": "1.732051",
+      "value": 1.7320508075688774,
+    },
+  ],
+}
+`;
+
 exports[`registry > unit-converter-calculator > default output is stable 1`] = `
 {
   "band": undefined,
@@ -5788,6 +6512,77 @@ exports[`registry > unit-converter-calculator > default output is stable 1`] = `
       "label": "Value in m",
       "text": "100,000.0000 m",
       "value": 100000,
+    },
+  ],
+}
+`;
+
+exports[`registry > vector-calculator > default output is stable 1`] = `
+{
+  "band": undefined,
+  "primary": {
+    "format": {
+      "decimals": 6,
+      "style": "decimal",
+    },
+    "label": "Dot product a · b",
+    "text": "11.000000",
+    "value": 11,
+  },
+  "stats": [
+    {
+      "format": {
+        "decimals": 6,
+        "style": "decimal",
+      },
+      "label": "Magnitude |a|",
+      "text": "5.000000",
+      "value": 5,
+    },
+    {
+      "format": {
+        "decimals": 6,
+        "style": "decimal",
+      },
+      "label": "Magnitude |b|",
+      "text": "3.000000",
+      "value": 3,
+    },
+    {
+      "format": {
+        "decimals": 4,
+        "style": "decimal",
+        "unit": "°",
+      },
+      "label": "Angle between a and b",
+      "text": "42.8334 °",
+      "value": 42.833428066067256,
+    },
+    {
+      "format": {
+        "decimals": 6,
+        "style": "decimal",
+      },
+      "label": "cos of that angle",
+      "text": "0.733333",
+      "value": 0.7333333333333333,
+    },
+    {
+      "format": {
+        "decimals": 6,
+        "style": "decimal",
+      },
+      "label": "Magnitude of a × b",
+      "text": "10.198039",
+      "value": 10.19803902718557,
+    },
+    {
+      "format": {
+        "style": "raw",
+      },
+      "label": "Perpendicular?",
+      "text": "No",
+      "value": "No",
     },
   ],
 }

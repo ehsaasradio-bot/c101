@@ -194,6 +194,7 @@ export default function compute(v: Values<typeof fields>): CalcResult {
     parts,
     partsTotal: { label: 'Total repaid', value: totalPaid, format: { style: 'currency' } },
     series,
+    chart: { title: 'Balance and interest over the term', xLabel: 'Months' },
     notes: [
       'Assumes a fixed rate and equal monthly payments, with interest charged on the balance remaining at the start of each month.',
       'The final payment settles whatever is left, so it differs from the others by a few dollars — rounding each payment to whole cents never divides the principal exactly.',

@@ -80,6 +80,65 @@ const CROSS_FIELD_EXCEPTIONS = new Set([
   // ordinary. Keys are mode-qualified rather than a bare base key so the same
   // bound failing in another mode would still surface.
   'half-life-calculator:elapsedTime:mode=initial:max',
+  // A triangle's parts constrain each other by definition, and every entry below
+  // is that constraint rather than a bad bound. Each is mode-qualified: the same
+  // value is perfectly good in the modes that do not read it, and narrowing a
+  // slider to suit one mode would forbid legitimate triangles in the other four.
+  //
+  // SSS: the triangle inequality. Against the default b = 7 and c = 4.95, side a
+  // has to sit strictly between 2.05 and 11.95 — so both ends of a 0.01..1000
+  // slider fall outside it, and so do the other two sides' ends by the same
+  // argument. Any bound wide enough to be useful fails here.
+  'triangle-calculator:sideA:mode=sss:min',
+  'triangle-calculator:sideA:mode=sss:max',
+  'triangle-calculator:sideB:mode=sss:min',
+  'triangle-calculator:sideB:mode=sss:max',
+  'triangle-calculator:sideC:mode=sss:min',
+  'triangle-calculator:sideC:mode=sss:max',
+  // SSA: side a has to reach the altitude b·sin A to close the triangle at all.
+  // Dropping a to 0.01, or pushing b to 1000, puts it out of reach against the
+  // other field's default — the classic no-solution branch of the ambiguous case.
+  'triangle-calculator:sideA:mode=ssa:min',
+  'triangle-calculator:sideB:mode=ssa:max',
+  // SSA: an obtuse angle A demands that side a be the longest side, and at the
+  // default a = 5 against b = 7 it is not.
+  'triangle-calculator:angleA:mode=ssa:max',
+  // ASA and AAS: two angles must total under 180°. 179.9999° is a real angle for
+  // a triangle whose other two are slivers; it is refused only because the probe
+  // holds the partner angle at its 89.4183° default.
+  'triangle-calculator:angleA:mode=asa:max',
+  'triangle-calculator:angleA:mode=aas:max',
+  'triangle-calculator:angleB:mode=asa:max',
+  'triangle-calculator:angleB:mode=aas:max',
+  // A hole cannot be bigger than the section around it. Each of these bounds is
+  // a perfectly ordinary dimension on its own — a 1 mm outer height is fine for
+  // a section with no hole, and a 4,999 mm hole is fine inside a 5,000 mm box —
+  // and is refused only because the probe holds the partner dimension at its
+  // default. Narrowing either slider would forbid real sections, and the error
+  // names the collision exactly.
+  // Keyed to the hollow branch only. A solid rectangle ignores the hole, so the
+  // very same bounds are accepted there — a base-key entry would cover a branch
+  // that does not fail, which the pin below rightly rejects.
+  'section-properties-calculator:a:shape=hollowRectangle:min',
+  'section-properties-calculator:b:shape=hollowRectangle:min',
+  'section-properties-calculator:innerHeight:shape=hollowRectangle:max',
+  'section-properties-calculator:innerWidth:shape=hollowRectangle:max',
+  // Only the millimetre branch collides: its 4,999 max sits beside the 200 mm
+  // default outer height. The centimetre and inch tracks stop at 499 and 196,
+  // which the resolved bounds keep inside the section, so those pass unaided.
+  'section-properties-calculator:innerHeight:unit=mm:max',
+  'section-properties-calculator:innerWidth:unit=mm:max',
+  // The same collision in the round family: a 1 mm tube cannot hold the 160 mm
+  // default bore, and a 4,999 mm bore will not fit the 200 mm default outside.
+  // The solid circle ignores the bore entirely, so it is not listed.
+  'section-properties-calculator:diameter:shape=hollowCircle:min',
+  'section-properties-calculator:innerDiameter:shape=hollowCircle:max',
+  'section-properties-calculator:a:unit=mm:min',
+  'section-properties-calculator:a:unit=cm:min',
+  'section-properties-calculator:a:unit=in:min',
+  'section-properties-calculator:b:unit=mm:min',
+  'section-properties-calculator:b:unit=cm:min',
+  'section-properties-calculator:b:unit=in:min',
 ])
 
 /**

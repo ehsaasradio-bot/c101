@@ -249,6 +249,7 @@ export default function compute(v: Values<typeof fields>): CalcResult {
         format: { style: 'decimal', decimals: 2, unit: volumeUnit },
       },
     ],
+    chart: { title: 'Paint needed by number of coats', xLabel: 'Coats' },
     notes: [
       'Tins are rounded up, never averaged: a job needing 3.1 tins takes 4. That is why the cost jumps in steps as the room grows, and why a slightly larger tin size sometimes costs less overall.',
       'Walls only. Ceilings, skirting, architrave and doors themselves are separate jobs with their own coverage, and ceiling paint is usually a different product.',

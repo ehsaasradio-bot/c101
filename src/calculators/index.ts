@@ -103,6 +103,21 @@ import grade from './everyday/grade-calculator'
 import timeZoneConverter from './everyday/time-zone-converter-calculator'
 import ohmsLaw from './everyday/ohms-law-calculator'
 import timeCard from './everyday/time-card-calculator'
+
+// science
+import trigonometry from './science/trigonometry-calculator'
+import triangle from './science/triangle-calculator'
+import significantFigures from './science/significant-figures-calculator'
+import scientificNotation from './science/scientific-notation-calculator'
+import idealGasLaw from './science/ideal-gas-law-calculator'
+import molarity from './science/molarity-calculator'
+import kinematics from './science/kinematics-calculator'
+import vector from './science/vector-calculator'
+import matrix from './science/matrix-calculator'
+import linearRegression from './science/linear-regression-calculator'
+
+// engineering
+import sectionProperties from './engineering/section-properties-calculator'
 export const calculators: readonly CalculatorDef[] = [
   mortgage,
   amortization,
@@ -193,6 +208,19 @@ export const calculators: readonly CalculatorDef[] = [
   timeZoneConverter,
   ohmsLaw,
   timeCard,
+
+  trigonometry,
+  triangle,
+  significantFigures,
+  scientificNotation,
+  idealGasLaw,
+  molarity,
+  kinematics,
+  vector,
+  matrix,
+  linearRegression,
+
+  sectionProperties,
 ]
 
 export const bySlug: ReadonlyMap<string, CalculatorDef> = new Map(

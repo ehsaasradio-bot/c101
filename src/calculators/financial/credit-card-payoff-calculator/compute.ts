@@ -115,6 +115,7 @@ export default function compute(v: Values<typeof fields>): CalcResult {
         format: { style: 'currency', decimals: 0 },
       },
     ],
+    chart: { title: 'Balance until it is paid off', xLabel: 'Months' },
     notes: [
       'This assumes a fixed payment every month and no new purchases on the card. Adding spending restarts the arithmetic.',
       'Card issuers compound daily in practice, so a real statement may differ by a few dollars from this monthly model.',

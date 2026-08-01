@@ -153,6 +153,7 @@ export default function compute(v: Values<typeof fields>): CalcResult {
       { label: 'Simple interest', points: simplePoints, format: { style: 'currency', decimals: 0 } },
       { label: 'Compounded', points: compoundPoints, format: { style: 'currency', decimals: 0 } },
     ],
+    chart: { title: 'Simple against compound interest', xLabel: 'Years' },
     notes,
   }
 }

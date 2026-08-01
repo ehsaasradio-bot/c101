@@ -254,6 +254,7 @@ export default function compute(v: Values<typeof fields>): CalcResult {
       { label: 'Cumulative cost of renting', points: yearlyPoints(rentCurve), format: money },
       { label: 'Cumulative cost of buying', points: yearlyPoints(buyCurve), format: money },
     ],
+    chart: { title: 'Cumulative cost of renting against buying', xLabel: 'Years' },
     notes,
   }
 }

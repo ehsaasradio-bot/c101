@@ -127,6 +127,7 @@ export default function compute(v: Values<typeof fields>): CalcResult {
       },
       { label: 'Equity', points: equityPoints, format: { style: 'currency', decimals: 0 } },
     ],
+    chart: { title: 'Balance and equity over the term', xLabel: 'Years' },
     notes:
       monthlyPmi > 0
         ? ['PMI is estimated at 0.8%/yr and normally drops off once you reach 20% equity.']

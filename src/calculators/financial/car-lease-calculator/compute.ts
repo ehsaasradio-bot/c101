@@ -213,6 +213,7 @@ export default function compute(v: Values<typeof fields>): CalcResult {
         format: { style: 'currency', decimals: 0 },
       },
     ],
+    chart: { title: 'Lease balance over the term', xLabel: 'Months' },
     notes,
   }
 }

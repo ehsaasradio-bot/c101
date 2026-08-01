@@ -325,6 +325,7 @@ export default function compute(v: Values<typeof fields>): CalcResult {
         format: { style: 'currency', decimals: 0 },
       },
     ],
+    chart: { title: 'Projected balance by age', xLabel: 'Age' },
     notes,
   }
 }

@@ -434,6 +434,7 @@ export default function compute(v: Values<typeof fields>): CalcResult {
     steps,
     parts,
     series,
+    chart: { title: 'Bags needed by waste allowance', xLabel: 'Waste allowance (%)' },
     notes: [
       `A ${SHAPE_LABEL[shape]!.toLowerCase()} is worked out from its ${mapping}.${ignoredNote}`,
       SHAPE_NOTE[shape]!,

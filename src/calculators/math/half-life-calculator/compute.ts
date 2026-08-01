@@ -43,13 +43,20 @@ import type { fields } from './fields'
  * conversion, and why the amounts are unitless.
  */
 
-/** Wording for the chosen time unit. Labels only; no arithmetic depends on it. */
+/**
+ * Wording for the chosen time unit. Labels only; no arithmetic depends on it.
+ *
+ * `axis` names the chart's x axis, which is why it is capitalised and why it is
+ * here rather than a constant on the result: the curve always spans 0 to five
+ * half-lives, but whether that span is seconds or years is the visitor's choice,
+ * so the axis has to be read off the same select every other label here is.
+ */
 const TIME_UNITS = {
-  seconds: { plural: 'seconds', singular: 'second' },
-  minutes: { plural: 'minutes', singular: 'minute' },
-  hours: { plural: 'hours', singular: 'hour' },
-  days: { plural: 'days', singular: 'day' },
-  years: { plural: 'years', singular: 'year' },
+  seconds: { plural: 'seconds', singular: 'second', axis: 'Seconds' },
+  minutes: { plural: 'minutes', singular: 'minute', axis: 'Minutes' },
+  hours: { plural: 'hours', singular: 'hour', axis: 'Hours' },
+  days: { plural: 'days', singular: 'day', axis: 'Days' },
+  years: { plural: 'years', singular: 'year', axis: 'Years' },
 } as const
 
 type TimeUnitId = keyof typeof TIME_UNITS
@@ -467,5 +474,6 @@ export default function compute(v: Values<typeof fields>): CalcResult {
     parts,
     partsTotal: { label: 'Initial amount', value: initial, format: amountFormat(initial) },
     series,
+    chart: { title: 'Decay over time', xLabel: unit.axis },
   }
 }

@@ -22,7 +22,7 @@
 export const SITE_URL = 'https://calculator4129.space'
 export const SITE_NAME = 'Calc101'
 export const SITE_DESCRIPTION =
-  'Free online calculators for finance, health, math, and everyday life. Fast, accurate, no sign-up.'
+  'Free online calculators for finance, health, math, science, engineering, and everyday life. Fast, accurate, no sign-up.'
 export const LOCALE = 'en_US'
 export const CURRENCY = 'USD'
 

@@ -1,13 +1,22 @@
 ---
-import type { Series } from '../../lib/types'
+import type { ChartCopy, Series } from '../../lib/types'
 import { chartScale, compactTick, projector, xTickValues, yTickValues } from './axis'
 
 interface Props {
   series: ReadonlyArray<Series>
-  xLabel?: string
+  chart?: ChartCopy
 }
 
-const { series, xLabel = 'Years' } = Astro.props
+// The fallbacks are this theme's wording, not the calculator's, which is why
+// they live here and not in lib/. They read correctly for a balance over years
+// — the case that was hardcoded — and any calculator plotting something else
+// names its own via `chart` on the result.
+const CAPTION_FALLBACK = 'Balance over time'
+const X_LABEL_FALLBACK = 'Years'
+
+const { series, chart = {} } = Astro.props
+const caption = chart.title ?? CAPTION_FALLBACK
+const xLabel = chart.xLabel ?? X_LABEL_FALLBACK
 
 // Geometry is computed here and recomputed by studio.ts on every recompute.
 // Keeping both in the theme is the point: the island never learns what a chart
@@ -17,7 +26,7 @@ const H = 260
 const PAD = { top: 16, right: 16, bottom: 28, left: 56 }
 
 const scale = chartScale(series)
-const { xMin, xMax, yMax } = scale
+const { xMin, xMax, yMin, yMax } = scale
 const { x: sx, y: sy } = projector({ W, H, PAD }, scale)
 
 const path = (s: Series) =>
@@ -26,8 +35,9 @@ const path = (s: Series) =>
 const area = (s: Series) =>
   `${path(s)} L${sx(s.points[s.points.length - 1]![0]).toFixed(1)} ${H - PAD.bottom} L${sx(s.points[0]![0]).toFixed(1)} ${H - PAD.bottom} Z`
 
-const yTicks = yTickValues(yMax)
+const yTicks = yTickValues(yMin, yMax)
 const xTicks = xTickValues(xMin, xMax)
+const ySpan = yMax - yMin
 ---
 
 <figure
@@ -36,7 +46,7 @@ const xTicks = xTickValues(xMin, xMax)
   class="rounded-card border border-border-subtle bg-surface p-5"
 >
   <figcaption class="flex flex-wrap items-center justify-between gap-3">
-    <span class="text-sm font-semibold text-ink">Balance over time</span>
+    <span data-chart-caption class="text-sm font-semibold text-ink">{caption}</span>
     <span data-chart-legend class="flex items-center gap-4 text-xs text-ink-muted">
       {
         series.map((s, i) => (
@@ -49,7 +59,15 @@ const xTicks = xTickValues(xMin, xMax)
     </span>
   </figcaption>
 
-  <svg viewBox={`0 0 ${W} ${H}`} class="mt-4 w-full" role="img" aria-label="Balance over time">
+  {/* The accessible name follows the caption. It was the third copy of the
+      hardcoded string, and the one nobody would have noticed was wrong. */}
+  <svg
+    data-chart-figure
+    viewBox={`0 0 ${W} ${H}`}
+    class="mt-4 w-full"
+    role="img"
+    aria-label={caption}
+  >
     {/* Gridlines never move — a tick's y is a fixed fraction of the plot height,
         because the yMax in the tick value cancels against the yMax in the
         projection — so they are drawn once and left alone. The labels beside
@@ -70,7 +88,7 @@ const xTicks = xTickValues(xMin, xMax)
       {
         yTicks.map((t) => (
           <text x={PAD.left - 8} y={sy(t) + 4} text-anchor="end" font-size="11" fill="var(--c-ink-muted)">
-            {compactTick(t)}
+            {compactTick(t, ySpan)}
           </text>
         ))
       }
@@ -119,7 +137,7 @@ const xTicks = xTickValues(xMin, xMax)
       }
     </g>
   </svg>
-  <p class="mt-1 text-center text-xs text-ink-muted">{xLabel}</p>
+  <p data-chart-xlabel class="mt-1 text-center text-xs text-ink-muted">{xLabel}</p>
 
   {/* Cloned by studio.ts, exactly as the island clones [data-calc-row]. Two row
       kinds rather than a flag, so "the first line is the filled one" stays a

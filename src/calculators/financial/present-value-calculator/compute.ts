@@ -203,6 +203,13 @@ export default function compute(v: Values<typeof fields>): CalcResult {
     ],
     parts,
     series,
+    // The horizon is years in both directions, but the caption is not: the same
+    // two curves fall towards today when discounting and rise away from it when
+    // growing, so the title follows the mode the way the series labels do.
+    chart: {
+      title: discounting ? 'Value discounted back to today' : 'Value grown to the end of the term',
+      xLabel: 'Years',
+    },
     notes,
   }
 }

@@ -68,6 +68,7 @@ export default function compute(v: Values<typeof fields>): CalcResult {
         format: { style: 'duration', from: 'seconds' },
       },
     ],
+    chart: { title: 'Predicted finish by distance', xLabel: 'Distance' },
     steps: [
       { label: 'Total time', value: totalSeconds, format: { style: 'duration', from: 'seconds' } },
       { label: 'Distance', value: km, format: { style: 'decimal', decimals: 3, unit: 'km' } },

@@ -253,6 +253,7 @@ export default function compute(v: Values<typeof fields>): CalcResult {
       },
       { label: 'Quoted rate', points: quotedPoints, format: { style: 'percent', decimals: 2 } },
     ],
+    chart: { title: 'Effective APR by the month you repay', xLabel: 'Months' },
     notes,
   }
 }

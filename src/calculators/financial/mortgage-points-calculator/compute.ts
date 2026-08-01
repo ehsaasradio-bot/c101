@@ -312,6 +312,7 @@ export default function compute(v: Values<typeof fields>): CalcResult {
         format: WHOLE_DOLLARS,
       },
     ],
+    chart: { title: 'Cumulative position against the par rate', xLabel: 'Months' },
     notes,
   }
 }

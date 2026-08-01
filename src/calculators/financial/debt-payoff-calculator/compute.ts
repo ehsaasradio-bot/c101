@@ -396,6 +396,7 @@ export default function compute(v: Values<typeof fields>): CalcResult {
       format: { style: 'currency', decimals: 0 },
     },
     series,
+    chart: { title: 'Balance under each strategy', xLabel: 'Months' },
     notes: [
       'Both methods spend the same amount every month. Only the order changes, so the difference between them is interest, not effort.',
       'Where you did not state a minimum payment, this uses the standard card rule: 1% of the balance plus that month’s interest, with a $25 floor. Give a car or student loan its real fixed payment as "min 265".',

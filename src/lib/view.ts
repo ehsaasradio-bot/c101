@@ -98,6 +98,9 @@ export function toResultView(result: CalcResult, scale?: Scale): ResultView {
     // the headline itself.
     partsTotal: formatQuantity(result.partsTotal ?? result.primary),
     series: result.series ?? [],
+    // Carried through as data. The theme owns the fallback wording, so a
+    // calculator that names nothing here stays exactly as it was.
+    chart: result.chart ?? {},
   }
 }
 

@@ -395,16 +395,33 @@ if (form) {
     const scale = chartScale(view.series)
     const { x: sx, y: sy } = projector(geo, scale)
 
+    /*
+     * The wording moves with the data, not just the numbers. half-life plots the
+     * same 0–25 span in seconds, days or years depending on a select, so a
+     * caption written at build time is wrong the instant the unit changes — and
+     * wrong in a way nothing else on the page contradicts.
+     *
+     * The theme's own fallback is left in place when the calculator names
+     * nothing, so an unnamed chart keeps exactly the text the server rendered.
+     */
+    const caption = chart.querySelector('[data-chart-caption]')
+    if (caption && view.chart.title) caption.textContent = view.chart.title
+    const figure = chart.querySelector('[data-chart-figure]')
+    if (figure && view.chart.title) figure.setAttribute('aria-label', view.chart.title)
+    const xLabel = chart.querySelector('[data-chart-xlabel]')
+    if (xLabel && view.chart.xLabel) xLabel.textContent = view.chart.xLabel
+
     // The gridlines are left alone on purpose: their positions are fixed
     // fractions of the plot height and do not depend on the data. See ./axis.ts.
     const yticks = chart.querySelector('[data-chart-yticks]')
     if (yticks) {
       const proto = () => prototype(chart, 'template[data-chart-row="ytick"]')
-      const values = yTickValues(scale.yMax)
+      const values = yTickValues(scale.yMin, scale.yMax)
+      const ySpan = scale.yMax - scale.yMin
       reconcile(yticks, values.length, proto, (el, i) => {
         el.setAttribute('x', String(PAD.left - 8))
         el.setAttribute('y', (sy(values[i]!) + 4).toFixed(1))
-        el.textContent = compactTick(values[i]!)
+        el.textContent = compactTick(values[i]!, ySpan)
       })
     }
 

@@ -241,6 +241,7 @@ export default function compute(v: Values<typeof fields>): CalcResult {
       format: { style: 'percent', decimals: 2 },
     },
     series,
+    chart: { title: 'Chance of at least one, by trials', xLabel: 'Trials' },
     notes,
   }
 }

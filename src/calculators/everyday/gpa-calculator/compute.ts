@@ -318,6 +318,7 @@ export default function compute(v: Values<typeof fields>): CalcResult {
       format: POINT_FMT,
     },
     series,
+    chart: { title: 'Projected cumulative GPA', xLabel: 'Terms ahead' },
     notes,
   }
 }

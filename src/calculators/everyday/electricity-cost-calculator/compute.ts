@@ -112,6 +112,7 @@ export default function compute(v: Values<typeof fields>): CalcResult {
         format: { style: 'currency', decimals: 0 },
       },
     ],
+    chart: { title: 'Cumulative cost over the year', xLabel: 'Months' },
     notes: [
       'Yearly figures are simply twelve times the monthly ones, so they cover twelve times the days you entered per month — at the default 30 days that is a 360-day year, about 1.4% short of 365 days. Enter 30.4 days per month if you want the yearly total to track a full calendar year.',
       'Motor and heating appliances rarely draw their rated wattage continuously — a fridge or thermostat-controlled heater cycles on and off, so its real average draw is well below the plate rating.',

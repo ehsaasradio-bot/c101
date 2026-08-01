@@ -256,6 +256,11 @@ export default function compute(v: Values<typeof fields>): CalcResult {
       },
       { label: 'Marginal rate', points: marginalPoints, format: { style: 'percent', decimals: 0 } },
     ],
+    // Gross, not taxable: the chart loop walks x as gross income and derives
+    // the taxable figure from it by subtracting deductions, so a point at
+    // 100,000 is $100k earned, not $100k taxed. Naming it "Taxable income"
+    // would label the axis with a quantity it does not carry.
+    chart: { title: 'Effective and marginal rate by income', xLabel: 'Gross income' },
     stats: [
       {
         label: 'Marginal tax rate',

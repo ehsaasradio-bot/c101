@@ -99,7 +99,10 @@ test.describe('mobile navigation', () => {
     await menu.locator('summary').click()
     await expect(panel).toBeVisible()
 
-    for (const name of ['Financial', 'Health & Fitness', 'Math', 'Everyday', 'All calculators']) {
+    // Derived, not listed. A hardcoded list asserts presence rather than
+    // exhaustiveness, so it stays green while silently not covering a category
+    // added after it was written.
+    for (const name of [...categories.map((c) => c.name), 'All calculators']) {
       await expect(panel.getByRole('link', { name, exact: true })).toBeVisible()
     }
 

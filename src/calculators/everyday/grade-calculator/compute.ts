@@ -354,6 +354,7 @@ export default function compute(v: Values<typeof fields>): CalcResult {
       format: PCT,
     },
     series,
+    chart: { title: 'Course grade by score on the final', xLabel: 'Score on the final (%)' },
     notes,
   }
 }

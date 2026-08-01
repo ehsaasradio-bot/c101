@@ -529,7 +529,12 @@ describe('caloric-deficit', () => {
         }
         expect(seen).toBeGreaterThan(1000)
       },
-      30_000,
+      // Wall clock, not work: this sweep runs in parallel with every other
+      // file, so its budget has to cover the whole suite's contention rather
+      // than its own ~18s. It began failing at 30s when the registry grew past
+      // 90 calculators, having changed not at all. Raise this rather than thin
+      // the sweep — coverage is the point of it.
+      90_000,
     )
   })
 

@@ -521,6 +521,11 @@ export default function compute(v: Values<typeof fields>): CalcResult {
     parts,
     partsTotal,
     series,
+    // NOT years. This chart is the NPV profile — the same cash flows valued at
+    // every discount rate from 0 up to `rateCeiling`, with the crossing of the
+    // zero line being the IRR. The x axis is a rate in percent, and the
+    // financial fallback would have captioned it "Years".
+    chart: { title: 'Net present value by discount rate', xLabel: 'Discount rate (%)' },
     notes,
   }
 }

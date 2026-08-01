@@ -385,6 +385,7 @@ export default function compute(v: Values<typeof fields>): CalcResult {
     parts,
     partsTotal,
     series,
+    chart: { title: 'Weight lost over time', xLabel: 'Days' },
     notes,
   }
 }

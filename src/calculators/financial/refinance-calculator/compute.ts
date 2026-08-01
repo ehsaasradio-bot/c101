@@ -271,6 +271,7 @@ export default function compute(v: Values<typeof fields>): CalcResult {
         format: { style: 'currency', decimals: 0 },
       },
     ],
+    chart: { title: 'Cumulative saving against your current loan', xLabel: 'Months' },
     notes,
   }
 }

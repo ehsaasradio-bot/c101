@@ -394,5 +394,6 @@ export default function compute(v: Values<typeof fields>): CalcResult {
         format: DECIMAL_HOURS,
       },
     ],
+    chart: { title: 'Cumulative hours across the week', xLabel: 'Day' },
   }
 }

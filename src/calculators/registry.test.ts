@@ -298,6 +298,46 @@ describe('registry', () => {
       }
     })
 
+    /*
+     * A chart must name its own axis.
+     *
+     * The theme has to fall back to something when a calculator says nothing,
+     * and that fallback is financial — "Balance over time", measured in
+     * "Years". It was right for the mortgage page it was written for and
+     * silently wrong on every other chart: a one-rep-max curve of load against
+     * REPS, a kinematics plot in SECONDS, an amortisation schedule running 360
+     * MONTHS. Nothing caught it, because copy inside a server-rendered SVG is
+     * read by no test and contradicted by nothing else on the page.
+     *
+     * So the fallback stays as a safety net and stops being reachable: draw a
+     * chart, name its axis. Naming the title too is optional — the default
+     * caption is at least vague rather than false.
+     */
+    test('a chart names its own x axis rather than inheriting "Years"', () => {
+      for (const [how, result] of reachable(calc)) {
+        if (!result.series?.length) continue
+        const xLabel = result.chart?.xLabel
+        expect(
+          typeof xLabel === 'string' && xLabel.trim().length > 0,
+          `${calc.slug} @ ${how}: draws a chart but names no x axis, so it would claim "Years"`,
+        ).toBe(true)
+      }
+    })
+
+    test('chart copy is wording, not presentation', () => {
+      // The organizing rule, applied to the one field that carries free text
+      // into the theme. A class or a hex here would leak presentation into data
+      // exactly as a colour in a label would.
+      for (const [, result] of reachable(calc)) {
+        for (const text of [result.chart?.title, result.chart?.xLabel]) {
+          if (!text) continue
+          expect(text).not.toMatch(/#[0-9a-fA-F]{3,8}\b/)
+          expect(text).not.toMatch(/\b(bg|text|border|rounded|shadow)-[a-z]+-\d{2,3}\b/)
+          expect(text).not.toMatch(/<\/?[a-z][\s\S]*>/i)
+        }
+      }
+    })
+
     test('renders to a complete view with a resolved band', () => {
       const view = toResultView(calc.compute(defaultValues(calc) as never), calc.scale)
       expect(view.primary.text).not.toBe('')

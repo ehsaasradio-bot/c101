@@ -113,6 +113,7 @@ export default function compute(v: Values<typeof fields>): CalcResult {
         format: { style: 'currency', decimals: 0 },
       },
     ],
+    chart: { title: 'Balance over the term', xLabel: 'Years' },
     notes:
       extra > 0
         ? [`Paying $${extra.toLocaleString('en-US')} extra each month clears the loan ${monthsSaved} months early.`]

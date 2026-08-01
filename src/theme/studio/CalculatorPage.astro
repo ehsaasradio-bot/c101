@@ -188,7 +188,13 @@ const highlights = [
       <SummaryCard result={initial} resultLabel={calc.resultLabel} scale={calc.scale} />
     </div>
 
-    {initial.series.length > 0 && <div class="mt-6"><TimeChart series={initial.series} /></div>}
+    {
+      initial.series.length > 0 && (
+        <div class="mt-6">
+          <TimeChart series={initial.series} chart={initial.chart} />
+        </div>
+      )
+    }
 
     {
       scenarios.length > 0 && (

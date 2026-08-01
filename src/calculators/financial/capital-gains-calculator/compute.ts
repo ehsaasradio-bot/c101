@@ -467,6 +467,7 @@ export default function compute(v: Values<typeof fields>): CalcResult {
       },
       { label: 'Tax if long-term', points: longPoints, format: { style: 'currency', decimals: 0 } },
     ],
+    chart: { title: 'Tax due by size of gain', xLabel: 'Gain' },
     stats,
     steps,
     notes,

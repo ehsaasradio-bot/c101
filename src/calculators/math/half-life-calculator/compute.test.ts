@@ -615,6 +615,9 @@ describe('half-life — sweep', () => {
 
       expect(answered).toBeGreaterThan(1000)
     },
-    30_000,
+    // See caloric-deficit's sweep: this budget is wall clock under full-suite
+    // contention, not this test's own runtime, so it moves when the registry
+    // grows even though the test does not.
+    90_000,
   )
 })

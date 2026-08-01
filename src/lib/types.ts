@@ -181,6 +181,23 @@ export interface Series {
   format?: FormatSpec
 }
 
+/**
+ * What the chart is OF, in the calculator's own words. Domain wording only —
+ * no colours, no classes, no markup; the theme still decides how it looks.
+ *
+ * This belongs on the result rather than on the definition because the axis can
+ * change with input: half-life plots the same 0–25 span in seconds, days or
+ * years depending on a select, so a label fixed at build time would be wrong the
+ * moment someone changed the unit. It is also why studio.ts rewrites this on
+ * every recompute, alongside the tick labels.
+ */
+export interface ChartCopy {
+  /** Replaces the caption above the chart. */
+  title?: string
+  /** Names the x axis, unit and all — "Seconds", "Reps", "Distance (km)". */
+  xLabel?: string
+}
+
 export interface CalcResult {
   primary: Quantity
   /** Secondary figures, rendered as a grid by the default theme. */
@@ -201,6 +218,13 @@ export interface CalcResult {
   partsTotal?: Quantity
   /** Values over time. Themes may draw these as lines or stacked bars. */
   series?: ReadonlyArray<Series>
+  /**
+   * What the chart is of. Omit it and the theme falls back to its financial
+   * default — which is correct for a balance over years and wrong for reps,
+   * seconds or degrees, so any calculator whose x axis is not time should say
+   * so here.
+   */
+  chart?: ChartCopy
 }
 
 /** Thrown by a compute function for invalid input. `fieldId` lets the theme highlight. */
@@ -220,7 +244,7 @@ export type Compute<F extends readonly Field[] = readonly Field[]> = (
 
 // ── Definition ────────────────────────────────────────────────────────────
 
-export type CategoryId = 'financial' | 'health' | 'math' | 'everyday'
+export type CategoryId = 'financial' | 'health' | 'math' | 'everyday' | 'science' | 'engineering'
 
 export type DisclaimerId = 'financial' | 'health' | 'legal'
 
@@ -301,6 +325,8 @@ export interface ResultView {
   /** Resolved: `partsTotal` when given, otherwise the primary. */
   partsTotal: FormattedQuantity
   series: ReadonlyArray<Series>
+  /** Resolved chart wording; `{}` when the calculator names none. */
+  chart: ChartCopy
 }
 
 /** The serializable half of a CalculatorDef — everything except `compute`. */

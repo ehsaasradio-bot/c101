@@ -348,6 +348,7 @@ export default function compute(v: Values<typeof fields>): CalcResult {
         format: { style: 'decimal', decimals: 0, unit: 'tiles' },
       },
     ],
+    chart: { title: 'Tiles needed by waste allowance', xLabel: 'Waste allowance (%)' },
     notes: [
       ...notes,
       // Deliberately unsigned: the tile face can land either side of the floor

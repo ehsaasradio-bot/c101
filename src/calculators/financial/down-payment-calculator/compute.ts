@@ -196,6 +196,7 @@ export default function compute(v: Values<typeof fields>): CalcResult {
       { label: 'Savings balance', points: savedPoints, format: { style: 'currency', decimals: 0 } },
       { label: 'Cash needed', points: targetPoints, format: { style: 'currency', decimals: 0 } },
     ],
+    chart: { title: 'Saving up to the deposit', xLabel: 'Months' },
     notes,
   }
 }

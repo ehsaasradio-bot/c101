@@ -121,6 +121,7 @@ export default function compute(v: Values<typeof fields>): CalcResult {
         format: { style: 'decimal', decimals: 1, unit },
       },
     ],
+    chart: { title: 'Estimated load by rep count', xLabel: 'Reps' },
     notes: [
       'This is an estimate from a submaximal set, not a tested max. The two formulas disagree by a few percent, and the spread widens as reps rise.',
       'The set must have been taken close to failure. Reps left in reserve make the estimate read low.',

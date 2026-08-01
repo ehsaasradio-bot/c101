@@ -48,6 +48,27 @@ export const categories: readonly Category[] = [
       'The small calculations that come up constantly — split a bill, count the days, convert the units.',
     href: '/categories/everyday',
   },
+  // Appended last on purpose: position sets the nav order, the grid order, and
+  // the `i % 5` hue, and index 4 lands on --c-cat-5, which tokens.css already
+  // defines. Moving it would recolour every category above it.
+  {
+    id: 'science',
+    name: 'Science',
+    description:
+      'Free science calculators for trigonometry, physics, chemistry, and lab measurement. Instant results, no sign-up.',
+    intro:
+      'The working behind physics and chemistry homework — solve a named law for any variable, and see which formula was used.',
+    href: '/categories/science',
+  },
+  {
+    id: 'engineering',
+    name: 'Engineering',
+    description:
+      'Free engineering calculators for section properties, structural geometry, and design checks. Instant results, no sign-up.',
+    intro:
+      'The geometry and mechanics behind a design — worked from first principles, with every formula written out beside the number it produced.',
+    href: '/categories/engineering',
+  },
 ]
 
 export const categoryById = new Map(categories.map((c) => [c.id, c]))

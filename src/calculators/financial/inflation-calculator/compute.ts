@@ -142,6 +142,9 @@ export default function compute(v: Values<typeof fields>): CalcResult {
               format: { style: 'currency' as const, decimals: 0 },
             },
           ],
+          // Named alongside the series it captions, so the two appear and
+          // disappear together rather than leaving a title over nothing.
+          chart: { title: 'Purchasing power over time', xLabel: 'Years' },
         }
       : {}),
     notes:

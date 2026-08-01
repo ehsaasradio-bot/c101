@@ -146,6 +146,7 @@ export default function compute(v: Values<typeof fields>): CalcResult {
         format: { style: 'currency', decimals: 0 },
       },
     ],
+    chart: { title: 'Balance as it compounds', xLabel: 'Years' },
     notes,
   }
 }

@@ -412,6 +412,7 @@ export default function compute(v: Values<typeof fields>): CalcResult {
     stats,
     steps,
     series,
+    chart: { title: 'How the interval narrows with sample size', xLabel: 'Sample size' },
     // The gauge tracks how far t has had to stretch beyond z — which is the
     // question this calculator is really about. It sits at exactly 1 whenever z
     // is in use, and climbs as the sample shrinks.

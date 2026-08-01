@@ -104,6 +104,7 @@ export default function compute(v: Values<typeof fields>): CalcResult {
           series: [
             { label: 'Balance', points: balancePoints, format: { style: 'currency' as const, decimals: 0 } },
           ],
+          chart: { title: 'Balance until you reach the goal', xLabel: 'Months' },
         }
       : {}),
     notes: alreadyThere

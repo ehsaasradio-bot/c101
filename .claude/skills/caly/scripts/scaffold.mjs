@@ -13,7 +13,7 @@
 import { mkdirSync, writeFileSync, existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
-const CATEGORIES = ['financial', 'health', 'math', 'everyday']
+const CATEGORIES = ['financial', 'health', 'math', 'everyday', 'science', 'engineering']
 
 const [category, slug, ...titleParts] = process.argv.slice(2)
 const title = titleParts.join(' ')

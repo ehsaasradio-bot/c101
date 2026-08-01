@@ -159,6 +159,7 @@ export default function compute(v: Values<typeof fields>): CalcResult {
         format: { style: 'currency', decimals: 0 },
       },
     ],
+    chart: { title: 'Projected balance by age', xLabel: 'Age' },
     notes: [
       'Figures are in future dollars and are not adjusted for inflation. At 3% inflation, money loses roughly half its purchasing power over 24 years.',
       'The 4% rule comes from historical US market data over 30-year retirements. It assumes a diversified portfolio and annual inflation adjustments, and it is a starting point rather than a guarantee.',
